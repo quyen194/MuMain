@@ -53,48 +53,52 @@ Shows real-time camera position (world coords + tile coords) and pitch / yaw.
 Useful when placing fixed camera shots or noting positions for screenshots.
 
 #### Login Scene
-Tunes the login scene only:
+Tunes the login scene only. Defaults come from `LoginSceneCameraDefaults`
+in `src/source/CameraMove.h`.
 
-- **Offsets X / Y / Z** sliders.
-- **Pitch / Yaw** inputs.
-- **Tour mode** controls - pause, resume, restart.
-- **Render distance** sliders for terrain and objects.
-
-Defaults come from `LoginSceneCameraDefaults` constants in
-`src/source/CameraMove.h` (`OFFSET_X/Y/Z`, `ANGLE_PITCH/YAW`,
-`RENDER_TERRAIN_DIST`, `RENDER_OBJECT_DIST`).
+| Control | What it changes | When you'd use it |
+|---------|-----------------|-------------------|
+| **Offset X / Y / Z** | Translates the camera in world units relative to the tour-path point. | Fixing clipping, framing the title art differently. |
+| **Pitch / Yaw** | Rotates the login camera. Pitch is the engine convention (`-90°` = horizontal, more negative = tilted up). | Lining up a screenshot or matching legacy framing. |
+| **Tour mode - pause / resume / restart** | Halts or rewinds the login waypoint walk. | Holding the camera still on a specific frame to tune offsets, then resuming. |
+| **Render terrain distance** | Hard cap on how far login terrain tiles render. | Login fly-throughs that show distant terrain that normally pops in. |
+| **Render object distance** | Hard cap on object cull radius for the login scene. | Same as above for objects/decor. |
 
 #### Game Scene - Default Camera Override
-Live-overrides `CameraConfig::ForMainSceneDefaultCamera()`:
+Live-overrides `CameraConfig::ForMainSceneDefaultCamera()`. All values reset
+to the factory config on restart.
 
-- **Far Plane** slider (range ~0.5m to 20km).
-- **Camera Offset X / Y / Z** - hero-relative.
-- **2D Culling Trapezoid Width** - near and far multipliers on the hardcoded
-  trapezoid the Default camera uses for terrain culling.
-- **Fog override** checkbox - when ticked, the next two controls take effect.
-- **Fog On / Off** toggle and **Fog Start / End** as a percentage of
-  `ViewFar`.
+| Control | What it changes | When you'd use it |
+|---------|-----------------|-------------------|
+| **Far Plane** (~0.5m to 20km) | Grows or shrinks the visible far clip - also drives 3D object cull range. | Checking how much the game can render before fog/cull cuts in; tuning visibility for screenshots. |
+| **Camera Offset X / Y / Z** | Hero-relative. Shifts the camera's eye point relative to the hero anchor. | Repositioning the third-person rig (e.g. higher angle, off-shoulder). |
+| **2D Culling Trapezoid Width - near / far multipliers** | Scales the hardcoded ground trapezoid the Default camera uses for terrain culling. | Tightening the trapezoid to see culling pop, or widening it to confirm tiles render. |
+| **Fog override** checkbox | Gates the next three controls. Off = camera config's fog wins. | Toggle while comparing current vs. tuned fog. |
+| **Fog On / Off** | Enables/disables OpenGL fog. | Quick A/B for "is this fog or culling cutting things off?" |
+| **Fog Start / End** (% of ViewFar) | Sets the fog density ramp as a fraction of the current far plane. | Pulling fog in to mask LOD pop, or pushing it out for cleaner long-range shots. |
 
 #### Game Scene - Orbital Camera Override
-Live-overrides `CameraConfig::ForMainSceneOrbitalCamera()`:
+Live-overrides `CameraConfig::ForMainSceneOrbitalCamera()`. The orbital
+trapezoid is **seeded from the camera's natural pyramid on first enable**
+so the first tweak doesn't snap.
 
-- **2D Culling Trapezoid** in world units - far distance, far width, near
-  distance, near width.
-- **Fog On / Off**, **Fog Start / End** as percentage of `ViewFar`.
-
-The orbital trapezoid is **seeded from the camera's natural pyramid on first
-enable** so the first tweak doesn't snap.
+| Control | What it changes | When you'd use it |
+|---------|-----------------|-------------------|
+| **2D Culling Trapezoid - far distance / far width** | Sets the far edge of the ground trapezoid (in world units). | Adjusting how far past the hero terrain stays loaded as the orbital camera pans. |
+| **2D Culling Trapezoid - near distance / near width** | Sets the near edge. | Catching pop-in close to the hero on heavy zoom-in. |
+| **Fog On / Off** | Enables/disables fog for the orbital config. | Quick A/B as with the default camera. |
+| **Fog Start / End** (% of ViewFar) | Fog density ramp. | Same as default - orbital uses a much wider FOV (90°), so fog feels different. |
 
 #### Debug Section
-- **Debug Visualization** toggles - Character Pick Boxes, Item Pick Boxes,
-  Item Cull Sphere, Tile Grid.
-- **Item Cull Radius** slider.
-- **Rendering toggles** - Terrain, Static Objects, Effects, Dropped Items,
-  Weather, Item Labels.
 
-The Tile Grid overlay is **batched into one `glBegin` pass**
-(commit `ea62acb1`) - flipping it on while standing still in a busy scene is
-no longer a frame-rate cliff.
+| Control | What it changes | When you'd use it |
+|---------|-----------------|-------------------|
+| **Character Pick Boxes** | Draws per-character pick volumes. | Debugging click-to-target or hover hit-testing. |
+| **Item Pick Boxes** | Same for dropped items. | Debugging item pickup ranges. |
+| **Item Cull Sphere** | Visualises the item cull radius around each dropped item. | Sanity-checking the **Item Cull Radius** slider's effect. |
+| **Item Cull Radius** slider | Overrides `DEFAULT_CULL_RADIUS_ITEM` (400) for the active session. | Tuning how close you need to be before items render. |
+| **Tile Grid** | Overlays a debug grid on terrain tiles. | Checking tile boundaries when investigating LOD or terrain bugs. |
+| **Rendering: Terrain / Static Objects / Effects / Dropped Items / Weather / Item Labels** | Cuts each pass out of the frame entirely. | Isolating which pass owns a visual artefact, or measuring per-pass cost via `$details`. |
 
 ### 3.2 Graphics tab
 

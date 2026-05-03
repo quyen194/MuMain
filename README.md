@@ -267,8 +267,8 @@ The client identifies itself with Version `2.04d` and serial `k1Pk2jcET48mxL3b`.
 - [DevEditor](docs/dev-editor.md) - the in-game tuning UI (F12, debug
   builds only).
 - [Options window and config](docs/options-window.md) - runtime
-  resolution / windowed toggle, slider rounding, and the migration off the
-  Windows registry.
+  resolution / windowed toggle, slider rounding, and what the options
+  window stores in `config.ini`.
 - [Build guide](docs/build-guide.md) - platform-specific build notes.
 - [Translation system](TRANSLATION_SYSTEM_INTEGRATION.md) - translation
   pipeline and integration notes.

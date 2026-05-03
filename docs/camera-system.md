@@ -17,14 +17,11 @@ options-window and windowing changes that landed alongside, see
 |------|-------|-----------------|-------|
 | **Default** | All gameplay scenes, login, character select | Active by default | Original third-person follow camera, refactored. |
 | **Orbital** | `MainScene` only | Press **F9** to cycle | Spherical orbit around the hero with middle-mouse drag and wheel zoom. |
-| **FreeFly** | Editor only | DevEditor → Scenes → camera mode | Spectator camera with WASD/QE + right-mouse look. Not built in Release. |
+| **FreeFly** | Editor only | DevEditor → Scenes → camera mode | Spectator camera with WASD/QE + right-mouse look. Not built in Release. The gameplay camera and hero input keep running underneath, so you can fly around to inspect woods/objects while the world animates and the hero (or orbital camera) still responds normally. |
 
 **F9 cycles cameras.** Outside MainScene, only the Default camera is available
 (handler in `src/source/Camera/CameraUtility.cpp:23`). FreeFly is gated by
 `#ifdef _EDITOR` and is unreachable in Release builds.
-
-> **Heads-up:** The old in-game **F8 free-fly** has been removed. FreeFly is
-> now editor-only (`src/source/Camera/FreeFlyCamera.h`).
 
 ---
 
@@ -62,7 +59,7 @@ The third-person follow camera, refactored. Highlights:
 
 - Hero-relative positioning with smooth mount-offset lerping
   (`m_CurrentMountOffset`).
-- **Discrete zoom ladder** driven by the global `g_shCameraLevel` (0..5):
+- **Discrete zoom ladder** driven by the global `g_shCameraLevel`:
 
   | Level | Distance |
   |-------|----------|
@@ -71,10 +68,13 @@ The third-person follow camera, refactored. Highlights:
   | 2 | 1500 |
   | 3 | 1600 |
   | 4 | 1700 |
-  | 5 | Cutscene-driven (`g_Direction.m_fCameraViewFar`) |
+  | 5 | Cutscene-only (`g_Direction.m_fCameraViewFar`) |
 
-  Constants `CAMERA_DISTANCE_LEVEL_BASE = 1300.f` and
-  `CAMERA_DISTANCE_LEVEL_STEP = 100.f` (`DefaultCamera.cpp:56-57`).
+  Players cycle levels 0..4 with **Ctrl + mouse wheel**
+  (`SceneCommon.cpp:238-253`, `SetViewPortLevel`). Level 5 is set only by
+  cutscene direction mode and is not user-reachable. Constants
+  `CAMERA_DISTANCE_LEVEL_BASE = 1300.f` and `CAMERA_DISTANCE_LEVEL_STEP =
+  100.f` (`DefaultCamera.cpp:56-57`).
 - ViewFar scales with zoom level (`baseFarPlane × {1.0, 1.04, 1.08, 1.23,
   1.33}` for levels 0..4, `DefaultCamera.cpp:418-423`).
 - Scene-aware reset via `ResetForScene(scene)` and the `m_LastSceneFlag`
@@ -97,6 +97,12 @@ Spherical orbit around the hero. MainScene-only.
 - Pitch clamped to `[-160°, -20°]`.
 - Saves and restores its previous state on toggle so re-entering FreeFly puts
   you back where you left off.
+- **Game input still propagates** while FreeFly is the active rendering
+  camera: the hero keeps walking, the orbital camera keeps responding to
+  middle-mouse / wheel, and the world ticks normally. Game input is only
+  suppressed when the mouse is over an ImGui panel
+  (`MuInputBlockerCore.cpp:16-58`). This is what lets you fly around
+  inspecting woods or objects without freezing the scene.
 
 ---
 
@@ -167,7 +173,7 @@ Files under `src/source/Camera/`:
 fallback radii used when DevEditor isn't overriding them:
 
 ```cpp
-constexpr float DEFAULT_CULL_RADIUS_ITEM   = 400.0f;  // legacy TestFrustrum value
+constexpr float DEFAULT_CULL_RADIUS_ITEM   = 400.0f;  // legacy TestFrustrum() value
 constexpr float DEFAULT_CULL_RADIUS_OBJECT = 100.0f;
 ```
 
@@ -221,16 +227,15 @@ These are the **user-visible** changes from the rework. List them in any
 release notes / patch notes that go out.
 
 - **Per-map camera overrides removed.** Castle Siege, PK Field, DoppelGanger
-  1/2, the 6th-character home, and map 5 (idle wobble) used to have hardcoded
-  camera tweaks (forced distance/zoom level, clamped Z, ViewFar multipliers,
-  idle angle wobble). All gameplay maps now share the same default-camera
-  zoom ladder (1300 / 1400 / 1500 / 1600 / 1700) and follow hero Z normally.
-  Tour mode, cutscene "direction" mode, the per-tile `TW_HEIGHT` snap, the
-  Chaos Castle / Kanturu 3rd-action animation guard, and Dinorant mount
-  hover heights are **kept** - those are scene/cutscene/animation behaviour,
-  not per-map camera overrides. (Source: commit `889eb9f0`.)
-- **F8 in-game free-fly is gone.** FreeFly is editor-only (commit
-  `f9ca71a7`). In Release builds it does not exist.
+  1/2, the 6th-character home, and map 5 (idle wobble) used to forcibly set
+  their own zoom level, clamp the camera Z, multiply ViewFar, or wobble the
+  camera while idle. **All gameplay maps now use the same default-camera
+  zoom ladder** (1300 → 1700 in 100-unit steps, controlled by Ctrl + mouse
+  wheel) and follow hero Z normally - exactly the same as the rest of the
+  world. Tour mode, cutscene "direction" mode, the per-tile `TW_HEIGHT`
+  snap, the Chaos Castle / Kanturu 3rd-action animation guard, and Dinorant
+  mount hover heights are **kept** - those are scene/cutscene/animation
+  behaviour, not per-map camera overrides. (Source: commit `889eb9f0`.)
 - **Press F9 to switch between Default and Orbital** in MainScene.
 - **Orbital wheel-zoom now persists** across sessions via `config.ini`
   (`[Camera] Zoom`).
