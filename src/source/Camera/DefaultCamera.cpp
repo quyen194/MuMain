@@ -3,10 +3,13 @@
 
 #include "stdafx.h"
 
+#include <iterator>
+
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
 #include "DefaultCamera.h"
+#include "CameraManager.h"
 #include "CameraProjection.h"
 #include "../Scenes/SceneCore.h"
 #include "../ZzzInterface.h"
@@ -53,8 +56,33 @@ namespace
     constexpr float CUSTOM_DISTANCE_PITCH_DEG = -45.f;       // Pitch used for custom-distance offset
 
     constexpr float TOUR_BASE_DISTANCE = 1100.f;             // Base distance in tour & Battle Castle
-    constexpr float CAMERA_DISTANCE_LEVEL_BASE = 1300.f;     // Distance at g_shCameraLevel == 0
-    constexpr float CAMERA_DISTANCE_LEVEL_STEP = 100.f;      // Per-level increment
+
+    // Player-controlled zoom ladder. Single source of truth for both the
+    // hero-camera distance and the far-plane multiplier per step. Add or
+    // remove entries here to change the ladder; the bounds and the
+    // F8/Ctrl+wheel handlers index into this table directly.
+    //
+    // viewFarMult holds at 1.00 through the default level (1300) — pulling
+    // closer doesn't need more far plane — and ramps up beyond it so the
+    // far clip keeps up with the camera as it pulls back. The 4..7
+    // multipliers are inherited from the legacy curve.
+    struct ZoomLevel
+    {
+        float distance;     // distance from hero in world units
+        float viewFarMult;  // multiplier on m_Config.farPlane
+    };
+    constexpr ZoomLevel PLAYER_ZOOM_LADDER[] = {
+        { 1000.f, 1.00f },  // 0
+        { 1100.f, 1.00f },  // 1
+        { 1200.f, 1.00f },  // 2
+        { 1300.f, 1.00f },  // 3 — default (F11 reset target)
+        { 1400.f, 1.04f },  // 4
+        { 1500.f, 1.08f },  // 5
+        { 1600.f, 1.23f },  // 6
+        { 1700.f, 1.33f },  // 7
+    };
+    constexpr int PLAYER_ZOOM_LEVEL_DEFAULT = 3;
+    constexpr int PLAYER_ZOOM_LEVEL_COUNT   = static_cast<int>(std::size(PLAYER_ZOOM_LADDER));
 }
 
 DefaultCamera::DefaultCamera(CameraState& state)
@@ -219,6 +247,36 @@ void DefaultCamera::OnActivate(const CameraState& previousState)
                m_State.Angle[0], m_State.Angle[1], m_State.Angle[2],
                m_State.Distance);
 
+    // Pre-compute the target pose so frame 1 already renders at the
+    // Default camera's natural position. Without this, the first frame
+    // after the switch would render the inherited (previous-camera) pose
+    // and snap to the new pose on frame 2 — visible as a one-frame
+    // character offset on screen.
+    //
+    // Mirror the normal Update() pipeline exactly: reset angles to the
+    // canonical default-camera baseline (0, 0, -45) BEFORE
+    // CalculateCameraPosition reads them, then let SetCameraAngle apply
+    // the per-scene pitch override. CalculateCameraPosition rotates the
+    // (0, -Distance, 0) body offset by m_State.Angle, so passing in the
+    // inherited orbital yaw/pitch here would produce a position that
+    // doesn't match the default camera's canonical pose.
+    if (SceneFlag == MAIN_SCENE && IsHeroValid())
+    {
+        g_shCameraLevel = static_cast<short>(m_PlayerZoomLevel);
+        m_State.Distance = PLAYER_ZOOM_LADDER[m_PlayerZoomLevel].distance;
+        m_State.DistanceTarget = m_State.Distance;
+
+        m_State.Angle[0] = 0.f;
+        m_State.Angle[1] = 0.f;
+        m_State.Angle[2] = -45.f;
+        SetCameraFOV();
+
+        AdjustHeroHeight();
+        CalculateCameraPosition();
+        SetCameraAngle();
+        m_State.UpdateMatrix();
+    }
+
     // Update scene tracking to prevent redundant reset in Update()
     m_LastSceneFlag = (int)SceneFlag;
 
@@ -242,6 +300,13 @@ bool DefaultCamera::Update()
         m_LastSceneFlag = (int)SceneFlag;
         ResetForScene(SceneFlag);
     }
+
+    // Player input: mouse wheel cycles the zoom ladder when CameraManager
+    // is unlocked (F10 toggle). Only meaningful in MainScene;
+    // CalculateCameraPosition() seeds g_shCameraLevel from m_PlayerZoomLevel
+    // each frame outside cutscenes.
+    if (SceneFlag == MAIN_SCENE)
+        HandleWheelZoom();
 
     // FIX: Check if LoginScene is using WALK_PATHS animation (tour mode OFF)
     // In this case, MoveCamera() in LoginScene updates g_Camera directly
@@ -392,37 +457,23 @@ void DefaultCamera::CalculateCameraViewFar()
     // were removed so all gameplay maps share the same zoom-level scaling.
     float baseFarPlane = m_Config.farPlane;
 
-    // Handle camera level based view distance (zoom levels)
-    switch (g_shCameraLevel)
+    // Login/character scenes ignore the gameplay zoom ladder — they use
+    // their own scene-specific far plane.
+    if (SceneFlag == LOG_IN_SCENE || SceneFlag == CHARACTER_SCENE)
     {
-    case 0:
-        if (SceneFlag == LOG_IN_SCENE)
-        {
-            // LoginScene uses its own config with massive far plane
-            m_State.ViewFar = m_Config.farPlane;
-        }
-        else if (SceneFlag == CHARACTER_SCENE)
-        {
-            // CharacterScene uses its own config (FOV 71, Far 4100)
-            m_State.ViewFar = m_Config.farPlane;
-        }
-        else if (g_Direction.m_CKanturu.IsMayaScene())
-        {
-            m_State.ViewFar = baseFarPlane * 0.96f;  // Slightly less for Kanturu Maya
-        }
-        else
-        {
-            // Default gameplay: use config's farPlane directly
-            m_State.ViewFar = baseFarPlane;
-        }
-        break;
-    case 1: m_State.ViewFar = baseFarPlane * 1.04f; break;  // Zoom level 1
-    case 2: m_State.ViewFar = baseFarPlane * 1.08f; break;  // Zoom level 2
-    case 3: m_State.ViewFar = baseFarPlane * 1.23f; break;  // Zoom level 3
-    case 4:
-    case 5: m_State.ViewFar = baseFarPlane * 1.33f; break;  // Zoom level 4-5
-    default: m_State.ViewFar = baseFarPlane; break;
+        m_State.ViewFar = m_Config.farPlane;
+        return;
     }
+    if (g_shCameraLevel == 0 && g_Direction.m_CKanturu.IsMayaScene())
+    {
+        m_State.ViewFar = baseFarPlane * 0.96f;  // Slightly less for Kanturu Maya
+        return;
+    }
+
+    if (g_shCameraLevel >= 0 && g_shCameraLevel < PLAYER_ZOOM_LEVEL_COUNT)
+        m_State.ViewFar = baseFarPlane * PLAYER_ZOOM_LADDER[g_shCameraLevel].viewFarMult;
+    else
+        m_State.ViewFar = baseFarPlane;  // cutscene / out-of-range fallback
 }
 
 namespace
@@ -553,7 +604,19 @@ void DefaultCamera::CalculateCameraPosition()
         Hero->Object.Position[2] = DIRECTION_MODE_HERO_Z;
         g_shCameraLevel = g_Direction.GetCameraPosition(Position);
     }
-    else g_shCameraLevel = 0;
+    else if (SceneFlag == MAIN_SCENE)
+    {
+        // Re-seed the global from the player's persistent zoom level so the
+        // wheel input handler isn't fighting a per-frame reset to 0.
+        // Other scenes (login / character) keep g_shCameraLevel at 0 so
+        // ZzzLodTerrain's CharacterScene Width formula and similar
+        // level-keyed paths still hit their case-0 branch.
+        g_shCameraLevel = static_cast<short>(m_PlayerZoomLevel);
+    }
+    else
+    {
+        g_shCameraLevel = 0;
+    }
 
     if (CCameraMove::GetInstancePtr()->IsTourMode())
     {
@@ -660,6 +723,38 @@ void DefaultCamera::UpdateCustomCameraDistance()
     }
 }
 
+void DefaultCamera::ResetView()
+{
+    m_PlayerZoomLevel = PLAYER_ZOOM_LEVEL_DEFAULT;
+}
+
+void DefaultCamera::HandleWheelZoom()
+{
+    extern int MouseWheel;
+    if (MouseWheel == 0)
+        return;
+
+    // Always consume the wheel, even when locked. Otherwise a wheel tick
+    // received while locked stays in MouseWheel and fires the moment the
+    // player unlocks (looks like a phantom zoom on F10 release).
+    const int wheel = MouseWheel;
+    MouseWheel = 0;
+
+    if (CameraManager::Instance().IsZoomLocked())
+        return;
+
+    // Wheel up zooms in (lower distance / lower index).
+    if (wheel > 0)
+        --m_PlayerZoomLevel;
+    else
+        ++m_PlayerZoomLevel;
+
+    if (m_PlayerZoomLevel < 0)
+        m_PlayerZoomLevel = 0;
+    if (m_PlayerZoomLevel >= PLAYER_ZOOM_LEVEL_COUNT)
+        m_PlayerZoomLevel = PLAYER_ZOOM_LEVEL_COUNT - 1;
+}
+
 void DefaultCamera::UpdateCameraDistance()
 {
     if (CCameraMove::GetInstancePtr()->IsTourMode())
@@ -669,15 +764,10 @@ void DefaultCamera::UpdateCameraDistance()
         return;
     }
 
-    switch (g_shCameraLevel)
-    {
-    case 0: m_State.DistanceTarget = CAMERA_DISTANCE_LEVEL_BASE + 0 * CAMERA_DISTANCE_LEVEL_STEP; break;
-    case 1: m_State.DistanceTarget = CAMERA_DISTANCE_LEVEL_BASE + 1 * CAMERA_DISTANCE_LEVEL_STEP; break;
-    case 2: m_State.DistanceTarget = CAMERA_DISTANCE_LEVEL_BASE + 2 * CAMERA_DISTANCE_LEVEL_STEP; break;
-    case 3: m_State.DistanceTarget = CAMERA_DISTANCE_LEVEL_BASE + 3 * CAMERA_DISTANCE_LEVEL_STEP; break;
-    case 4: m_State.DistanceTarget = CAMERA_DISTANCE_LEVEL_BASE + 4 * CAMERA_DISTANCE_LEVEL_STEP; break;
-    case 5: m_State.DistanceTarget = g_Direction.m_fCameraViewFar; break;
-    }
+    if (g_shCameraLevel >= 0 && g_shCameraLevel < PLAYER_ZOOM_LEVEL_COUNT)
+        m_State.DistanceTarget = PLAYER_ZOOM_LADDER[g_shCameraLevel].distance;
+    else
+        m_State.DistanceTarget = PLAYER_ZOOM_LADDER[PLAYER_ZOOM_LEVEL_DEFAULT].distance;
 
     // Disable distance smoothing for first 2 frames after activation to
     // prevent visible interpolation when switching from OrbitalCamera.

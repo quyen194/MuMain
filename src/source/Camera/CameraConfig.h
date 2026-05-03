@@ -174,7 +174,7 @@ struct CameraConfig
     static CameraConfig ForMainSceneOrbitalCamera()
     {
         CameraConfig config;
-        config.hFov = 90.0f;  // Good 3D game default; ~59° vFOV on 16:9
+        config.hFov = 40.0f;  // Match Default cam so orbital looks identical at activation
         // Match the projection's near plane (g_Camera.ViewNear = 20). Higher
         // values here would CPU-cull objects the GPU still renders — visible
         // in zoomed-in orbital where the camera sits ~200 units from hero.

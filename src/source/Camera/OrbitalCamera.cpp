@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "OrbitalCamera.h"
+#include "CameraManager.h"
 #include "../ZzzOpenglUtil.h"
 #include "../ZzzCharacter.h"
 #include <cmath>
@@ -79,6 +80,18 @@ void OrbitalCamera::Reset()
     // Phase 5: Reset scene tracking to force config reload
     m_LastSceneFlag = -1;
     m_pDefaultCamera->Reset();
+}
+
+void OrbitalCamera::ResetView()
+{
+    // F11: drop the player's accumulated rotation and zoom radius back to
+    // defaults. Yaw/pitch base stays as-is so the camera's "anchor angle"
+    // for this orbit isn't lost — only the user-driven deltas are zeroed.
+    m_DeltaYaw = 0.0f;
+    m_DeltaPitch = 0.0f;
+    m_Radius = DEFAULT_RADIUS;
+    UpdateConfigForView();
+    UpdateFrustum();
 }
 
 void OrbitalCamera::ResetForScene(EGameScene scene)
@@ -186,13 +199,18 @@ void OrbitalCamera::OnActivate(const CameraState& previousState)
     CalculateLookAtPoint(SceneFlag, lookAtPoint);
     InitializeOrbitalFromCurrentState(lookAtPoint, previousState);
 
-    // Apply zoom-scaled farPlane / cull ranges now, before the first render. The
-    // first Update() skips ComputeCameraTransform (and therefore UpdateConfigForView)
-    // to preserve the inherited pose — without this call the first frame would
-    // render with the unscaled base config and pop to zoom-scaled values on frame 2.
+    // Apply zoom-scaled farPlane / cull ranges now, before the first render.
     UpdateConfigForView();
 
-    // Step 5: Update matrix so rendering uses inherited pose, then sync to g_Camera
+    // Step 5: Materialize the orbital pose synchronously so frame 1 already
+    // renders at m_Target ± (m_InitialCameraOffset · zoomScale). Without
+    // this call frame 1 would render the inherited (previous-camera)
+    // position and the user would see a brief one-frame "animation" as
+    // frame 2 snaps to the orbital pose.
+    if (SceneFlag == MAIN_SCENE)
+        ComputeCameraTransform();
+
+    // Sync to g_Camera so the global state matches what we just produced.
     m_State.UpdateMatrix();
     SyncStateToGlobalCamera();
 
@@ -306,15 +324,27 @@ void OrbitalCamera::CalculateLookAtPoint(EGameScene scene, vec3_t outLookAt) con
 
 void OrbitalCamera::InitializeOrbitalFromCurrentState(const vec3_t lookAtPoint, const CameraState& previousState)
 {
-    // Save initial offset from the look-at pivot so orbital rotations preserve visual pos
-    m_InitialCameraOffset[0] = m_State.Position[0] - lookAtPoint[0];
-    m_InitialCameraOffset[1] = m_State.Position[1] - lookAtPoint[1];
-    m_InitialCameraOffset[2] = m_State.Position[2] - lookAtPoint[2];
+    // Capture the offset from the *current m_Target* (= Hero, as set by
+    // UpdateTarget() before this call) — NOT from lookAtPoint. The
+    // orbital camera's pivot is m_Target, and UpdateTarget() will keep
+    // re-setting it to Hero every frame. If we anchored the offset to
+    // lookAtPoint here and overwrote m_Target = lookAtPoint, the very
+    // next frame UpdateTarget would snap m_Target back to Hero and the
+    // camera would jump by (Hero − lookAtPoint) — visible as a one-frame
+    // character teleport on F9 switch.
+    //
+    // lookAtPoint is kept as a parameter for the static-scene path
+    // (CalculateOrbitOriginForStaticScene already overwrote m_Target with
+    // its own pivot before calling us), but for the MainScene path it is
+    // only used by SyncMountOffset / logging.
+    m_InitialCameraOffset[0] = m_State.Position[0] - m_Target[0];
+    m_InitialCameraOffset[1] = m_State.Position[1] - m_Target[1];
+    m_InitialCameraOffset[2] = m_State.Position[2] - m_Target[2];
     m_bInitialOffsetSet = true;
 
     // Diagnostic distances for logging (horizontal matches DefaultCamera's distance convention)
-    float dx = m_State.Position[0] - m_Target[0];
-    float dy = m_State.Position[1] - m_Target[1];
+    float dx = m_InitialCameraOffset[0];
+    float dy = m_InitialCameraOffset[1];
     float horizontalDistance = sqrtf(dx * dx + dy * dy);
     float fullDistance = sqrtf(
         m_InitialCameraOffset[0] * m_InitialCameraOffset[0] +
@@ -325,16 +355,13 @@ void OrbitalCamera::InitializeOrbitalFromCurrentState(const vec3_t lookAtPoint, 
     m_Radius = (float)GameConfig::GetInstance().GetZoom();
     m_Radius = std::clamp(m_Radius, MIN_RADIUS, MAX_RADIUS);
 
-    // Use the look-at point as the pivot for orbital rotation
-    VectorCopy(lookAtPoint, m_Target);
-
-    CAMERA_LOG("[CAM]   LookAtPoint: (%.1f,%.1f,%.1f), Hero/Target: (%.1f,%.1f,%.1f)",
+    CAMERA_LOG("[CAM]   LookAtPoint: (%.1f,%.1f,%.1f), Target (Hero): (%.1f,%.1f,%.1f)",
                lookAtPoint[0], lookAtPoint[1], lookAtPoint[2],
                m_Target[0], m_Target[1], m_Target[2]);
-    CAMERA_LOG("[CAM]   InitialOffset (to LookAt): (%.1f,%.1f,%.1f)",
+    CAMERA_LOG("[CAM]   InitialOffset (to Target): (%.1f,%.1f,%.1f)",
                m_InitialCameraOffset[0], m_InitialCameraOffset[1], m_InitialCameraOffset[2]);
-    CAMERA_LOG("[CAM]   Cam->Hero: dx=%.1f, dy=%.1f | HorizontalDist=%.1f, FullDist=%.1f, m_Radius=%.1f, prevDist=%.1f",
-               dx, dy, horizontalDistance, fullDistance, m_Radius, previousState.Distance);
+    CAMERA_LOG("[CAM]   HorizontalDist=%.1f, FullDist=%.1f, m_Radius=%.1f, prevDist=%.1f",
+               horizontalDistance, fullDistance, m_Radius, previousState.Distance);
 }
 
 void OrbitalCamera::SyncStateToGlobalCamera()
@@ -477,17 +504,23 @@ bool OrbitalCamera::Update()
 
 void OrbitalCamera::HandleInput()
 {
-    // Mouse wheel zoom
+    // Mouse wheel zoom. Always consume the wheel even when locked so a
+    // tick received while F10-locked doesn't leak through on unlock.
     if (MouseWheel != 0)
     {
-        const float zoomSpeed = 50.0f;
-        m_Radius -= MouseWheel * zoomSpeed;
-        m_Radius = std::clamp(m_Radius, MIN_RADIUS, MAX_RADIUS);
+        const int wheel = MouseWheel;
         MouseWheel = 0;
 
-        // FIX: Update terrain culling range based on zoom level and pitch
-        UpdateConfigForView();
-        UpdateFrustum();
+        if (!CameraManager::Instance().IsZoomLocked())
+        {
+            const float zoomSpeed = 50.0f;
+            m_Radius -= wheel * zoomSpeed;
+            m_Radius = std::clamp(m_Radius, MIN_RADIUS, MAX_RADIUS);
+
+            // Update terrain culling range based on zoom level and pitch.
+            UpdateConfigForView();
+            UpdateFrustum();
+        }
     }
 
     // Middle mouse drag rotation - only rotate when button is held AND mouse moves
@@ -596,13 +629,18 @@ void OrbitalCamera::ComputeCameraTransform()
         m_bInitialOffsetSet = true;
     }
 
-    // Calculate zoom scale (100 = 1.0x normal)
-    float zoomScale = m_Radius / DEFAULT_RADIUS;
+    // m_Radius is the absolute camera-to-target distance in world units.
+    // Normalize the captured direction and scale to m_Radius so the camera
+    // sits exactly that far from m_Target — no hidden ratio.
+    float initialLen = sqrtf(
+        m_InitialCameraOffset[0] * m_InitialCameraOffset[0] +
+        m_InitialCameraOffset[1] * m_InitialCameraOffset[1] +
+        m_InitialCameraOffset[2] * m_InitialCameraOffset[2]);
+    float dirScale = (initialLen > 0.001f) ? (m_Radius / initialLen) : 1.0f;
 
-    // Apply zoom to initial offset
-    float scaledX = m_InitialCameraOffset[0] * zoomScale;
-    float scaledY = m_InitialCameraOffset[1] * zoomScale;
-    float scaledZ = m_InitialCameraOffset[2] * zoomScale;
+    float scaledX = m_InitialCameraOffset[0] * dirScale;
+    float scaledY = m_InitialCameraOffset[1] * dirScale;
+    float scaledZ = m_InitialCameraOffset[2] * dirScale;
 
     // Apply horizontal rotation around Z axis
     float angleRad = m_DeltaYaw * (M_PI / 180.0f);
@@ -730,6 +768,17 @@ void OrbitalCamera::UpdateConfigForView()
     // projection and percentage-based fog (fog = ViewFar * 80%/90%).
     m_State.ViewFar = m_Config.farPlane;
     g_Camera.ViewFar = m_Config.farPlane;
+
+    // Restore orbital's FOV. The internal m_pDefaultCamera->Update() call in
+    // OrbitalCamera::Update() writes m_State.FOV from its own (default-cam,
+    // hFov=40°) config; without this re-assert the orbital frame would
+    // render at the narrower default-cam FOV from frame 2 onward.
+    extern unsigned int WindowWidth, WindowHeight;
+    if (WindowHeight > 0)
+    {
+        float aspect = (float)WindowWidth / (float)WindowHeight;
+        m_State.FOV = HFovToVFov(m_Config.hFov, aspect);
+    }
 
     // Keep cull ranges in lockstep with farPlane. Previously objectCullRange was
     // set once at config load and never updated, so zooming the camera widened

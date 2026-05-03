@@ -64,8 +64,6 @@ extern int ErrorMessage;
 extern bool MouseLButtonPush;
 extern int MouseUpdateTime;
 extern int MouseUpdateTimeMax;
-extern int MouseWheel;
-extern short g_shCameraLevel;
 extern SKILL_ATTRIBUTE* SkillAttribute;
 extern bool g_bEnterPressed;
 
@@ -194,24 +192,6 @@ void SetEffectVolumeLevel(int level)
     {
         long vol = -2000 * log10(10.f / float(level));
         SetMasterVolume(vol);
-    }
-}
-
-void SetViewPortLevel(int Wheel)
-{
-    if ((HIBYTE(GetAsyncKeyState(VK_CONTROL)) == 128))
-    {
-        if (Wheel > 0)
-            g_shCameraLevel--;
-        else if (Wheel < 0)
-            g_shCameraLevel++;
-
-        MouseWheel = 0;
-
-        if (g_shCameraLevel > 4)
-            g_shCameraLevel = 4;
-        if (g_shCameraLevel < 0)
-            g_shCameraLevel = 0;
     }
 }
 

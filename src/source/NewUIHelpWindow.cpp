@@ -14,12 +14,16 @@ namespace
     // Engine-only help-text entries registered programmatically via
     // SEASON3B::RegisterCustomHelpText(). Keys are above MAX_NUMBER_OF_TEXTS
     // (9999) so they can't collide with shipped GlobalText.bmd entries.
-    constexpr int HELP_KEY_F9_TOGGLE_CAMERA = 10000;
+    constexpr int HELP_KEY_F9_TOGGLE_CAMERA   = 10000;
+    constexpr int HELP_KEY_F10_TOGGLE_ZOOM    = 10001;
+    constexpr int HELP_KEY_F11_RESET_VIEW     = 10002;
 }
 
 void SEASON3B::RegisterCustomHelpText()
 {
     GlobalText.Add(HELP_KEY_F9_TOGGLE_CAMERA, L"F9 - Toggle 3D Camera");
+    GlobalText.Add(HELP_KEY_F10_TOGGLE_ZOOM,  L"F10 - Lock / Unlock Camera Zoom");
+    GlobalText.Add(HELP_KEY_F11_RESET_VIEW,   L"F11 - Reset Camera View");
 }
 
 SEASON3B::CNewUIHelpWindow::CNewUIHelpWindow()
@@ -141,15 +145,23 @@ bool SEASON3B::CNewUIHelpWindow::Render()
             iTextNum++;
         }
 
-        // Insert engine-added F9 entry between F4 and the rest.
-        // wcsncpy + explicit terminator: HELP_KEY_F9_TOGGLE_CAMERA can be
+        // Insert engine-added F9 / F10 / F11 entries between F4 and the rest.
+        // wcsncpy + explicit terminator: these GlobalText entries can be
         // overridden by .bmd translations of arbitrary length, so guard
         // the 100-wchar TextList row against overflow.
-        wcsncpy(TextList[iTextNum], GlobalText[HELP_KEY_F9_TOGGLE_CAMERA], 99);
-        TextList[iTextNum][99] = L'\0';
-        TextListColor[iTextNum] = TEXT_COLOR_WHITE;
-        TextBold[iTextNum] = false;
-        iTextNum++;
+        const int kCustomKeys[] = {
+            HELP_KEY_F9_TOGGLE_CAMERA,
+            HELP_KEY_F10_TOGGLE_ZOOM,
+            HELP_KEY_F11_RESET_VIEW,
+        };
+        for (int key : kCustomKeys)
+        {
+            wcsncpy(TextList[iTextNum], GlobalText[key], 99);
+            TextList[iTextNum][99] = L'\0';
+            TextListColor[iTextNum] = TEXT_COLOR_WHITE;
+            TextBold[iTextNum] = false;
+            iTextNum++;
+        }
 
         // Render the remaining shipped entries (GlobalText[125..139]).
         for (int i = 4; i < 19; ++i)

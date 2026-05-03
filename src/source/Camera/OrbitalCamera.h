@@ -26,6 +26,7 @@ public:
     void Reset() override;
     void OnActivate(const CameraState& previousState) override;
     void OnDeactivate() override;
+    void ResetView() override;
     const char* GetName() const override { return "Orbital"; }
 
     // Phase 5: Scene-specific reset
@@ -95,9 +96,18 @@ private:
     // Constraints
     static constexpr float MIN_PITCH = -80.0f;  // Look down limit
     static constexpr float MAX_PITCH = 80.0f;   // Look up limit
-    static constexpr float MIN_RADIUS = 200.0f;
-    static constexpr float MAX_RADIUS = 2000.0f;
-    static constexpr float DEFAULT_RADIUS = 1100.0f;  // +300 to match Default Camera (3 scroll ticks further out)
+    // Radius values are absolute camera-to-Hero distances in world units.
+    // ComputeCameraTransform normalizes the captured offset direction and
+    // scales it to m_Radius, so what you set here is what you get on screen.
+    // DEFAULT_RADIUS is also the "neutral" radius for UpdateConfigForView's
+    // far-plane / zoom-lift scaling — at this radius, scale = 1.
+    // Default cam at level 3 (1300 body distance + 1150 Z-lift) gives an
+    // actual camera-to-Hero distance of ~sqrt(919² + 919² + 1150²) ≈ 1735.
+    // DEFAULT matches that so orbital starts at exactly the Default cam's
+    // position. MIN/MAX bracket how far the player can move from there.
+    static constexpr float MIN_RADIUS = 600.0f;
+    static constexpr float MAX_RADIUS = 1900.0f;
+    static constexpr float DEFAULT_RADIUS = 1735.0f;
 
     // Input state (middle-mouse drag tracking)
     struct InputState

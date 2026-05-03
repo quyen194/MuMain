@@ -36,7 +36,6 @@ int	SeparateTextIntoLines(const wchar_t* lpszText, wchar_t* lpszSeparated, int i
 
 bool	GetTimeCheck(int DelayTime);
 void	SetEffectVolumeLevel(int level);
-void    SetViewPortLevel(int level);
 
 bool IsEnterPressed();
 void SetEnterPressed(bool enterpressed);

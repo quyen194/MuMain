@@ -2519,6 +2519,28 @@ void CreateFrustrum2D(vec3_t Position)
             WidthFar = 1600.f * Width;
             WidthNear = 660.f * Width;
             break;
+        // Levels 6 and 7 extend the player ladder out to distance 1600 / 1700.
+        // Values continue the case-5 curve: ViewFar grows ~+300 per step,
+        // WidthFar/WidthNear scale roughly linearly with the camera distance
+        // (1600/1500 ≈ 1.067, 1700/1500 ≈ 1.133). Without these branches the
+        // switch falls through and the trapezoid uses stale numbers, so far
+        // tiles cull out at the screen edges.
+        case 6:
+            Width = (float)GetScreenWidth() / 500.f + 0.1f;
+            CameraViewFar_local = 3700.f;
+            CameraViewNear_local = CameraViewFar_local * 0.19f;
+            CameraViewTarget_local = CameraViewFar_local * 0.47f;
+            WidthFar = 1700.f * Width;
+            WidthNear = 700.f * Width;
+            break;
+        case 7:
+            Width = (float)GetScreenWidth() / 500.f + 0.1f;
+            CameraViewFar_local = 4000.f;
+            CameraViewNear_local = CameraViewFar_local * 0.19f;
+            CameraViewTarget_local = CameraViewFar_local * 0.47f;
+            WidthFar = 1820.f * Width;
+            WidthNear = 750.f * Width;
+            break;
         }
     }
 
