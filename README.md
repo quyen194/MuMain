@@ -259,11 +259,25 @@ The [OpenMU launcher](https://github.com/MUnique/OpenMU/releases/download/v0.8.1
 will work as well. By default, it connects to localhost and port `44406`.
 The client identifies itself with Version `2.04d` and serial `k1Pk2jcET48mxL3b`.
 
+## Documentation
+
+- [Camera system](docs/camera-system.md) - modes, switching (F9), config,
+  frustum culling, `$details` overlay, and the gameplay behaviour changes
+  from the 3D camera rework.
+- [DevEditor](docs/dev-editor.md) - the in-game tuning UI (F12, debug
+  builds only).
+- [Options window and config](docs/options-window.md) - runtime
+  resolution / windowed toggle, slider rounding, and the migration off the
+  Windows registry.
+- [Build guide](docs/build-guide.md) - platform-specific build notes.
+- [Translation system](TRANSLATION_SYSTEM_INTEGRATION.md) - translation
+  pipeline and integration notes.
+
 ## Contributing
 
 ### Coding rules
 
-All code changes — by humans and AI assistants — should follow
+All code changes - by humans and AI assistants - should follow
 [`docs/CODING_RULES.md`](docs/CODING_RULES.md). Read it before opening a PR.
 
 AI coding assistants (Claude Code, Cursor, Codex, etc.) should also read
