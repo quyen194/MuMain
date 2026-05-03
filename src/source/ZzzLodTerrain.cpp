@@ -2160,7 +2160,13 @@ static void ExpandHullOutward(float offset)
 void CreateFrustrum2D(vec3_t Position)
 {
     CameraMode currentMode = CameraManager::Instance().GetCurrentMode();
-    if (currentMode == CameraMode::Orbital
+    // Default joins the Orbital natural-hull path so the cull hull is built
+    // from the actual GL modelview / FOV / aspect instead of the legacy
+    // hardcoded trapezoid table (which was tuned for 4:3 and left the upper
+    // screen corners uncovered on widescreen). The DevEditor near/far
+    // trapezoid multipliers still apply, just on view-space halfW/nearHalfW.
+    if (currentMode == CameraMode::Default
+        || currentMode == CameraMode::Orbital
 #ifdef _EDITOR
         || currentMode == CameraMode::FreeFly
 #endif
@@ -2222,9 +2228,11 @@ void CreateFrustrum2D(vec3_t Position)
             // view-aligned trapezoid. Corners are in camera-local coordinates
             // (forward = view -Z, lateral = view X) and transformed by the camera
             // matrix, so the shape tracks yaw AND pitch — it follows exactly what
-            // the camera is looking at for any angle.
+            // the camera is looking at for any angle. Orbital-only — Default
+            // joins this path too but uses its own near/far multipliers.
             float ovFarDist = 0, ovFarW = 0, ovNearDist = 0, ovNearW = 0;
-            if (DevEditor_GetOrbitalHullTrapezoid(&ovFarDist, &ovFarW, &ovNearDist, &ovNearW))
+            if (currentMode == CameraMode::Orbital
+                && DevEditor_GetOrbitalHullTrapezoid(&ovFarDist, &ovFarW, &ovNearDist, &ovNearW))
             {
                 const float farHalf  = ovFarW  * 0.5f;
                 const float nearHalf = ovNearW * 0.5f;
@@ -2271,7 +2279,22 @@ void CreateFrustrum2D(vec3_t Position)
             // making static 3D objects anchored to those tiles pop in/out of view.
             // 400 world units (= 800 total width) covers the footprint reliably.
             constexpr float NATURAL_NEAR_HALF_WIDTH = 400.0f;
-            const float nearHalfW = NATURAL_NEAR_HALF_WIDTH;
+            float nearHalfW = NATURAL_NEAR_HALF_WIDTH;
+
+#ifdef _EDITOR
+            // DevEditor's Default-camera trapezoid sliders multiply the near
+            // and far widths. The legacy path applied them at the very end;
+            // do the same here so the sliders still affect Default's hull
+            // after the path migration.
+            if (currentMode == CameraMode::Default)
+            {
+                float nearMul = 1.0f, farMul = 1.0f;
+                DevEditor_GetDefaultTrapezoidMultipliers(&nearMul, &farMul);
+                halfW     *= farMul;
+                nearHalfW *= nearMul;
+            }
+#endif
+
             const float nearHalfH = nearHalfW / aspect;
 
             vec3_t viewPts[8];
@@ -2372,207 +2395,6 @@ void CreateFrustrum2D(vec3_t Position)
         }
     }
 
-    // Legacy path: hardcoded tables for Default/Legacy cameras
-    FrustrumCount = 4;
-
-    float Width = 0.0f, CameraViewFar_local = 0.0f, CameraViewNear_local = 0.0f, CameraViewTarget_local = 0.0f;
-    float WidthFar = 0.0f, WidthNear = 0.0f;
-
-    extern EGameScene SceneFlag;
-
-    if (gMapManager.InBattleCastle() && SceneFlag == MAIN_SCENE)
-    {
-        Width = (float)GetScreenWidth() / (float)REFERENCE_HEIGHT;
-        if (battleCastle::InBattleCastle2(Hero->Object.Position) && (Hero->Object.Position[0] < 17100.f || Hero->Object.Position[0]>18300.f))
-        {
-            CameraViewFar_local = 5100.f;
-            CameraViewNear_local = CameraViewFar_local * 0.19f;
-            CameraViewTarget_local = CameraViewFar_local * 0.47f;
-            WidthFar = 2250.f * Width;
-            WidthNear = 540.f * Width;
-        }
-        else
-        {
-            CameraViewFar_local = 3300.f;
-            CameraViewNear_local = CameraViewFar_local * 0.19f;
-            CameraViewTarget_local = CameraViewFar_local * 0.47f;
-            WidthFar = 1300.f * Width;
-            WidthNear = 580.f * Width;
-        }
-    }
-    else if (gMapManager.WorldActive == WD_62SANTA_TOWN)
-    {
-        Width = (float)GetScreenWidth() / 450.f * 1.0f;
-        CameraViewFar_local = 2400.f;
-        CameraViewNear_local = CameraViewFar_local * 0.19f;
-        CameraViewTarget_local = CameraViewFar_local * 0.47f;
-        CameraViewFar_local = 2650.f;
-        WidthFar = 1250.f * Width;
-        WidthNear = 540.f * Width;
-    }
-    else if (gMapManager.IsPKField() || IsDoppelGanger2())
-    {
-        Width = (float)GetScreenWidth() / 500.f;
-        CameraViewFar_local = 1700.0f;
-        CameraViewNear_local = 55.0f;
-        CameraViewTarget_local = 830.0f;
-        CameraViewFar_local = 3300.f;
-        WidthFar = 1900.f * Width;
-        WidthNear = 600.f * Width;
-    }
-    else
-    {
-        static int CameraLevel;
-
-        if ((int)g_Camera.DistanceTarget >= (int)g_Camera.Distance)
-            CameraLevel = g_shCameraLevel;
-
-        switch (CameraLevel)
-        {
-        case 0:
-            if (SceneFlag == LOG_IN_SCENE)
-            {
-            }
-            else if (SceneFlag == CHARACTER_SCENE)
-            {
-                Width = (float)GetScreenWidth() / (float)REFERENCE_WIDTH * 9.1f * 0.404998f;
-            }
-            else if (g_Direction.m_CKanturu.IsMayaScene())
-            {
-                Width = (float)GetScreenWidth() / (float)REFERENCE_WIDTH * 10.0f * 0.115f;
-            }
-            else
-            {
-                Width = (float)GetScreenWidth() / (float)REFERENCE_WIDTH * 1.1f;
-            }
-
-            if (SceneFlag == LOG_IN_SCENE)
-            {
-            }
-            else if (SceneFlag == CHARACTER_SCENE)
-            {
-                CameraViewFar_local = 2000.f * 9.1f * 0.404998f;
-            }
-            else if (gMapManager.WorldActive == WD_39KANTURU_3RD)
-            {
-                CameraViewFar_local = 2000.f * 10.0f * 0.115f;
-            }
-            else
-            {
-                CameraViewFar_local = 2400.f;
-            }
-
-            if (SceneFlag == LOG_IN_SCENE)
-            {
-                Width = (float)GetScreenWidth() / (float)REFERENCE_WIDTH;
-                CameraViewFar_local = 2400.f * 17.0f * 13.0f;
-                CameraViewNear_local = 2400.f * 17.0f * 0.5f;
-                CameraViewTarget_local = 2400.f * 17.0f * 0.5f;
-                WidthFar = 5000.f * Width;
-                WidthNear = 300.f * Width;
-            }
-            else
-            {
-                CameraViewNear_local = CameraViewFar_local * 0.19f;
-                CameraViewTarget_local = CameraViewFar_local * 0.47f;
-                WidthFar = 1190.f * Width * sqrtf(g_Camera.FOV / 33.f);
-                WidthNear = 540.f * Width * sqrtf(g_Camera.FOV / 33.f);
-            }
-            break;
-        case 1:
-            Width = (float)GetScreenWidth() / 500.f + 0.1f;
-            CameraViewFar_local = 2700.f;
-            CameraViewNear_local = CameraViewFar_local * 0.19f;
-            CameraViewTarget_local = CameraViewFar_local * 0.47f;
-            WidthFar = 1200.f * Width;
-            WidthNear = 540.f * Width;
-            break;
-        case 2:
-            Width = (float)GetScreenWidth() / 500.f + 0.1f;
-            CameraViewFar_local = 3000.f;
-            CameraViewNear_local = CameraViewFar_local * 0.19f;
-            CameraViewTarget_local = CameraViewFar_local * 0.47f;
-            WidthFar = 1300.f * Width;
-            WidthNear = 540.f * Width;
-            break;
-        case 3:
-            Width = (float)GetScreenWidth() / 500.f + 0.1f;
-            CameraViewFar_local = 3300.f;
-            CameraViewNear_local = CameraViewFar_local * 0.19f;
-            CameraViewTarget_local = CameraViewFar_local * 0.47f;
-            WidthFar = 1500.f * Width;
-            WidthNear = 580.f * Width;
-            break;
-        case 4:
-            Width = (float)GetScreenWidth() / 500.f + 0.1f;
-            CameraViewFar_local = 5100.f;
-            CameraViewNear_local = CameraViewFar_local * 0.19f;
-            CameraViewTarget_local = CameraViewFar_local * 0.47f;
-            WidthFar = 2250.f * Width;
-            WidthNear = 540.f * Width;
-            break;
-        case 5:
-            Width = (float)GetScreenWidth() / 500.f + 0.1f;
-            CameraViewFar_local = 3400.f;
-            CameraViewNear_local = CameraViewFar_local * 0.19f;
-            CameraViewTarget_local = CameraViewFar_local * 0.47f;
-            WidthFar = 1600.f * Width;
-            WidthNear = 660.f * Width;
-            break;
-        }
-    }
-
-    // Scale trapezoid width for actual window aspect ratio vs reference 4:3.
-    // The hardcoded Width/WidthFar/WidthNear values were tuned for 640x480.
-    // When the window is wider (e.g. 1920x1080), GL perspective shows more
-    // horizontally, so the 2D culling trapezoid must grow to match.
-    extern unsigned int WindowWidth, WindowHeight;
-    if (WindowHeight > 0)
-    {
-        float windowAspect = (float)WindowWidth / (float)WindowHeight;
-        float referenceAspect = (float)REFERENCE_WIDTH / (float)REFERENCE_HEIGHT;
-        float aspectCorrection = windowAspect / referenceAspect;
-        WidthFar *= aspectCorrection;
-        WidthNear *= aspectCorrection;
-    }
-
-#ifdef _EDITOR
-    // DevEditor: trapezoid width multipliers (no-op when Default-camera override disabled).
-    float nearMul = 1.0f, farMul = 1.0f;
-    DevEditor_GetDefaultTrapezoidMultipliers(&nearMul, &farMul);
-    WidthNear *= nearMul;
-    WidthFar  *= farMul;
-#endif
-
-    vec3_t p[4];
-    Vector(-WidthFar, CameraViewFar_local - CameraViewTarget_local, 0.f, p[0]);
-    Vector(WidthFar, CameraViewFar_local - CameraViewTarget_local, 0.f, p[1]);
-    Vector(WidthNear, CameraViewNear_local - CameraViewTarget_local, 0.f, p[2]);
-    Vector(-WidthNear, CameraViewNear_local - CameraViewTarget_local, 0.f, p[3]);
-    vec3_t Angle;
-    float Matrix[3][4];
-
-    if (gMapManager.WorldActive == WD_73NEW_LOGIN_SCENE)
-    {
-        VectorScale(g_Camera.Angle, -1.0f, Angle);
-        CCameraMove::GetInstancePtr()->SetFrustumAngle(89.5f);
-        vec3_t _Temp = { CCameraMove::GetInstancePtr()->GetFrustumAngle(), 0.0f, 0.0f };
-        VectorAdd(Angle, _Temp, Angle);
-    }
-    else
-    {
-        Vector(0.f, 0.f, -g_Camera.Angle[2], Angle);
-    }
-
-    AngleMatrix(Angle, Matrix);
-    vec3_t Frustrum[4];
-    for (int i = 0; i < 4; i++)
-    {
-        VectorRotate(p[i], Matrix, Frustrum[i]);
-        VectorAdd(Frustrum[i], Position, Frustrum[i]);
-        FrustrumX[i] = Frustrum[i][0] * 0.01f;
-        FrustrumY[i] = Frustrum[i][1] * 0.01f;
-    }
 }
 
 void CreateFrustrum(float xAspect, float yAspect, vec3_t position)

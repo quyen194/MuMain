@@ -42,6 +42,15 @@ public:
     virtual void OnDeactivate() {}
 
     /**
+     * @brief Resets the user-facing view to camera defaults.
+     *
+     * F11 dispatches here. For Default this is the zoom-level reset; for
+     * Orbital it's zoom + rotation. Other cameras (FreeFly) leave it as
+     * a no-op.
+     */
+    virtual void ResetView() {}
+
+    /**
      * @brief Gets human-readable camera name
      */
     virtual const char* GetName() const = 0;

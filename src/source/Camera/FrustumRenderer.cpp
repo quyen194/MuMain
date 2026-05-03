@@ -223,6 +223,73 @@ namespace
         glEnd();
     }
 
+    // Draw a terrain-hugging horizontal line between two ground hit points.
+    void DrawGroundSegment(float x0, float y0, float x1, float y1)
+    {
+        float dx = x1 - x0;
+        float dy = y1 - y0;
+        float edgeLen = std::sqrt(dx * dx + dy * dy);
+        int segments = (int)(edgeLen / (SUBDIVISIONS_PER_TILE * TERRAIN_SCALE)) + 1;
+        if (segments < 1) segments = 1;
+        if (segments > MAX_EDGE_SEGMENTS) segments = MAX_EDGE_SEGMENTS;
+
+        for (int s = 0; s < segments; ++s)
+        {
+            float t0 = (float)s / (float)segments;
+            float t1 = (float)(s + 1) / (float)segments;
+            float sx0 = x0 + dx * t0;
+            float sy0 = y0 + dy * t0;
+            float sx1 = x0 + dx * t1;
+            float sy1 = y0 + dy * t1;
+            float z0 = RequestTerrainHeight(sx0, sy0) + GROUND_LINE_Z_OFFSET;
+            float z1 = RequestTerrainHeight(sx1, sy1) + GROUND_LINE_Z_OFFSET;
+            glVertex3f(sx0, sy0, z0);
+            glVertex3f(sx1, sy1, z1);
+        }
+    }
+
+    // Cast each ray (apex → far-plane corner) onto the ground plane (Z=0)
+    // and connect the resulting points to show where the camera's top and
+    // bottom FOV edges intersect the ground. Frustum vertex order from
+    // CalculateFrustumVertices: 4=far TL, 5=far TR, 6=far BR, 7=far BL.
+    void RenderFovGroundIntersect(const vec3_t apex, const vec3_t v[8])
+    {
+        auto rayToGround = [&](const vec3_t corner, float& outX, float& outY) -> bool
+        {
+            float dz = corner[2] - apex[2];
+            if (dz >= -DEGENERATE_EPSILON) return false;  // ray not going down
+            float t = -apex[2] / dz;
+            if (t <= 0.0f) return false;
+            outX = apex[0] + t * (corner[0] - apex[0]);
+            outY = apex[1] + t * (corner[1] - apex[1]);
+            return true;
+        };
+
+        float topLx, topLy, topRx, topRy, botLx, botLy, botRx, botRy;
+        bool tlOk = rayToGround(v[4], topLx, topLy);
+        bool trOk = rayToGround(v[5], topRx, topRy);
+        bool brOk = rayToGround(v[6], botRx, botRy);
+        bool blOk = rayToGround(v[7], botLx, botLy);
+
+        glLineWidth(GROUND_LINE_WIDTH + 1.0f);
+        glBegin(GL_LINES);
+
+        if (blOk && brOk)
+        {
+            // Bottom of FOV → red (closest to camera)
+            glColor4f(1.0f, 0.0f, 0.0f, 0.9f);
+            DrawGroundSegment(botLx, botLy, botRx, botRy);
+        }
+        if (tlOk && trOk)
+        {
+            // Top of FOV → yellow (visible far edge)
+            glColor4f(1.0f, 1.0f, 0.0f, 0.9f);
+            DrawGroundSegment(topLx, topLy, topRx, topRy);
+        }
+
+        glEnd();
+    }
+
     void RenderCameraMarker(const vec3_t apex)
     {
         glColor4f(0.0f, 1.0f, 1.0f, 0.9f);
@@ -251,6 +318,10 @@ void RenderFrustumWireframe(const Frustum& frustum)
     RenderPyramidWireframe(v, apex);
     RenderPyramidFilled(v, apex);
     RenderGroundProjection(frustum);
+    // FOV ground-intersection lines: ray-cast through the scaled far
+    // corners (= the cone's yellow apex→corner edges) so the lines end
+    // exactly where the visualization cone hits the ground.
+    RenderFovGroundIntersect(apex, v);
     RenderCameraMarker(apex);
 }
 

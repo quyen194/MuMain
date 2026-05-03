@@ -25,6 +25,7 @@ public:
     void Reset() override;
     void OnActivate(const CameraState& previousState) override;
     void OnDeactivate() override;
+    void ResetView() override;
     const char* GetName() const override { return "Default"; }
 
     // Phase 5: Scene-specific reset
@@ -77,6 +78,16 @@ private:
     bool m_bJustActivated = false;  // Skip first frame update to preserve inherited position
     int m_FramesSinceActivation = 0;  // Count frames since activation to disable smoothing
     bool IsHeroValid() const;
+
+    // Player-controlled zoom level for the third-person ladder.
+    // Persists across frames (the per-frame g_shCameraLevel is reseeded from
+    // this member in MAIN_SCENE only). Range 0..7 maps to distances
+    // 1000..1700 in 100-unit steps; default level 3 = 1300. F11 (handled in
+    // CameraUtility) calls ResetView() which snaps it back to the default;
+    // cutscene direction mode temporarily overrides g_shCameraLevel via
+    // CDirection::GetCameraPosition().
+    int  m_PlayerZoomLevel = 3;
+    void HandleWheelZoom();
 
     // These are direct copies of the static functions from CameraUtility.cpp
     // We're NOT refactoring them yet - just moving them as-is

@@ -34,6 +34,7 @@
 #include "./Utilities/CpuUsage.h"
 
 #include "MUHelper/MuHelper.h"
+#include "Camera/CameraManager.h"
 
 #include "CBTMessageBox.h"
 #include "./ExternalObject/Leaf/regkey.h"
@@ -469,6 +470,17 @@ extern bool EnableFastInput;
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+    // F10 zoom-lock toggle. Handled before the ImGui forwarder so editor-open
+    // sessions still get the toggle (ImGui captures keyboard messages while a
+    // window has focus). Bit 30 of lParam = previous key state — skip
+    // auto-repeat ticks so a held key only toggles once.
+    constexpr LPARAM PREVIOUS_KEY_STATE_MASK = 1 << 30;
+    if (msg == WM_SYSKEYDOWN && wParam == VK_F10 && (lParam & PREVIOUS_KEY_STATE_MASK) == 0)
+    {
+        CameraManager::Instance().ToggleZoomLock();
+        return 0;
+    }
+
 #ifdef _EDITOR
     // Only forward messages to ImGui when editor is open
     // When editor is closed, we handle button clicks manually in RenderToolbarOpen
@@ -483,6 +495,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_SYSKEYDOWN:
     {
+        // F10 is handled above (intercepted before ImGui). Other system keys
+        // are silenced here — returning 0 prevents the OS menu activation.
         return 0;
     }
     break;

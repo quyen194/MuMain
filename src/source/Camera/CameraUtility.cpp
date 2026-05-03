@@ -11,29 +11,35 @@
 extern short g_shCameraLevel;
 extern float g_fSpecialHeight;
 
-// F9 key state tracking
-static bool s_bF9KeyPressed = false;
+// Function-key edge-trigger state. We poll via GetAsyncKeyState every frame,
+// so we need to remember whether the key was already held last frame to fire
+// each binding once per press instead of on every tick.
+namespace
+{
+    bool s_bF9KeyPressed  = false;  // F9  — cycle camera mode
+    bool s_bF11KeyPressed = false;  // F11 — reset active view
+}
 
 /**
- * @brief Handles F9 key press for camera mode cycling
+ * @brief Handles the camera-related function keys (F9, F11).
+ *
+ * Lives at this layer so the bindings work the same regardless of which
+ * camera is active. F10 (zoom lock) is handled directly in Winmain's
+ * WM_SYSKEYDOWN case because Windows reserves F10 as a system key and
+ * polling GetAsyncKeyState was racing with focus/loading frames.
  */
-static void HandleCameraModeToggle()
+static void HandleCameraHotkeys()
 {
-    // Check F9 key state
-    bool bF9Down = (GetAsyncKeyState(VK_F9) & 0x8000) != 0;
+    const bool bF9Down  = (GetAsyncKeyState(VK_F9)  & 0x8000) != 0;
+    const bool bF11Down = (GetAsyncKeyState(VK_F11) & 0x8000) != 0;
 
-    // Detect key press (not held)
     if (bF9Down && !s_bF9KeyPressed)
-    {
-        // Cycle to next camera mode
         CameraManager::Instance().CycleToNextMode();
+    if (bF11Down && !s_bF11KeyPressed)
+        CameraManager::Instance().ResetActiveView();
 
-        // Optional: Log mode change for debugging
-        // CameraMode newMode = CameraManager::Instance().GetCurrentMode();
-        // printf("Camera mode switched to: %s\n", CameraModeToString(newMode));
-    }
-
-    s_bF9KeyPressed = bF9Down;
+    s_bF9KeyPressed  = bF9Down;
+    s_bF11KeyPressed = bF11Down;
 }
 
 /**
@@ -42,8 +48,7 @@ static void HandleCameraModeToggle()
  */
 bool MoveMainCamera()
 {
-    // Handle F9 camera mode toggle
-    HandleCameraModeToggle();
+    HandleCameraHotkeys();
 
     // Update active camera through manager
     bool result = CameraManager::Instance().Update();
