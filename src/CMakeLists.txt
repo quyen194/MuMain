@@ -7,68 +7,47 @@ project(MuMain)
 # single, stable anchor instead of scattered "../" navigations.
 cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH REPO_ROOT)
 
-# Initialize imgui submodule automatically if missing
-if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/imgui/imgui.cpp")
-  find_package(Git QUIET)
-  if(NOT GIT_FOUND)
-    message(FATAL_ERROR "Git not found. Please run 'git submodule update --init' manually from repository root.")
-  endif()
+include("${REPO_ROOT}/cmake/EnsureSubmodule.cmake")
 
-  message(STATUS "Initializing imgui submodule...")
+mu_ensure_submodule("ThirdParty/imgui"
+  INDICATOR "imgui.cpp"
+  URL "https://github.com/ocornut/imgui.git")
 
-  # If directory exists but is incomplete, remove it first
-  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/imgui")
-    message(STATUS "Removing incomplete imgui directory...")
-    file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/imgui")
-  endif()
+mu_ensure_submodule("ThirdParty/SDL"
+  INDICATOR "CMakeLists.txt"
+  URL "https://github.com/libsdl-org/SDL.git")
 
-  # Check if submodule is registered in git index
-  execute_process(
-    COMMAND ${GIT_EXECUTABLE} ls-files -s src/ThirdParty/imgui
-    WORKING_DIRECTORY ${REPO_ROOT}
-    OUTPUT_VARIABLE SUBMODULE_IN_INDEX
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
+mu_ensure_submodule("ThirdParty/SDL_mixer"
+  INDICATOR "CMakeLists.txt"
+  URL "https://github.com/libsdl-org/SDL_mixer.git")
 
-  if(SUBMODULE_IN_INDEX STREQUAL "")
-    # Submodule not in index - need to add it
-    message(STATUS "Submodule not in git index, adding it...")
-    execute_process(
-      COMMAND ${GIT_EXECUTABLE} submodule add --force https://github.com/ocornut/imgui.git src/ThirdParty/imgui
-      WORKING_DIRECTORY ${REPO_ROOT}
-      RESULT_VARIABLE GIT_ADD_RESULT
-      ERROR_VARIABLE GIT_ADD_ERROR
-      OUTPUT_VARIABLE GIT_ADD_OUTPUT
-    )
-    if(NOT GIT_ADD_RESULT EQUAL "0")
-      message(FATAL_ERROR "Failed to add submodule:\n${GIT_ADD_ERROR}${GIT_ADD_OUTPUT}")
-    endif()
-  else()
-    # Submodule in index - just update it
-    execute_process(
-      COMMAND ${GIT_EXECUTABLE} submodule sync
-      WORKING_DIRECTORY ${REPO_ROOT}
-      OUTPUT_QUIET ERROR_QUIET
-    )
-    execute_process(
-      COMMAND ${GIT_EXECUTABLE} submodule update --init
-      WORKING_DIRECTORY ${REPO_ROOT}
-      RESULT_VARIABLE GIT_RESULT
-      ERROR_VARIABLE GIT_ERROR
-      OUTPUT_VARIABLE GIT_OUTPUT
-    )
-    if(NOT GIT_RESULT EQUAL "0")
-      message(FATAL_ERROR "Submodule initialization failed:\n${GIT_ERROR}${GIT_OUTPUT}")
-    endif()
-  endif()
+# SDL3 — static link, no tests, no install
+set(SDL_SHARED OFF CACHE BOOL "" FORCE)
+set(SDL_STATIC ON CACHE BOOL "" FORCE)
+set(SDL_TEST_LIBRARY OFF CACHE BOOL "" FORCE)
+set(SDL_TESTS OFF CACHE BOOL "" FORCE)
+set(SDL_INSTALL OFF CACHE BOOL "" FORCE)
+add_subdirectory(ThirdParty/SDL EXCLUDE_FROM_ALL)
 
-  message(STATUS "ImGui submodule initialized successfully")
-
-  # Verify it worked
-  if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/imgui/imgui.cpp")
-    message(FATAL_ERROR "ImGui submodule initialization appeared to succeed but imgui.cpp is still missing.")
-  endif()
-endif()
+# SDL3_mixer — static link, MP3 + Ogg Vorbis only (matches our music assets)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_INSTALL OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_VENDORED ON CACHE BOOL "" FORCE)
+set(SDLMIXER_SAMPLES OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_MP3 ON CACHE BOOL "" FORCE)
+set(SDLMIXER_MP3_DRMP3 ON CACHE BOOL "" FORCE)
+# mpg123 is built as a dynamically loaded library — drmp3 alone is enough
+# for the assets we ship and keeps everything statically linked.
+set(SDLMIXER_MP3_MPG123 OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_VORBIS_STB ON CACHE BOOL "" FORCE)
+set(SDLMIXER_VORBIS_VORBISFILE OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_FLAC OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_OPUS OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_WAVPACK OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_MOD OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_MIDI OFF CACHE BOOL "" FORCE)
+set(SDLMIXER_GME OFF CACHE BOOL "" FORCE)
+add_subdirectory(ThirdParty/SDL_mixer EXCLUDE_FROM_ALL)
 
 # Determine architecture if CMAKE_SIZEOF_VOID_P isn't set
 if (NOT DEFINED CMAKE_SIZEOF_VOID_P OR CMAKE_SIZEOF_VOID_P EQUAL 0)
@@ -272,12 +251,11 @@ if (MSVC)
     wininet
     urlmon
     turbojpeg-static
-    wzAudio
   )
 
   # Locate required DLLs in bin directory
   set(DLL_SEARCH_PATH "${CMAKE_CURRENT_SOURCE_DIR}/bin")
-  set(REQUIRED_DLL_NAMES wzAudio glew32 ogg vorbisfile)
+  set(REQUIRED_DLL_NAMES glew32 ogg vorbisfile)
   set(REQUIRED_DLLS)
 
   foreach(DLL_NAME IN LISTS REQUIRED_DLL_NAMES)
@@ -496,9 +474,14 @@ if (CMAKE_CXX_COMPILER MATCHES "mingw32" OR CMAKE_CXX_COMPILER MATCHES "w64-ming
     comdlg32
     advapi32
     ${MU_TURBOJPEG_STATIC_LIB}
-    wzAudio
   )
 endif()
+
+# Link SDL3 + SDL3_mixer (audio) on all platforms.
+target_link_libraries(Main PRIVATE
+  SDL3::SDL3
+  SDL3_mixer::SDL3_mixer
+)
 
 # Link ImGui for all platforms when editor is enabled
 if(ENABLE_EDITOR)

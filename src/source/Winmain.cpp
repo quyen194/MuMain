@@ -113,57 +113,7 @@ int g_iScreenSaverOldValue = 60 * 15;
 BOOL g_bUseWindowMode = TRUE;
 BOOL g_bUseFullscreenMode = FALSE;
 
-char Mp3FileName[256];
-
-#pragma comment(lib, "wzAudio.lib")
-#include <wzAudio.h>
-
-
-void StopMusic()
-{
-    if (!m_MusicOnOff) return;
-
-    wzAudioStop();
-}
-
-void StopMp3(const char* Name, BOOL bEnforce)
-{
-    if (!m_MusicOnOff && !bEnforce) return;
-
-    if (Mp3FileName[0] != NULL)
-    {
-        if (strcmp(Name, Mp3FileName) == 0) {
-            wzAudioStop();
-            Mp3FileName[0] = NULL;
-        }
-    }
-}
-
-void PlayMp3(const char* Name, BOOL bEnforce)
-{
-    if (Destroy) return;
-    if (!m_MusicOnOff && !bEnforce) return;
-
-    if (strcmp(Name, Mp3FileName) == 0)
-    {
-        return;
-    }
-    
-    wzAudioPlay(Name, 1);
-        strcpy(Mp3FileName, Name);
-}
-
-bool IsEndMp3()
-{
-    if (100 == wzAudioGetStreamOffsetRange())
-        return true;
-    return false;
-}
-
-int GetMp3PlayPosition()
-{
-    return wzAudioGetStreamOffsetRange();
-}
+#include "AudioPlayer.h"
 
 extern int  LogIn;
 extern wchar_t LogInID[];
@@ -448,7 +398,7 @@ void DestroySound()
         ReleaseBuffer(i);
 
     FreeDirectSound();
-    wzAudioDestroy();
+    AudioPlayer::Shutdown();
 }
 
 int g_iInactiveTime = 0;
@@ -1035,29 +985,6 @@ namespace
             pInventory->SetEquipmentSlotInfo();
     }
 
-    // Audio volume levels are stored as 0-10 scale; wzAudio wants 0-100.
-    constexpr int VOLUME_SCALE_FACTOR = 10;
-    constexpr int VOLUME_MIN = 0;
-    constexpr int VOLUME_MAX = 10;
-    constexpr int VOLUME_DEFAULT = 5;
-
-    int ClampVolume(int value)
-    {
-        if (value < VOLUME_MIN || value > VOLUME_MAX)
-            return VOLUME_DEFAULT;
-        return value;
-    }
-
-    // Creates the audio device and applies the music volume from config.
-    // Used both from WinMain startup and from code paths that need to (re)init audio.
-    void InitializeAudioSystem()
-    {
-        wzAudioCreate(g_hWnd);
-        wzAudioOption(WZAOPT_STOPBEFOREPLAY, 1);
-        // Use internal volume mode so wzAudio doesn't touch the system master volume
-        wzAudioSetMixerMode(_mmInternalVolume);
-        wzAudioSetVolume(GameConfig::GetInstance().GetMusicVolume() * VOLUME_SCALE_FACTOR);
-    }
 }
 
 // Reinitialize fonts when window resolution changes
@@ -1437,13 +1364,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLin
     g_pNewUISystem->Create();
 
     // Always initialize audio system so music can be enabled at runtime
-    InitializeAudioSystem();
+    AudioPlayer::Initialize();
 
     // Always initialize sound so it can be toggled at runtime
     InitDirectSound(g_hWnd);
 
     {
-        int value = ClampVolume(GameConfig::GetInstance().GetSoundVolume());
+        int value = AudioPlayer::ClampVolume(GameConfig::GetInstance().GetSoundVolume());
         g_pOption->SetVolumeLevel(value);
         SetEffectVolumeLevel(value);
     }

@@ -8,12 +8,11 @@
 #include "ZzzTexture.h"
 #include "DSPlaySound.h"
 #include "GameConfig/GameConfig.h"
-#include "wzAudio.h"
+#include "AudioPlayer.h"
 #include <algorithm>
 
 extern int m_MusicOnOff;
 extern int m_SoundOnOff;
-extern char Mp3FileName[256];
 extern unsigned int WindowWidth, WindowHeight;
 extern float g_fScreenRate_x, g_fScreenRate_y;
 extern int OpenglWindowWidth, OpenglWindowHeight;
@@ -66,7 +65,6 @@ namespace
     constexpr int SLIDER_HIT_PADDING = 8;    // extra px on each side for easier clicks
     constexpr int SLIDER_HIT_HEIGHT = 16;
     constexpr int SLIDER_X_LOCAL = 33;       // slider start relative to m_Pos.x
-    constexpr int WZAUDIO_VOLUME_SCALE = 10; // 0..10 → 0..100
 
     // Render-level slider dimensions
     constexpr int RENDER_SLIDER_X_LOCAL = 25;
@@ -439,15 +437,14 @@ void SEASON3B::CNewUIOptionWindow::OnSoundVolumeChanged()
 
 void SEASON3B::CNewUIOptionWindow::OnMusicVolumeChanged()
 {
-    // Mute via volume only — do NOT wzAudioStop() the stream. Once stopped,
-    // wzAudioSetVolume on its own won't revive it, so raising the slider back
-    // up leaves the user with silence until the next scene change triggers
-    // PlayMp3 for a *different* track. Keeping the stream alive at volume 0
-    // means raising the slider becomes audible immediately.
+    // Mute via volume only — do not stop the stream.  Once stopped, the
+    // current track is gone and raising the slider back up leaves silence
+    // until the next scene change triggers PlayMp3 for a different track.
+    // Keeping the track alive at gain 0 means raising the slider becomes
+    // audible immediately.
     m_MusicOnOff = (m_iMusicLevel > 0) ? 1 : 0;
 
-    wzAudioSetMixerMode(_mmInternalVolume);
-    wzAudioSetVolume(m_iMusicLevel * WZAUDIO_VOLUME_SCALE);
+    AudioPlayer::SetMusicVolume(m_iMusicLevel);
 
     GameConfig::GetInstance().SetMusicVolume(m_iMusicLevel);
     GameConfig::GetInstance().Save();
