@@ -62,8 +62,6 @@ extern int g_iKeyPadEnable;
 
 CPhysicsManager g_PhysicsManager;
 
-extern wchar_t Mp3FileName[256];
-
 #define MAX_LENGTH_CMB	( 38)
 
 DWORD   g_dwWaitingStartTick;
