@@ -51,8 +51,6 @@ void SEASON3B::CNewUIHotKey::Release()
 
 bool SEASON3B::CNewUIHotKey::UpdateMouseEvent()
 {
-    extern int SelectedCharacter;
-
     if (g_isCharacterBuff((&Hero->Object), eBuff_DuelWatch))
     {
         return true;
