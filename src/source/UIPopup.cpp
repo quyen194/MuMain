@@ -136,7 +136,7 @@ wchar_t* CUIPopup::GetInputText()
         if (InputText[0])
             wcscpy(m_szInputText, InputText[0]);
         else
-            m_szInputText[0] = NULL;
+            m_szInputText[0] = 0;
     }
 
     return m_szInputText;

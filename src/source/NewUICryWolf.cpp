@@ -423,14 +423,14 @@ bool SEASON3B::CNewUICryWolf::Render()
             g_pCryWolfInterface->Render(Yes, 250, 54, 30, 0.f, 0.f, 53.f / 64.f, 30.f / 32.f, 19);
         }
 
-        if (Box_String[0][0] != NULL)
+        if (Box_String[0][0] != 0)
         {
             int Y_loc = 239;
-            if (Box_String[1][0] != NULL)
+            if (Box_String[1][0] != 0)
                 Y_loc = 227;
             g_pRenderText->RenderText(317, Y_loc, Box_String[0], 0, 0, RT3_WRITE_CENTER);
         }
-        if (Box_String[1][0] != NULL)
+        if (Box_String[1][0] != 0)
         {
             g_pRenderText->RenderText(317, 238, Box_String[1], 0, 0, RT3_WRITE_CENTER);
         }
@@ -458,15 +458,15 @@ bool SEASON3B::CNewUICryWolf::Render()
             g_pCryWolfInterface->Render(290, 250, 54, 30, 0.f, 0.f, 53.f / 64.f, 30.f / 32.f, 16);
         }
 
-        if (Box_String[0][0] != NULL)
+        if (Box_String[0][0] != 0)
         {
             int Y_loc = 239;
-            if (Box_String[1][0] != NULL)
+            if (Box_String[1][0] != 0)
                 Y_loc = 227;
             g_pRenderText->RenderText(317, Y_loc, Box_String[0], 0, 0, RT3_WRITE_CENTER);
         }
 
-        if (Box_String[1][0] != NULL)
+        if (Box_String[1][0] != 0)
         {
             g_pRenderText->RenderText(317, 238, Box_String[1], 0, 0, RT3_WRITE_CENTER);
         }

@@ -540,9 +540,9 @@ void CPersonalShopTitleImp::CShopTitleDrawObj::Draw(int iPkLevel)
 
     
     
-    POINT RenderPos = { m_pos.x / g_fScreenRate_x, m_pos.y / g_fScreenRate_y };
-    SIZE RenderBoxSize = { m_size.cx / g_fScreenRate_x, m_size.cy / g_fScreenRate_y };
-    SIZE RenderIconSize = { m_icon.cx / g_fScreenRate_x, m_icon.cy / g_fScreenRate_y };
+    POINT RenderPos = { static_cast<LONG>(m_pos.x / g_fScreenRate_x), static_cast<LONG>(m_pos.y / g_fScreenRate_y) };
+    SIZE RenderBoxSize = { static_cast<LONG>(m_size.cx / g_fScreenRate_x), static_cast<LONG>(m_size.cy / g_fScreenRate_y) };
+    SIZE RenderIconSize = { static_cast<LONG>(m_icon.cx / g_fScreenRate_x), static_cast<LONG>(m_icon.cy / g_fScreenRate_y) };
     int iLineHeight = FontHeight / g_fScreenRate_y;
 
     g_pRenderText->SetFont(g_hFontBold);

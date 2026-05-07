@@ -163,11 +163,11 @@ void DeleteParts(CHARACTER* c)
 
     if (c->m_pParts != nullptr)
     {
-        SAFE_DELETE(c->m_pParts);
+        delete static_cast<CSIPartsMDL*>(c->m_pParts); c->m_pParts = nullptr;
         c->EtcPart = 0;
     }
 
-    SAFE_DELETE(c->m_pTempParts);
+    delete static_cast<CSIPartsMDL*>(c->m_pTempParts); c->m_pTempParts = nullptr;
 }
 
 CSParts::CSParts(int Type, int BoneNumber, bool bBillBoard, float x, float y, float z, float ax, float ay, float az)

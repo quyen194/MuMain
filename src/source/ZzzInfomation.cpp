@@ -93,7 +93,7 @@ void OpenFilterFile(const wchar_t* FileName)
         {
             BuxConvert(pSeek, Size);
             memcpy(AbuseFilter[i], pSeek, Size);
-            if (AbuseFilter[i][0] == NULL)
+            if (AbuseFilter[i][0] == 0)
             {
                 AbuseFilterNumber = i;
                 break;
@@ -141,7 +141,7 @@ void OpenNameFilterFile(const wchar_t* FileName)
         {
             BuxConvert(pSeek, Size);
             memcpy(AbuseNameFilter[i], pSeek, Size);
-            if (AbuseNameFilter[i][0] == NULL)
+            if (AbuseNameFilter[i][0] == 0)
             {
                 AbuseNameFilterNumber = i;
                 break;
@@ -234,7 +234,7 @@ void OpenNpcScript(wchar_t* FileName)
     {
         Token = (*GetToken)();
         if (Token == END) break;
-        if (Token == NAME && strcmp("end", TokenString) == NULL) break;
+        if (Token == NAME && strcmp("end", TokenString) == 0) break;
         if (Token == NUMBER)
         {
             int Type, x, y, Dir;
@@ -342,7 +342,7 @@ void PrintItem(wchar_t* FileName)
             fwprintf(fp, L"------------------------------------------------------------------------------------------------------\n");
         }
         ITEM_ATTRIBUTE* p = &ItemAttribute[i];
-        if (p->Name[0] != NULL)
+        if (p->Name[0] != 0)
         {
             int Plus;
             if (i >= 12 * MAX_ITEM_INDEX)
@@ -2401,7 +2401,7 @@ void OpenMonsterScript(wchar_t* FileName)
     {
         SMDToken token = GetToken();
         if (token == END) break;
-        if (token == NAME && strcmp("end", TokenString) == NULL) break;
+        if (token == NAME && strcmp("end", TokenString) == 0) break;
         MONSTER_SCRIPT* m = &MonsterScript[EditMonsterNumber++];
         m->Type = static_cast<int>(TokenNumber);
         token = GetToken();

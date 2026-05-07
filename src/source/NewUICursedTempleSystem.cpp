@@ -779,7 +779,7 @@ void SEASON3B::CNewUICursedTempleSystem::RenderSkill()
         ZeroMemory(TextListColor, 20 * sizeof(int));
         for (int i = 0; i < 30; i++)
         {
-            TextList[i][0] = NULL;
+            TextList[i][0] = 0;
         }
 
         wchar_t skillname[100];
@@ -805,7 +805,7 @@ void SEASON3B::CNewUICursedTempleSystem::RenderSkill()
         ZeroMemory(TextListColor, 20 * sizeof(int));
         for (int i = 0; i < 30; i++)
         {
-            TextList[i][0] = NULL;
+            TextList[i][0] = 0;
         }
 
         mu_swprintf(TextList[TextNum], L"%ls", GlobalText[2378]);
@@ -822,7 +822,7 @@ void SEASON3B::CNewUICursedTempleSystem::RenderSkill()
         ZeroMemory(TextListColor, 20 * sizeof(int));
         for (int i = 0; i < 30; i++)
         {
-            TextList[i][0] = NULL;
+            TextList[i][0] = 0;
         }
 
         mu_swprintf(TextList[TextNum], L"%ls", GlobalText[2377]);
@@ -1035,7 +1035,7 @@ void SEASON3B::CNewUICursedTempleSystem::RenderTutorialStep()
     ZeroMemory(TextListColor, 20 * sizeof(int));
     for (int i = 0; i < 30; i++)
     {
-        TextList[i][0] = NULL;
+        TextList[i][0] = 0;
     }
 
     if (m_TutorialStepState == 0)

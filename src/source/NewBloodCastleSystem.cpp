@@ -134,7 +134,7 @@ void CNewBloodCastleSystem::RenderMatchResult(void)
     g_pRenderText->SetTextColor(128, 255, 128, 255);
     g_pRenderText->SetBgColor(0, 0, 0, 0);
 
-    wchar_t lpszStr[256] = { NULL, };
+    wchar_t lpszStr[256] = {};
 
     if (m_iNumResult)
     {

@@ -461,7 +461,7 @@ void CCharMakeWin::RenderControls()
 void CCharMakeWin::SelectCreateCharacter()
 {
     CharacterView.Class = m_nSelJob;
-    CreateCharacterPointer(&CharacterView, MODEL_FACE + CharacterView.Class, 0, 0);
+    CreateCharacterPointer(&CharacterView, static_cast<int>(MODEL_FACE) + CharacterView.Class, 0, 0);
     CharacterView.Object.Kind = 0;
     SetAction(&CharacterView.Object, 1);
 }

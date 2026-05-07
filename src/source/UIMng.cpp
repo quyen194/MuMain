@@ -692,7 +692,7 @@ void CUIMng::Update(double dDeltaTick)
         m_bBlockCharMove = false;
     }
     int nlist = m_WinList.GetCount();
-    CWin** apTempWin = new (CWin * [nlist]);
+    std::vector<CWin*> apTempWin(nlist);
 
     position = m_WinList.GetHeadPosition();
     for (int i = 0; i < nlist; ++i)
@@ -716,8 +716,6 @@ void CUIMng::Update(double dDeltaTick)
     {
         apTempWin[i]->Update(dDeltaTick);
     }
-
-    SAFE_DELETE_ARRAY(apTempWin);
 
     //	CheckKey();
     CheckDockWin();

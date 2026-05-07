@@ -1914,8 +1914,8 @@ typedef struct _PMSG_MATCH_RESULT
 {
     void			Clear()
     {
-        memset(&m_MatchTeamName1, NULL, sizeof m_MatchTeamName1);
-        memset(&m_MatchTeamName2, NULL, sizeof m_MatchTeamName2);
+        memset(&m_MatchTeamName1, 0, sizeof m_MatchTeamName1);
+        memset(&m_MatchTeamName2, 0, sizeof m_MatchTeamName2);
         m_Score1 = 0;
         m_Score2 = 0;
         m_Type = 0;
@@ -1936,8 +1936,8 @@ typedef struct _MATCH_RESULT
 {
     void			Clear()
     {
-        memset(&m_MatchTeamName1, NULL, sizeof m_MatchTeamName1);
-        memset(&m_MatchTeamName2, NULL, sizeof m_MatchTeamName2);
+        memset(&m_MatchTeamName1, 0, sizeof m_MatchTeamName1);
+        memset(&m_MatchTeamName2, 0, sizeof m_MatchTeamName2);
         m_Score1 = 0;
         m_Score2 = 0;
         m_Type = 0;

@@ -356,7 +356,7 @@ bool SEASON3B::CNewUIGuildInfoWindow::Check_Mouse(int mx, int my)
                 case static_cast<int>(GuildConstants::GuildTab::UNION):
                 {
                     if (m_bRequestUnionList == false
-                        && GuildMark[Hero->GuildMarkIndex].UnionName[0] != NULL)
+                        && GuildMark[Hero->GuildMarkIndex].UnionName[0] != 0)
                     {
                         SocketClient->ToGameServer()->SendRequestAllianceList();
                         m_bRequestUnionList = true;
@@ -609,7 +609,7 @@ void SEASON3B::CNewUIGuildInfoWindow::Render_Text()
             m_Button[BUTTON_UNION_OUT].SetPos(m_Pos.x + 100, m_Pos.y + 230);
             m_Button[BUTTON_UNION_CREATE].ChangeText(GlobalText[1422]);
             m_Button[BUTTON_UNION_OUT].ChangeText(GlobalText[1324]);
-            if (GuildMark[Hero->GuildMarkIndex].UnionName[0] != NULL)
+            if (GuildMark[Hero->GuildMarkIndex].UnionName[0] != 0)
             {
                 RenderText((wchar_t*)GlobalText[182], m_Pos.x + 34, m_Pos.y + 115, 40, 0, 0xFFFFFFFF, 0x00000000, RT3_SORT_LEFT);
                 RenderText((wchar_t*)GlobalText[1330], m_Pos.x + 140, m_Pos.y + 115, 40, 0, 0xFFFFFFFF, 0x00000000, RT3_SORT_LEFT);
@@ -764,7 +764,7 @@ void SEASON3B::CNewUIGuildInfoWindow::Render_Guild_Info()
 {
     POINT ptOrigin = { m_Pos.x + 15, m_Pos.y + 98 };
 
-    if (GuildMark[Hero->GuildMarkIndex].UnionName[0] == NULL)
+    if (GuildMark[Hero->GuildMarkIndex].UnionName[0] == 0)
     {
         ptOrigin.x += 10;
         ptOrigin.y += 8;
@@ -964,8 +964,8 @@ void SEASON3B::CNewUIGuildInfoWindow::NoticeClear()
 
 void SEASON3B::CNewUIGuildInfoWindow::SetRivalGuildName(wchar_t* szName)
 {
-    memcpy(m_RivalGuildName, szName, sizeof(char) * MAX_GUILDNAME);
-    m_RivalGuildName[MAX_GUILDNAME] = NULL;
+    wcsncpy(m_RivalGuildName, szName, MAX_GUILDNAME);
+    m_RivalGuildName[MAX_GUILDNAME] = 0;
 }
 
 void SEASON3B::CNewUIGuildInfoWindow::AddUnionList(BYTE* pGuildMark, wchar_t* szGuildName, int nMemberCount)

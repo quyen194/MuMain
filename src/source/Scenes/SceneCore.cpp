@@ -88,7 +88,7 @@ extern int HeroKey;
 
 int DeleteGuildIndex = -1;
 
-int  ErrorMessage = NULL;
+int  ErrorMessage = 0;
 extern bool g_bEnterPressed;
 
 extern wchar_t LogInID[MAX_USERNAME_SIZE + 1];

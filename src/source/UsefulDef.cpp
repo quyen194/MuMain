@@ -132,7 +132,7 @@ BOOL CheckErrString(LPTSTR lpszTarget)
         {
             if (i == nLen - 1)
             {
-                lpszTarget[i] = NULL;
+                lpszTarget[i] = 0;
                 return FALSE;
             }
             else

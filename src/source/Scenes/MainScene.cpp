@@ -322,7 +322,7 @@ void MoveMainScene()
     InitializeSceneFrame();
     UpdateUIAndInput();
 
-    if (ErrorMessage != NULL)
+    if (ErrorMessage != 0)
         MouseOnWindow = true;
 
     UpdateGameEntities();

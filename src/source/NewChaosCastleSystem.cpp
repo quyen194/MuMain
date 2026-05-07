@@ -173,7 +173,7 @@ void CNewChaosCastleSystem::RenderMatchResult(void)
 {
     int x = REFERENCE_WIDTH / 2;
     int yPos = m_PosResult.y + 40;
-    wchar_t lpszStr[256] = { NULL, };
+    wchar_t lpszStr[256] = {};
 
     EnableAlphaTest();
 

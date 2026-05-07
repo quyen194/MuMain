@@ -87,7 +87,7 @@ void CreateCharacterScene()
 
     EnableMainRender = true;
     MouseOnWindow = false;
-    ErrorMessage = NULL;
+    ErrorMessage = 0;
 
     gMapManager.WorldActive = WD_74NEW_CHARACTER_SCENE;
 

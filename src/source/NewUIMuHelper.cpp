@@ -2964,8 +2964,7 @@ void CNewUIMuHelperExt::Reset()
     {
         int iSkillIndex = m_iCurrentPage == SUB_PAGE_SKILL2_CONFIG ? 1 : 2;
 
-        _TempConfig.aiSkillCondition[iSkillIndex] = ON_MOBS_NEARBY | ON_MORE_THAN_TWO_MOBS;
-        _TempConfig.aiSkillCondition[iSkillIndex] = ON_MOBS_NEARBY | ON_MORE_THAN_TWO_MOBS;
+        _TempConfig.aiSkillCondition[iSkillIndex] = static_cast<int>(ON_MOBS_NEARBY) | ON_MORE_THAN_TWO_MOBS;
 
         m_BtnPreConHuntRange.RegisterBoxState(_TempConfig.aiSkillCondition[iSkillIndex] & ON_MOBS_NEARBY);
         m_BtnPreConAttacking.RegisterBoxState(_TempConfig.aiSkillCondition[iSkillIndex] & ON_MOBS_ATTACKING);
