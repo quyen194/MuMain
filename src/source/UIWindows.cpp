@@ -4201,20 +4201,12 @@ void CLetterList::RemoveLetterTextCache(DWORD dwIndex)
     m_LetterCacheIter = m_LetterCache.find(dwIndex);
     if (m_LetterCacheIter != m_LetterCache.end())
     {
-        auto letter = &m_LetterCacheIter->second;
-        delete letter;
         m_LetterCache.erase(m_LetterCacheIter);
     }
 }
 
 void CLetterList::ClearLetterTextCache()
 {
-    for (auto cachedLetter : m_LetterCache)
-    {
-        auto letter = &cachedLetter.second;
-        delete letter;
-    }
-
     m_LetterCache.clear();
 }
 

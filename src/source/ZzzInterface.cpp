@@ -3303,20 +3303,15 @@ void Action(CHARACTER* c, OBJECT* o, bool Now)
         if (ActionTarget == -1)
             return;
 
-        if (o->Type == MODEL_PLAYER)
-        {
-            if (o->CurrentAction >= PLAYER_ATTACK_FIST && o->CurrentAction <= PLAYER_RIDE_SKILL
-                && o->CurrentAction != PLAYER_STOP_RIDE_HORSE
-                && o->CurrentAction != PLAYER_STOP_TWO_HAND_SWORD_TWO
-                && o->CurrentAction == PLAYER_FENRIR_SKILL_ONE_RIGHT
-                && o->CurrentAction == PLAYER_RAGE_FENRIR_ONE_RIGHT)
-                break;
-        }
-        else
-        {
-            if (o->CurrentAction >= MONSTER01_ATTACK1 && o->CurrentAction <= MONSTER01_ATTACK2)
-                break;
-        }
+        // To debounce repeat left-clicks while a swing animation is still
+        // playing, gate on a small *include* list of the actual swing
+        // animations -- never a `>= … <=` range, which would also sweep in
+        // idle/locomotion frames and lock out attacks while mounted. e.g.:
+        //
+        //   if (o->CurrentAction == PLAYER_ATTACK_FIST
+        //    || o->CurrentAction == PLAYER_ATTACK_SWORD_RIGHT1
+        //    || ... )
+        //       break;
 
         if (ActionTarget <= -1)
             break;

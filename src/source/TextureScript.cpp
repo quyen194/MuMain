@@ -55,16 +55,6 @@ bool TextureScriptParsing::parsingTScriptA(char* filename)
                     m_bBeScript = true;
                     break;
 
-                case 'DC':
-                    m_byShadowMesh = 1; //  NoneTexture.
-                    m_bBeScript = true;
-                    break;
-
-                case 'DT':
-                    m_byShadowMesh = 2; //  Texture.
-                    m_bBeScript = true;
-                    break;
-
                 default:
                     m_bBeScript = false;
 #ifdef PJH_ADD_PANDA_CHANGERING
