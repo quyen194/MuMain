@@ -2129,7 +2129,7 @@ void RenderItemInfo(int sx, int sy, ITEM* ip, bool Sell, int Inventype, bool bIt
     ZeroMemory(TextListColor, 20 * sizeof(int));
     for (int i = 0; i < 30; i++)
     {
-        TextList[i][0] = NULL;
+        TextList[i][0] = 0;
     }
 
     if (!Sell && (ip->Type == ITEM_DARK_HORSE_ITEM || ip->Type == ITEM_DARK_RAVEN_ITEM))
@@ -4755,7 +4755,7 @@ void RenderItemInfo(int sx, int sy, ITEM* ip, bool Sell, int Inventype, bool bIt
         }
         else if (ip->Type >= ITEM_TYPE_CHARM_MIXWING + EWS_BEGIN && ip->Type <= ITEM_TYPE_CHARM_MIXWING + EWS_END)
         {
-            mu_swprintf(TextList[TextNum], GlobalText[2732 + (ip->Type - (MODEL_TYPE_CHARM_MIXWING + EWS_BEGIN))]);
+            mu_swprintf(TextList[TextNum], L"%ls", GlobalText[2732 + (ip->Type - (ITEM_TYPE_CHARM_MIXWING + EWS_BEGIN))]);
 
             Success = true;
         }
@@ -5028,11 +5028,11 @@ void RenderItemInfo(int sx, int sy, ITEM* ip, bool Sell, int Inventype, bool bIt
         }
     }
     if ((ip->Type >= MODEL_STAFF - MODEL_ITEM && ip->Type < MODEL_STAFF + MAX_ITEM_INDEX - MODEL_ITEM)
-        || (ip->Type == (MODEL_RUNE_BLADE - MODEL_ITEM))
-        || (ip->Type == (MODEL_EXPLOSION_BLADE - MODEL_ITEM))
-        || (ip->Type == (MODEL_SWORD_DANCER - MODEL_ITEM))
-        || (ip->Type == (MODEL_DARK_REIGN_BLADE - MODEL_ITEM))
-        || (ip->Type == (MODEL_IMPERIAL_SWORD - MODEL_ITEM))
+        || (ip->Type == (static_cast<int>(MODEL_RUNE_BLADE) - MODEL_ITEM))
+        || (ip->Type == (static_cast<int>(MODEL_EXPLOSION_BLADE) - MODEL_ITEM))
+        || (ip->Type == (static_cast<int>(MODEL_SWORD_DANCER) - MODEL_ITEM))
+        || (ip->Type == (static_cast<int>(MODEL_DARK_REIGN_BLADE) - MODEL_ITEM))
+        || (ip->Type == (static_cast<int>(MODEL_IMPERIAL_SWORD) - MODEL_ITEM))
         )
     {
         mu_swprintf(TextList[TextNum], L"\n"); TextNum++; SkipNum++;
@@ -5665,7 +5665,7 @@ void RenderRepairInfo(int sx, int sy, ITEM* ip, bool Sell)
     {
         return;
     }
-    if (ip->Type >= MODEL_TYPE_CHARM_MIXWING + EWS_BEGIN && ip->Type <= MODEL_TYPE_CHARM_MIXWING + EWS_END)
+    if (ip->Type >= ITEM_TYPE_CHARM_MIXWING + EWS_BEGIN && ip->Type <= ITEM_TYPE_CHARM_MIXWING + EWS_END)
     {
         return;
     }
@@ -5777,7 +5777,7 @@ void RenderRepairInfo(int sx, int sy, ITEM* ip, bool Sell)
     SkipNum = 0;
     for (int i = 0; i < 30; i++)
     {
-        TextList[i][0] = NULL;
+        TextList[i][0] = 0;
     }
 
     int Level = ip->Level;
@@ -6984,11 +6984,11 @@ void BuildGroundItemLabelDescriptor(OBJECT* o, ITEM* ip, GroundItemLabelDescript
     }
     else if (o->Type == MODEL_COMPILED_CELE)
     {
-        CopyGroundItemLabelText(descriptor.Name, ItemAttribute[MODEL_JEWEL_OF_BLESS - MODEL_ITEM].Name);
+        CopyGroundItemLabelText(descriptor.Name, ItemAttribute[static_cast<int>(MODEL_JEWEL_OF_BLESS) - MODEL_ITEM].Name);
     }
     else if (o->Type == MODEL_COMPILED_SOUL)
     {
-        CopyGroundItemLabelText(descriptor.Name, ItemAttribute[MODEL_JEWEL_OF_SOUL - MODEL_ITEM].Name);
+        CopyGroundItemLabelText(descriptor.Name, ItemAttribute[static_cast<int>(MODEL_JEWEL_OF_SOUL) - MODEL_ITEM].Name);
     }
     else if (o->Type == MODEL_BOX_OF_LUCK && ItemLevel == 7)
     {
@@ -7224,8 +7224,8 @@ void BuildGroundItemLabelDescriptor(OBJECT* o, ITEM* ip, GroundItemLabelDescript
     {
         SetDescriptorTextColor(descriptor, 0.6f, 0.4f, 1.0f);
     }
-    else if (o->Type >= MODEL_TYPE_CHARM_MIXWING + EWS_BEGIN
-        && o->Type <= MODEL_TYPE_CHARM_MIXWING + EWS_END)
+    else if (o->Type >= static_cast<int>(MODEL_TYPE_CHARM_MIXWING) + EWS_BEGIN
+        && o->Type <= static_cast<int>(MODEL_TYPE_CHARM_MIXWING) + EWS_END)
     {
         SetDescriptorOrangeTextColor(descriptor);
     }
@@ -9357,7 +9357,7 @@ void RenderObjectScreen(int Type, int ItemLevel, int excellentFlags, int ancient
             ObjectSelect.Angle[1] = WorldTime * 0.2f;
         }
     }
-    else if (Type >= MODEL_TYPE_CHARM_MIXWING + EWS_BEGIN && Type <= MODEL_TYPE_CHARM_MIXWING + EWS_END)
+    else if (Type >= static_cast<int>(MODEL_TYPE_CHARM_MIXWING) + EWS_BEGIN && Type <= static_cast<int>(MODEL_TYPE_CHARM_MIXWING) + EWS_END)
     {
         Position[1] -= 0.03f;
         Vector(-90.f, 0.f, 0.f, ObjectSelect.Angle);
@@ -10277,8 +10277,8 @@ void RenderObjectScreen(int Type, int ItemLevel, int excellentFlags, int ancient
                                 Scale = 0.0025f;
                             }
 
-        if (Type >= MODEL_TYPE_CHARM_MIXWING + EWS_BEGIN
-            && Type <= MODEL_TYPE_CHARM_MIXWING + EWS_END)
+        if (Type >= static_cast<int>(MODEL_TYPE_CHARM_MIXWING) + EWS_BEGIN
+            && Type <= static_cast<int>(MODEL_TYPE_CHARM_MIXWING) + EWS_END)
         {
             Scale = 0.0020f;
         }

@@ -1340,11 +1340,11 @@ void SEASON3B::CNewUICharacterInfoWindow::RenderAttribute()
 
         if ((pWeaponRight->Type >= MODEL_STAFF - MODEL_ITEM
             && pWeaponRight->Type < (MODEL_STAFF + MAX_ITEM_INDEX - MODEL_ITEM))
-            || pWeaponRight->Type == (MODEL_RUNE_BLADE - MODEL_ITEM)
-            || pWeaponRight->Type == (MODEL_EXPLOSION_BLADE - MODEL_ITEM)
-            || pWeaponRight->Type == (MODEL_SWORD_DANCER - MODEL_ITEM)
-            || pWeaponRight->Type == (MODEL_DARK_REIGN_BLADE - MODEL_ITEM)
-            || pWeaponRight->Type == (MODEL_IMPERIAL_SWORD - MODEL_ITEM)
+            || pWeaponRight->Type == (static_cast<int>(MODEL_RUNE_BLADE) - MODEL_ITEM)
+            || pWeaponRight->Type == (static_cast<int>(MODEL_EXPLOSION_BLADE) - MODEL_ITEM)
+            || pWeaponRight->Type == (static_cast<int>(MODEL_SWORD_DANCER) - MODEL_ITEM)
+            || pWeaponRight->Type == (static_cast<int>(MODEL_DARK_REIGN_BLADE) - MODEL_ITEM)
+            || pWeaponRight->Type == (static_cast<int>(MODEL_IMPERIAL_SWORD) - MODEL_ITEM)
             )
         {
             float magicPercent = (float)(pWeaponRight->MagicPower) / 100;

@@ -92,7 +92,7 @@ bool CNewUIChaosCastleTime::Render()
     EnableAlphaTest();
     glColor4f(1.f, 1.f, 1.f, 1.f);
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
 
     g_pRenderText->SetFont(g_hFont);
     g_pRenderText->SetBgColor(0);

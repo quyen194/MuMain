@@ -98,7 +98,7 @@ POINT CUIManager::RenderWindowBase(int nHeight, int nOriginY)
     }
     else
         fPosY = nOriginY;
-    POINT ptPos = { fPosX, fPosY };
+    POINT ptPos = { static_cast<LONG>(fPosX), static_cast<LONG>(fPosY) };
 
     RenderBitmap(BITMAP_INTERFACE + 22, fPosX, fPosY, nWidth, 5, 0.f, 0.f, nWidth / 256.f, 5.f / 8.f);
     fPosY += 5;

@@ -627,7 +627,7 @@ bool OpenTerrainHeight(wchar_t* filename)
     for (int i = 0; i < (int)wcslen(filename); i++)
     {
         NewFileName[i] = filename[i];
-        NewFileName[i + 1] = NULL;
+        NewFileName[i + 1] = 0;
         if (filename[i] == '.')
             break;
     }
@@ -757,7 +757,7 @@ bool OpenTerrainHeightNew(const wchar_t* strFilename)
     for (int i = 0; i < (int)wcslen(strFilename); ++i)
     {
         NewFileName[i] = strFilename[i];
-        NewFileName[i + 1] = NULL;
+        NewFileName[i + 1] = 0;
 
         if (strFilename[i] == '.')
             break;

@@ -1149,7 +1149,7 @@ void CUIGuildListBox::AddText(const wchar_t* pszID, BYTE Number, BYTE Server)
 
     if (GetLineNum() == 0)
     {
-        if (wcscmp(pszID, Hero->ID) == NULL) m_bIsGuildMaster = TRUE;
+        if (wcscmp(pszID, Hero->ID) == 0) m_bIsGuildMaster = TRUE;
         else m_bIsGuildMaster = FALSE;
     }
 
@@ -1238,7 +1238,7 @@ BOOL CUIGuildListBox::RenderDataLine(int iLineNumber)
         g_pRenderText->RenderText(m_iPos_x + m_iWidth - 60, iPos_y, Text);
     }
 
-    if (m_bIsGuildMaster == TRUE || wcscmp(m_TextListIter->m_szID, Hero->ID) == NULL)
+    if (m_bIsGuildMaster == TRUE || wcscmp(m_TextListIter->m_szID, Hero->ID) == 0)
     {
         float fWidth = 13;
         float fHeight = 11;
@@ -1255,7 +1255,7 @@ BOOL CUIGuildListBox::RenderDataLine(int iLineNumber)
             g_pRenderText->SetTextColor(255, 255, 255, 255);
             g_pRenderText->SetBgColor(0, 0, 0, 255);
 
-            if (wcscmp(m_TextListIter->m_szID, Hero->ID) == NULL && wcscmp(GuildList[0].Name, Hero->ID) == NULL)
+            if (wcscmp(m_TextListIter->m_szID, Hero->ID) == 0 && wcscmp(GuildList[0].Name, Hero->ID) == 0)
                 RenderTipText((int)x - 20, (int)y, GlobalText[188]);
             else
                 RenderTipText((int)x - 20, (int)y, GlobalText[189]);
@@ -1276,7 +1276,7 @@ BOOL CUIGuildListBox::DoSubMouseAction()
     {
         if (m_TextListIter == m_TextList.end()) break;
 
-        if (m_bIsGuildMaster == TRUE || wcscmp(m_TextListIter->m_szID, Hero->ID) == NULL)
+        if (m_bIsGuildMaster == TRUE || wcscmp(m_TextListIter->m_szID, Hero->ID) == 0)
         {
             int iPos_y;
             if (GetLineNum() > m_iNumRenderLine) iPos_y = m_iPos_y - 16 - i * 13;
@@ -1500,7 +1500,7 @@ BOOL CUISimpleChatListBox::RenderDataLine(int iLineNumber)
 
     SIZE TextSize = { 0, 0 };
     // 이름
-    if (m_TextListIter->m_szID[0] != NULL)
+    if (m_TextListIter->m_szID[0] != 0)
     {
         switch (m_TextListIter->m_iType)
         {
@@ -2646,7 +2646,7 @@ bool CUIRenderTextOriginal::Create(HDC hDC)
     DIB_INFO->bmiHeader.biBitCount = 24;
     DIB_INFO->bmiHeader.biCompression = BI_RGB;
 
-    m_hBitmap = CreateDIBSection(hDC, DIB_INFO, DIB_RGB_COLORS, (void**)&m_pFontBuffer, nullptr, NULL);
+    m_hBitmap = CreateDIBSection(hDC, DIB_INFO, DIB_RGB_COLORS, (void**)&m_pFontBuffer, nullptr, 0);
     m_hFontDC = CreateCompatibleDC(hDC);
     SelectObject(m_hFontDC, m_hBitmap);
     SelectObject(m_hFontDC, g_hFont);
@@ -3324,7 +3324,7 @@ void CUITextInputBox::SetSize(int iWidth, int iHeight)
     DIB_INFO->bmiHeader.biBitCount = 24;
     DIB_INFO->bmiHeader.biCompression = BI_RGB;
 
-    m_hBitmap = CreateDIBSection(hDC, DIB_INFO, DIB_RGB_COLORS, (void**)&m_pFontBuffer, nullptr, NULL);
+    m_hBitmap = CreateDIBSection(hDC, DIB_INFO, DIB_RGB_COLORS, (void**)&m_pFontBuffer, nullptr, 0);
     m_hMemDC = CreateCompatibleDC(hDC);
     SelectObject(m_hMemDC, m_hBitmap);
     SetFont(g_hFont);
@@ -3914,7 +3914,7 @@ const int MAX_HISTORY_LINES = 10;
 
 void CUIChatInputBox::AddHistory(const wchar_t* pszText)
 {
-    if (pszText == nullptr || pszText[0] == NULL) return;
+    if (pszText == nullptr || pszText[0] == 0) return;
 
     wchar_t* pszSaveText = new wchar_t[wcslen(pszText) + 1];
     wcsncpy(pszSaveText, pszText, wcslen(pszText) + 1);
@@ -4714,7 +4714,7 @@ void CUINewGuildMemberListBox::AddText(const wchar_t* pszID, BYTE Number, BYTE S
 
     if (GetLineNum() == 0)
     {
-        if (wcscmp(pszID, Hero->ID) == NULL) m_bIsGuildMaster = TRUE;
+        if (wcscmp(pszID, Hero->ID) == 0) m_bIsGuildMaster = TRUE;
         else m_bIsGuildMaster = FALSE;
     }
 
@@ -4930,7 +4930,7 @@ void CUIUnionGuildListBox::AddText(BYTE* pGuildMark, const wchar_t* szGuildName,
     text.m_bIsSelected = FALSE;
     memcpy(text.GuildMark, pGuildMark, sizeof(BYTE) * 64);
     wcsncpy(text.szName, szGuildName, MAX_GUILDNAME);
-    text.szName[MAX_GUILDNAME] = NULL;
+    text.szName[MAX_GUILDNAME] = 0;
     text.nMemberCount = nMemberCount;
     m_TextList.push_front(text);
 
@@ -5304,7 +5304,7 @@ void CUIBCDeclareGuildListBox::AddText(const wchar_t* szGuildName, int nMarkCoun
     static BCDECLAREGUILD_TEXT text;
     text.m_bIsSelected = FALSE;
     wcsncpy(text.szName, szGuildName, MAX_GUILDNAME);
-    text.szName[MAX_GUILDNAME] = NULL;
+    text.szName[MAX_GUILDNAME] = 0;
     text.nCount = nMarkCount;
     text.byIsGiveUp = byIsGiveUp;
     text.bySeqNum = bySeqNum;
@@ -5380,7 +5380,7 @@ BOOL CUIBCDeclareGuildListBox::RenderDataLine(int iLineNumber)
 
     mu_swprintf(Text, L"%ls", m_TextListIter->szName);
 
-    if ((wcscmp(GuildMark[Hero->GuildMarkIndex].UnionName, Text) != NULL && wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, Text) != NULL))
+    if ((wcscmp(GuildMark[Hero->GuildMarkIndex].UnionName, Text) != 0 && wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, Text) != 0))
     {
         return FALSE;
     }
@@ -5476,7 +5476,7 @@ void CUIBCGuildListBox::AddText(const wchar_t* szGuildName, BYTE byJoinSide, BYT
     static BCGUILD_TEXT text;
     text.m_bIsSelected = FALSE;
     wcsncpy(text.szName, szGuildName, MAX_GUILDNAME);
-    text.szName[MAX_GUILDNAME] = NULL;
+    text.szName[MAX_GUILDNAME] = 0;
     text.byJoinSide = byJoinSide;
     text.byGuildInvolved = byGuildInvolved;
     text.iGuildScore = iGuildScore;

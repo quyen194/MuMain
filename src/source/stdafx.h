@@ -26,7 +26,9 @@
 #pragma warning( disable : 28159 )
 #pragma warning( disable : 26812 )
 
+#ifndef NOMINMAX
 #define NOMINMAX
+#endif
 
 // Exclude rarely-used stuff from Windows headers
 #define WIN32_LEAN_AND_MEAN

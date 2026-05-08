@@ -338,7 +338,7 @@ const wchar_t* CQuestMng::GetNPCDlgAnswer(DWORD dwDlgState, int nAnswer)
 int CQuestMng::GetNPCDlgAnswerResult(DWORD dwDlgState, int nAnswer)
 {
     if (0 == m_nNPCIndex)
-        return NULL;
+        return 0;
 
     _ASSERT(0 <= nAnswer || nAnswer < QM_MAX_ND_ANSWER);
 

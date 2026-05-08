@@ -9057,7 +9057,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
     {
         if (EnableSoccer)
         {
-            if (wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == NULL)
+            if (wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == 0)
             {
                 bCloak = true;
                 if (HeroSoccerTeam == 0)
@@ -9069,7 +9069,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                     Vector(0.f, 0.2f, 1.f, CloakLight);
                 }
             }
-            if (wcscmp(GuildWarName, GuildMark[c->GuildMarkIndex].GuildName) == NULL)
+            if (wcscmp(GuildWarName, GuildMark[c->GuildMarkIndex].GuildName) == 0)
             {
                 bCloak = true;
                 if (HeroSoccerTeam == 0)
@@ -9084,12 +9084,12 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
         }
         if (SoccerObserver)
         {
-            if (wcscmp(SoccerTeamName[0], GuildMark[c->GuildMarkIndex].GuildName) == NULL)
+            if (wcscmp(SoccerTeamName[0], GuildMark[c->GuildMarkIndex].GuildName) == 0)
             {
                 bCloak = true;
                 Vector(1.f, 0.2f, 0.f, CloakLight);
             }
-            if (wcscmp(SoccerTeamName[1], GuildMark[c->GuildMarkIndex].GuildName) == NULL)
+            if (wcscmp(SoccerTeamName[1], GuildMark[c->GuildMarkIndex].GuildName) == 0)
             {
                 bCloak = true;
                 Vector(0.f, 0.2f, 1.f, CloakLight);
@@ -9615,12 +9615,12 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                     numCloth = 3;
                 }
 
-                if (c->BodyPart[BODYPART_ARMOR].Type == MODEL_BODY_ARMOR + SKIN_CLASS_DARK_LORD)
+                if (c->BodyPart[BODYPART_ARMOR].Type == static_cast<int>(MODEL_BODY_ARMOR) + SKIN_CLASS_DARK_LORD)
                 {
                     pCloth[3].Create(o, 18, 0.0f, 10.0f, -5.0f, 5, 5, 50.0f, 90.0f, BITMAP_DARK_LOAD_SKIRT, BITMAP_DARK_LOAD_SKIRT, PCT_MASK_ALPHA | PCT_HEAVY | PCT_STICKED | PCT_SHORT_SHOULDER);
                     pCloth[3].AddCollisionSphere(0.0f, -15.0f, -20.0f, 30.0f, 2);
                 }
-                else if (c->BodyPart[BODYPART_ARMOR].Type == MODEL_BODY_ARMOR + SKIN_CLASS_LORDEMPEROR)
+                else if (c->BodyPart[BODYPART_ARMOR].Type == static_cast<int>(MODEL_BODY_ARMOR) + SKIN_CLASS_LORDEMPEROR)
                 {
                     pCloth[3].Create(o, 18, 0.0f, 10.0f, -5.0f, 5, 5, 50.0f, 90.0f, BITMAP_DARKLOAD_SKIRT_3RD, BITMAP_DARKLOAD_SKIRT_3RD, PCT_MASK_ALPHA | PCT_HEAVY | PCT_STICKED | PCT_SHORT_SHOULDER);
                     pCloth[3].AddCollisionSphere(0.0f, -15.0f, -20.0f, 30.0f, 2);
@@ -9717,8 +9717,8 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
         }
         else if (gCharacterManager.GetBaseClass(c->Class) == CLASS_DARK_LORD)
         {
-            if ((c->BodyPart[BODYPART_ARMOR].Type != MODEL_BODY_ARMOR + SKIN_CLASS_DARK_LORD
-                && c->BodyPart[BODYPART_ARMOR].Type != MODEL_BODY_ARMOR + SKIN_CLASS_LORDEMPEROR
+            if ((c->BodyPart[BODYPART_ARMOR].Type != static_cast<int>(MODEL_BODY_ARMOR) + SKIN_CLASS_DARK_LORD
+                && c->BodyPart[BODYPART_ARMOR].Type != static_cast<int>(MODEL_BODY_ARMOR) + SKIN_CLASS_LORDEMPEROR
                 ) && o->m_byNumCloth == 4)
             {
                 if (o && o->m_pCloth)
@@ -9729,7 +9729,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                     o->m_byNumCloth = 3;
                 }
             }
-            else if (c->BodyPart[BODYPART_ARMOR].Type == MODEL_BODY_ARMOR + CLASS_DARK_LORD && o->m_byNumCloth == 3)
+            else if (c->BodyPart[BODYPART_ARMOR].Type == static_cast<int>(MODEL_BODY_ARMOR) + CLASS_DARK_LORD && o->m_byNumCloth == 3)
             {
                 if (o && o->m_pCloth)
                 {
@@ -9740,7 +9740,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                     o->m_byNumCloth = 4;
                 }
             }
-            else if (c->BodyPart[BODYPART_ARMOR].Type == MODEL_BODY_ARMOR + SKIN_CLASS_LORDEMPEROR && o->m_byNumCloth == 3)
+            else if (c->BodyPart[BODYPART_ARMOR].Type == static_cast<int>(MODEL_BODY_ARMOR) + SKIN_CLASS_LORDEMPEROR && o->m_byNumCloth == 3)
             {
                 if (o && o->m_pCloth)
                 {
@@ -9751,7 +9751,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                     o->m_byNumCloth = 4;
                 }
             }
-            else if (c->BodyPart[BODYPART_ARMOR].Type != MODEL_BODY_ARMOR + SKIN_CLASS_DARK_LORD && o->m_byNumCloth == 6)
+            else if (c->BodyPart[BODYPART_ARMOR].Type != static_cast<int>(MODEL_BODY_ARMOR) + SKIN_CLASS_DARK_LORD && o->m_byNumCloth == 6)
             {
                 if (o && o->m_pCloth)
                 {
@@ -9760,7 +9760,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                         pCloth[3].Destroy();
                 }
             }
-            else if (c->BodyPart[BODYPART_ARMOR].Type == MODEL_BODY_ARMOR + SKIN_CLASS_DARK_LORD && o->m_byNumCloth == 6)
+            else if (c->BodyPart[BODYPART_ARMOR].Type == static_cast<int>(MODEL_BODY_ARMOR) + SKIN_CLASS_DARK_LORD && o->m_byNumCloth == 6)
             {
                 if (o && o->m_pCloth)
                 {
@@ -9772,7 +9772,7 @@ void RenderCharacter(CHARACTER* c, OBJECT* o, int Select)
                     }
                 }
             }
-            else if (c->BodyPart[BODYPART_ARMOR].Type == MODEL_BODY_ARMOR + SKIN_CLASS_LORDEMPEROR && o->m_byNumCloth == 6)
+            else if (c->BodyPart[BODYPART_ARMOR].Type == static_cast<int>(MODEL_BODY_ARMOR) + SKIN_CLASS_LORDEMPEROR && o->m_byNumCloth == 6)
             {
                 if (o && o->m_pCloth)
                 {
@@ -11983,7 +11983,7 @@ void SetCharacterScale(CHARACTER* c)
         c->BodyPart[BODYPART_HELM].Type == MODEL_HELM + 70 ||
         (c->BodyPart[BODYPART_HELM].Type >= MODEL_VINE_HELM && c->BodyPart[BODYPART_HELM].Type <= MODEL_SPIRIT_HELM))
     {
-        c->BodyPart[BODYPART_HEAD].Type = MODEL_BODY_HELM + c->SkinIndex;
+        c->BodyPart[BODYPART_HEAD].Type = static_cast<int>(MODEL_BODY_HELM) + c->SkinIndex;
     }
     else
     {
@@ -12104,7 +12104,7 @@ void SetCharacterClass(CHARACTER* c)
 
     if (p[EQUIPMENT_HELM].Type == -1)
     {
-        c->BodyPart[BODYPART_HELM].Type = MODEL_BODY_HELM + c->SkinIndex;
+        c->BodyPart[BODYPART_HELM].Type = static_cast<int>(MODEL_BODY_HELM) + c->SkinIndex;
         c->BodyPart[BODYPART_HELM].Level = 0;
         c->BodyPart[BODYPART_HELM].ExcellentFlags = 0;
         c->BodyPart[BODYPART_HELM].AncientDiscriminator = 0;
@@ -12119,7 +12119,7 @@ void SetCharacterClass(CHARACTER* c)
 
     if (p[EQUIPMENT_ARMOR].Type == -1)
     {
-        c->BodyPart[BODYPART_ARMOR].Type = MODEL_BODY_ARMOR + c->SkinIndex;
+        c->BodyPart[BODYPART_ARMOR].Type = static_cast<int>(MODEL_BODY_ARMOR) + c->SkinIndex;
         c->BodyPart[BODYPART_ARMOR].Level = 0;
         c->BodyPart[BODYPART_ARMOR].ExcellentFlags = 0;
         c->BodyPart[BODYPART_ARMOR].AncientDiscriminator = 0;
@@ -12134,7 +12134,7 @@ void SetCharacterClass(CHARACTER* c)
 
     if (p[EQUIPMENT_PANTS].Type == -1)
     {
-        c->BodyPart[BODYPART_PANTS].Type = MODEL_BODY_PANTS + c->SkinIndex;
+        c->BodyPart[BODYPART_PANTS].Type = static_cast<int>(MODEL_BODY_PANTS) + c->SkinIndex;
         c->BodyPart[BODYPART_PANTS].Level = 0;
         c->BodyPart[BODYPART_PANTS].ExcellentFlags = 0;
         c->BodyPart[BODYPART_PANTS].AncientDiscriminator = 0;
@@ -12149,7 +12149,7 @@ void SetCharacterClass(CHARACTER* c)
 
     if (p[EQUIPMENT_GLOVES].Type == -1)
     {
-        c->BodyPart[BODYPART_GLOVES].Type = MODEL_BODY_GLOVES + c->SkinIndex;
+        c->BodyPart[BODYPART_GLOVES].Type = static_cast<int>(MODEL_BODY_GLOVES) + c->SkinIndex;
         c->BodyPart[BODYPART_GLOVES].Level = 0;
         c->BodyPart[BODYPART_GLOVES].ExcellentFlags = 0;
         c->BodyPart[BODYPART_GLOVES].AncientDiscriminator = 0;
@@ -12164,7 +12164,7 @@ void SetCharacterClass(CHARACTER* c)
 
     if (p[EQUIPMENT_BOOTS].Type == -1)
     {
-        c->BodyPart[BODYPART_BOOTS].Type = MODEL_BODY_BOOTS + c->SkinIndex;
+        c->BodyPart[BODYPART_BOOTS].Type = static_cast<int>(MODEL_BODY_BOOTS) + c->SkinIndex;
         c->BodyPart[BODYPART_BOOTS].Level = 0;
         c->BodyPart[BODYPART_BOOTS].ExcellentFlags = 0;
         c->BodyPart[BODYPART_BOOTS].AncientDiscriminator = 0;
@@ -12205,35 +12205,35 @@ void SetChangeClass(CHARACTER* c)
 
     if (c->BodyPart[BODYPART_HELM].Type >= MODEL_BODY_HELM)
     {
-        c->BodyPart[BODYPART_HELM].Type = MODEL_BODY_HELM + c->SkinIndex;
+        c->BodyPart[BODYPART_HELM].Type = static_cast<int>(MODEL_BODY_HELM) + c->SkinIndex;
         c->BodyPart[BODYPART_HELM].Level = 0;
         c->BodyPart[BODYPART_HELM].ExcellentFlags = 0;
         c->BodyPart[BODYPART_HELM].AncientDiscriminator = 0;
     }
     if (c->BodyPart[BODYPART_ARMOR].Type >= MODEL_BODY_ARMOR)
     {
-        c->BodyPart[BODYPART_ARMOR].Type = MODEL_BODY_ARMOR + c->SkinIndex;
+        c->BodyPart[BODYPART_ARMOR].Type = static_cast<int>(MODEL_BODY_ARMOR) + c->SkinIndex;
         c->BodyPart[BODYPART_ARMOR].Level = 0;
         c->BodyPart[BODYPART_ARMOR].ExcellentFlags = 0;
         c->BodyPart[BODYPART_ARMOR].AncientDiscriminator = 0;
     }
     if (c->BodyPart[BODYPART_PANTS].Type >= MODEL_BODY_PANTS)
     {
-        c->BodyPart[BODYPART_PANTS].Type = MODEL_BODY_PANTS + c->SkinIndex;
+        c->BodyPart[BODYPART_PANTS].Type = static_cast<int>(MODEL_BODY_PANTS) + c->SkinIndex;
         c->BodyPart[BODYPART_PANTS].Level = 0;
         c->BodyPart[BODYPART_PANTS].ExcellentFlags = 0;
         c->BodyPart[BODYPART_PANTS].AncientDiscriminator = 0;
     }
     if (c->BodyPart[BODYPART_GLOVES].Type >= MODEL_BODY_GLOVES)
     {
-        c->BodyPart[BODYPART_GLOVES].Type = MODEL_BODY_GLOVES + c->SkinIndex;
+        c->BodyPart[BODYPART_GLOVES].Type = static_cast<int>(MODEL_BODY_GLOVES) + c->SkinIndex;
         c->BodyPart[BODYPART_GLOVES].Level = 0;
         c->BodyPart[BODYPART_GLOVES].ExcellentFlags = 0;
         c->BodyPart[BODYPART_GLOVES].AncientDiscriminator = 0;
     }
     if (c->BodyPart[BODYPART_BOOTS].Type >= MODEL_BODY_BOOTS)
     {
-        c->BodyPart[BODYPART_BOOTS].Type = MODEL_BODY_BOOTS + c->SkinIndex;
+        c->BodyPart[BODYPART_BOOTS].Type = static_cast<int>(MODEL_BODY_BOOTS) + c->SkinIndex;
         c->BodyPart[BODYPART_BOOTS].Level = 0;
         c->BodyPart[BODYPART_BOOTS].ExcellentFlags = 0;
         c->BodyPart[BODYPART_BOOTS].AncientDiscriminator = 0;
@@ -12383,7 +12383,7 @@ void ChangeCharacterExt(int Key, BYTE* Equipment, CHARACTER* pCharacter, OBJECT*
     }
     else
     {
-        if (gCharacterManager.GetBaseClass(c->Class) == CLASS_DARK_LORD && ((MODEL_LEGENDARY_STAFF) - MODEL_SWORD) == ExtType)
+        if (gCharacterManager.GetBaseClass(c->Class) == CLASS_DARK_LORD && (static_cast<int>(MODEL_LEGENDARY_STAFF) - MODEL_SWORD) == ExtType)
         {
             ITEM* pEquipmentItemSlot = &CharacterMachine->Equipment[EQUIPMENT_WEAPON_LEFT];
             PET_INFO* pPetInfo = giPetManager::GetPetInfo(pEquipmentItemSlot);
@@ -12603,7 +12603,7 @@ void ChangeCharacterExt(int Key, BYTE* Equipment, CHARACTER* pCharacter, OBJECT*
     ExtType = (Equipment[2] >> 4) + ((Equipment[8] >> 7) & 1) * 16 + (Equipment[12] & 15) * 32;
     if (ExtType == 0x1FF)
     {
-        c->BodyPart[BODYPART_HELM].Type = MODEL_BODY_HELM + c->SkinIndex;
+        c->BodyPart[BODYPART_HELM].Type = static_cast<int>(MODEL_BODY_HELM) + c->SkinIndex;
         c->BodyPart[BODYPART_HELM].Level = 0;
         c->BodyPart[BODYPART_HELM].ExcellentFlags = 0;
         c->BodyPart[BODYPART_HELM].AncientDiscriminator = 0;
@@ -12620,7 +12620,7 @@ void ChangeCharacterExt(int Key, BYTE* Equipment, CHARACTER* pCharacter, OBJECT*
     ExtType = (Equipment[2] & 15) + ((Equipment[8] >> 6) & 1) * 16 + ((Equipment[13] >> 4) & 15) * 32;
     if (ExtType == 0x1FF)
     {
-        c->BodyPart[BODYPART_ARMOR].Type = MODEL_BODY_ARMOR + c->SkinIndex;
+        c->BodyPart[BODYPART_ARMOR].Type = static_cast<int>(MODEL_BODY_ARMOR) + c->SkinIndex;
         c->BodyPart[BODYPART_ARMOR].Level = 0;
         c->BodyPart[BODYPART_ARMOR].ExcellentFlags = 0;
         c->BodyPart[BODYPART_ARMOR].AncientDiscriminator = 0;
@@ -12636,7 +12636,7 @@ void ChangeCharacterExt(int Key, BYTE* Equipment, CHARACTER* pCharacter, OBJECT*
     ExtType = (Equipment[3] >> 4) + ((Equipment[8] >> 5) & 1) * 16 + (Equipment[13] & 15) * 32;
     if (ExtType == 0x1FF)
     {
-        c->BodyPart[BODYPART_PANTS].Type = MODEL_BODY_PANTS + c->SkinIndex;
+        c->BodyPart[BODYPART_PANTS].Type = static_cast<int>(MODEL_BODY_PANTS) + c->SkinIndex;
         c->BodyPart[BODYPART_PANTS].Level = 0;
         c->BodyPart[BODYPART_PANTS].ExcellentFlags = 0;
         c->BodyPart[BODYPART_PANTS].AncientDiscriminator = 0;
@@ -12652,7 +12652,7 @@ void ChangeCharacterExt(int Key, BYTE* Equipment, CHARACTER* pCharacter, OBJECT*
     ExtType = (Equipment[3] & 15) + ((Equipment[8] >> 4) & 1) * 16 + ((Equipment[14] >> 4) & 15) * 32;
     if (ExtType == 0x1FF)
     {
-        c->BodyPart[BODYPART_GLOVES].Type = MODEL_BODY_GLOVES + c->SkinIndex;
+        c->BodyPart[BODYPART_GLOVES].Type = static_cast<int>(MODEL_BODY_GLOVES) + c->SkinIndex;
         c->BodyPart[BODYPART_GLOVES].Level = 0;
         c->BodyPart[BODYPART_GLOVES].ExcellentFlags = 0;
         c->BodyPart[BODYPART_GLOVES].AncientDiscriminator = 0;
@@ -12668,7 +12668,7 @@ void ChangeCharacterExt(int Key, BYTE* Equipment, CHARACTER* pCharacter, OBJECT*
     ExtType = (Equipment[4] >> 4) + ((Equipment[8] >> 3) & 1) * 16 + (Equipment[14] & 15) * 32;
     if (ExtType == 0x1FF)
     {
-        c->BodyPart[BODYPART_BOOTS].Type = MODEL_BODY_BOOTS + c->SkinIndex;
+        c->BodyPart[BODYPART_BOOTS].Type = static_cast<int>(MODEL_BODY_BOOTS) + c->SkinIndex;
         c->BodyPart[BODYPART_BOOTS].Level = 0;
         c->BodyPart[BODYPART_BOOTS].ExcellentFlags = 0;
         c->BodyPart[BODYPART_BOOTS].AncientDiscriminator = 0;
@@ -14933,11 +14933,11 @@ CHARACTER* CreateHero(int Index, CLASS_TYPE Class, int Skin, float x, float y, f
     }
     else
     {
-        c->BodyPart[BODYPART_HELM].Type = MODEL_BODY_HELM + c->SkinIndex;
-        c->BodyPart[BODYPART_ARMOR].Type = MODEL_BODY_ARMOR + c->SkinIndex;
-        c->BodyPart[BODYPART_PANTS].Type = MODEL_BODY_PANTS + c->SkinIndex;
-        c->BodyPart[BODYPART_GLOVES].Type = MODEL_BODY_GLOVES + c->SkinIndex;
-        c->BodyPart[BODYPART_BOOTS].Type = MODEL_BODY_BOOTS + c->SkinIndex;
+        c->BodyPart[BODYPART_HELM].Type = static_cast<int>(MODEL_BODY_HELM) + c->SkinIndex;
+        c->BodyPart[BODYPART_ARMOR].Type = static_cast<int>(MODEL_BODY_ARMOR) + c->SkinIndex;
+        c->BodyPart[BODYPART_PANTS].Type = static_cast<int>(MODEL_BODY_PANTS) + c->SkinIndex;
+        c->BodyPart[BODYPART_GLOVES].Type = static_cast<int>(MODEL_BODY_GLOVES) + c->SkinIndex;
+        c->BodyPart[BODYPART_BOOTS].Type = static_cast<int>(MODEL_BODY_BOOTS) + c->SkinIndex;
         c->Weapon[0].Type = -1;
         c->Weapon[1].Type = -1;
         c->Wing.Type = -1;

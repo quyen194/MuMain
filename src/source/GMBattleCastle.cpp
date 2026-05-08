@@ -431,9 +431,9 @@ namespace battleCastle
 
     bool    GetGuildMaster(CHARACTER* c)
     {
-        if (wcscmp(GuildMark[c->GuildMarkIndex].GuildName, L"") == NULL) return false;
-        if (wcscmp(GuildMark[c->GuildMarkIndex].UnionName, L"") == NULL && c->GuildStatus != G_MASTER) return false;
-        if (wcscmp(GuildMark[c->GuildMarkIndex].UnionName, GuildMark[c->GuildMarkIndex].GuildName) == NULL && c->GuildStatus != G_MASTER) return false;
+        if (wcscmp(GuildMark[c->GuildMarkIndex].GuildName, L"") == 0) return false;
+        if (wcscmp(GuildMark[c->GuildMarkIndex].UnionName, L"") == 0 && c->GuildStatus != G_MASTER) return false;
+        if (wcscmp(GuildMark[c->GuildMarkIndex].UnionName, GuildMark[c->GuildMarkIndex].GuildName) == 0 && c->GuildStatus != G_MASTER) return false;
 
         return true;
     }
@@ -498,7 +498,7 @@ namespace battleCastle
             if (o->Live && o->Visible)
             {
                 DeleteParts(c);
-                if (wcscmp(GuildMark[c->GuildMarkIndex].UnionName, GuildName) == NULL)
+                if (wcscmp(GuildMark[c->GuildMarkIndex].UnionName, GuildName) == 0)
                 {
                     // _buffwani_
                     g_TokenCharacterBuff(o, eBuff_CastleRegimentDefense);

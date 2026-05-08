@@ -234,7 +234,7 @@ void ClearInput(BOOL bClearWhisperTarget)
     {
         if (i == 1 && bClearWhisperTarget == FALSE) continue;
         for (int j = 0; j < 256; j++)
-            InputText[i][j] = NULL;
+            InputText[i][j] = 0;
         InputLength[i] = 0;
         InputTextHide[i] = 0;
     }
@@ -397,7 +397,7 @@ void RenderInputText(int x, int y, int Index, int Gold)
                 Text[i] = '*';
                 iTextSize = i;
             }
-            Text[iTextSize] = NULL;
+            Text[iTextSize] = 0;
         }
         else if (InputTextHide[Index] == 2)
         {
@@ -412,7 +412,7 @@ void RenderInputText(int x, int y, int Index, int Gold)
                 Text[i] = '*';
                 iTextSize = i;
             }
-            Text[iTextSize] = NULL;
+            Text[iTextSize] = 0;
         }
         else
         {
@@ -920,7 +920,7 @@ void RenderBoolean(int x, int y, CHAT* c)
 
     if (c->x <= MouseX && MouseX < (int)(c->x + c->Width * REFERENCE_WIDTH / WindowWidth) &&
         c->y <= MouseY && MouseY < (int)(c->y + c->Height * REFERENCE_HEIGHT / WindowHeight) &&
-        InputEnable && Hero->SafeZone && wcscmp(c->ID, Hero->ID) != NULL &&
+        InputEnable && Hero->SafeZone && wcscmp(c->ID, Hero->ID) != 0 &&
         (DWORD)WorldTime % 24 < 12)
     {
         unsigned int Temp = g_pRenderText->GetBgColor();
@@ -1062,7 +1062,7 @@ void AddGuildName(CHAT* c, CHARACTER* Owner)
             mu_swprintf(c->Union, L"<%ls>", GuildMark[Owner->GuildMarkIndex].UnionName);
     }
     else
-        c->Union[0] = NULL;
+        c->Union[0] = 0;
 
     if (Owner->GuildMarkIndex >= 0)
     {
@@ -1082,7 +1082,7 @@ void AddGuildName(CHAT* c, CHARACTER* Owner)
     else
     {
         c->GuildColor = 0;
-        c->Guild[0] = NULL;
+        c->Guild[0] = 0;
     }
 }
 
@@ -1172,7 +1172,7 @@ int CreateChat(wchar_t* character_name, const wchar_t* chat_text, OBJECT* Owner,
             wcscpy(c->ID, character_name);
             c->Color = Color;
             c->GuildColor = 0;
-            c->Guild[0] = NULL;
+            c->Guild[0] = 0;
             AddChat(c, chat_text, 0);
             c->LifeTime[0] = Flag;
 
@@ -1192,7 +1192,7 @@ void AssignChat(wchar_t* character_name, const wchar_t* chat_text, int flag)
         OBJECT* o = &c->Object;
         if (o->Live && o->Kind == KIND_PLAYER)
         {
-            if (wcscmp(c->ID, character_name) == NULL)
+            if (wcscmp(c->ID, character_name) == 0)
             {
                 CreateChat(character_name, chat_text, c, flag);
                 return;
@@ -1206,7 +1206,7 @@ void AssignChat(wchar_t* character_name, const wchar_t* chat_text, int flag)
         OBJECT* o = &c->Object;
         if (o->Live && o->Kind == KIND_MONSTER)
         {
-            if (wcscmp(c->ID, character_name) == NULL)
+            if (wcscmp(c->ID, character_name) == 0)
             {
                 CreateChat(character_name, chat_text, c, flag);
                 return;
@@ -1411,11 +1411,11 @@ bool CheckAttack_Fenrir(CHARACTER* c)
     }
     else if (::IsStrifeMap(gMapManager.WorldActive) && c != Hero && c->m_byGensInfluence != Hero->m_byGensInfluence)
     {
-        if (((wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == NULL) || (g_pPartyManager->IsPartyMember(SelectedCharacter))) && (HIBYTE(GetAsyncKeyState(VK_CONTROL)) == 128))
+        if (((wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == 0) || (g_pPartyManager->IsPartyMember(SelectedCharacter))) && (HIBYTE(GetAsyncKeyState(VK_CONTROL)) == 128))
         {
             return true;
         }
-        else if ((wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) != NULL) && !g_pPartyManager->IsPartyMember(SelectedCharacter))
+        else if ((wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) != 0) && !g_pPartyManager->IsPartyMember(SelectedCharacter))
         {
             return true;
         }
@@ -1511,7 +1511,7 @@ bool CheckAttack_Fenrir(CHARACTER* c)
         }
 
         if (EnableGuildWar && c->PK >= PVP_MURDERER2 && c->GuildMarkIndex != -1
-            && wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == NULL)
+            && wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == 0)
         {
             return  false;
         }
@@ -1610,7 +1610,7 @@ bool CheckAttack()
             else
                 return true;
         }
-        else if (wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == NULL)
+        else if (wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == 0)
         {
             if (g_pPartyManager->IsPartyMember(SelectedCharacter))
             {
@@ -1747,7 +1747,7 @@ bool CheckAttack()
         }
 
         if (EnableGuildWar && c->PK >= PVP_MURDERER2 && c->GuildMarkIndex != -1
-            && wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == NULL)
+            && wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == 0)
         {
             return  false;
         }
@@ -1822,7 +1822,7 @@ int	getTargetCharacterKey(CHARACTER* c, int selected)
         return sc->Key;
     }
 
-    if (EnableGuildWar && sc->PK >= PVP_MURDERER2 && sc->GuildMarkIndex != -1 && wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[sc->GuildMarkIndex].GuildName) == NULL)
+    if (EnableGuildWar && sc->PK >= PVP_MURDERER2 && sc->GuildMarkIndex != -1 && wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[sc->GuildMarkIndex].GuildName) == 0)
     {
         return  -1;
     }
@@ -1859,7 +1859,7 @@ int	getTargetCharacterKey(CHARACTER* c, int selected)
             return sc->Key;
         }
 
-        if ((wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == NULL) ||
+        if ((wcscmp(GuildMark[Hero->GuildMarkIndex].GuildName, GuildMark[c->GuildMarkIndex].GuildName) == 0) ||
             g_pPartyManager->IsPartyMember(SelectedCharacter))
         {
             if (HIBYTE(GetAsyncKeyState(VK_CONTROL)) == 128)
@@ -2279,7 +2279,7 @@ void UseSkillWarrior(CHARACTER* c, OBJECT* o)
             else
             {
                 auto baseSkill = gSkillManager.MasterSkillToBaseSkillIndex(Skill);
-                SetAction(o, PLAYER_ATTACK_SKILL_SWORD1 + baseSkill - AT_SKILL_FALLING_SLASH);
+                SetAction(o, static_cast<int>(PLAYER_ATTACK_SKILL_SWORD1) + baseSkill - AT_SKILL_FALLING_SLASH);
             }
             break;
         }
@@ -3303,20 +3303,15 @@ void Action(CHARACTER* c, OBJECT* o, bool Now)
         if (ActionTarget == -1)
             return;
 
-        if (o->Type == MODEL_PLAYER)
-        {
-            if (o->CurrentAction >= PLAYER_ATTACK_FIST && o->CurrentAction <= PLAYER_RIDE_SKILL
-                && o->CurrentAction != PLAYER_STOP_RIDE_HORSE
-                && o->CurrentAction != PLAYER_STOP_TWO_HAND_SWORD_TWO
-                && o->CurrentAction == PLAYER_FENRIR_SKILL_ONE_RIGHT
-                && o->CurrentAction == PLAYER_RAGE_FENRIR_ONE_RIGHT)
-                break;
-        }
-        else
-        {
-            if (o->CurrentAction >= MONSTER01_ATTACK1 && o->CurrentAction <= MONSTER01_ATTACK2)
-                break;
-        }
+        // To debounce repeat left-clicks while a swing animation is still
+        // playing, gate on a small *include* list of the actual swing
+        // animations -- never a `>= … <=` range, which would also sweep in
+        // idle/locomotion frames and lock out attacks while mounted. e.g.:
+        //
+        //   if (o->CurrentAction == PLAYER_ATTACK_FIST
+        //    || o->CurrentAction == PLAYER_ATTACK_SWORD_RIGHT1
+        //    || ... )
+        //       break;
 
         if (ActionTarget <= -1)
             break;
@@ -4005,11 +4000,11 @@ bool CheckCommand(wchar_t* Text, bool bMacroText)
             Name[i] = Text[i];
             iTextSize = i;
         }
-        Name[iTextSize] = NULL;
+        Name[iTextSize] = 0;
 
         if (!g_pNewUISystem->IsVisible(SEASON3B::INTERFACE_STORAGE))
         {
-            if (wcscmp(Name, GlobalText[258]) == NULL || wcscmp(Name, GlobalText[259]) == NULL || wcsicmp(Text, L"/trade") == NULL)
+            if (wcscmp(Name, GlobalText[258]) == 0 || wcscmp(Name, GlobalText[259]) == 0 || wcsicmp(Text, L"/trade") == 0)
             {
                 if (gMapManager.InChaosCastle() == true)
                 {
@@ -4262,7 +4257,7 @@ bool CheckCommand(wchar_t* Text, bool bMacroText)
                 SocketClient->ToGameServer()->SendDuelStopRequest();
             }
         }
-        if (wcscmp(Text, GlobalText[254]) == NULL || wcsicmp(Text, L"/guild") == NULL)
+        if (wcscmp(Text, GlobalText[254]) == 0 || wcsicmp(Text, L"/guild") == 0)
         {
             if (gMapManager.InChaosCastle() == true)
             {
@@ -4391,14 +4386,14 @@ bool CheckCommand(wchar_t* Text, bool bMacroText)
             }
             return true;
         }
-        if (wcscmp(Text, GlobalText[256]) == NULL || wcsicmp(Text, L"/party") == NULL || wcsicmp(Text, L"/pt") == NULL)
+        if (wcscmp(Text, GlobalText[256]) == 0 || wcsicmp(Text, L"/party") == 0 || wcsicmp(Text, L"/pt") == 0)
         {
             if (gMapManager.InChaosCastle() == true)
             {
                 g_pSystemLogBox->AddText(GlobalText[1150], SEASON3B::TYPE_SYSTEM_MESSAGE);
                 return false;
             }
-            if (PartyNumber > 0 && wcscmp(Party[0].Name, Hero->ID) != NULL)
+            if (PartyNumber > 0 && wcscmp(Party[0].Name, Hero->ID) != 0)
             {
                 g_pSystemLogBox->AddText(GlobalText[257], SEASON3B::TYPE_SYSTEM_MESSAGE);
                 return true;
@@ -4438,7 +4433,7 @@ bool CheckCommand(wchar_t* Text, bool bMacroText)
             }
             return true;
         }
-        if (wcsicmp(Text, L"/charactername") == NULL)
+        if (wcsicmp(Text, L"/charactername") == 0)
         {
             if (IsGMCharacter() == true)
             {
@@ -4467,15 +4462,15 @@ bool CheckCommand(wchar_t* Text, bool bMacroText)
                     MacroText[i][j - 3] = Text[j];
                     iTextSize = j;
                 }
-                MacroText[i][iTextSize - 3] = NULL;
+                MacroText[i][iTextSize - 3] = 0;
                 PlayBuffer(SOUND_CLICK01);
                 return true;
             }
         }
 
         wchar_t lpszFilter[] = L"/filter";
-        if ((GlobalText.GetStringSize(753) > 0 && wcsncmp(Text, GlobalText[753], GlobalText.GetStringSize(753)) == NULL)
-            || (wcsncmp(Text, lpszFilter, wcslen(lpszFilter)) == NULL))
+        if ((GlobalText.GetStringSize(753) > 0 && wcsncmp(Text, GlobalText[753], GlobalText.GetStringSize(753)) == 0)
+            || (wcsncmp(Text, lpszFilter, wcslen(lpszFilter)) == 0))
         {
             g_pChatListBox->SetFilterText(Text);
         }
@@ -4516,7 +4511,7 @@ bool CheckCommand(wchar_t* Text, bool bMacroText)
             wchar_t Name[256];
             mu_swprintf(Name, L"/%ls", p->Name);
 
-            if (wcsicmp(Text, Name) == NULL)
+            if (wcsicmp(Text, Name) == 0)
             {
                 g_csItemOption.ClearOptionHelper();
 
@@ -5246,7 +5241,7 @@ void AttackKnight(CHARACTER* c, ActionSkillType Skill, float Distance)
                 || Skill == AT_SKILL_EARTHSHAKE_STR
                 || Skill == AT_SKILL_EARTHSHAKE_MASTERY
                 || Skill == AT_SKILL_RIDER
-                || (Skill >= AT_PET_COMMAND_DEFAULT && Skill <= AT_PET_COMMAND_TARGET)
+                || (static_cast<int>(Skill) >= static_cast<int>(AT_PET_COMMAND_DEFAULT) && static_cast<int>(Skill) <= static_cast<int>(AT_PET_COMMAND_TARGET))
                 || Skill == AT_SKILL_PLASMA_STORM_FENRIR
                 )
             {

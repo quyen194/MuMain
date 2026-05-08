@@ -2147,15 +2147,15 @@ void CUIPhotoViewer::CopyPlayer()
     else	// 변신 상태
     {
         if (CompareItemEqual(&m_PhotoChar.BodyPart[BODYPART_HELM], &CharacterMachine->Equipment[EQUIPMENT_HELM],
-            MODEL_BODY_HELM + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
+            static_cast<int>(MODEL_BODY_HELM) + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
         else if (CompareItemEqual(&m_PhotoChar.BodyPart[BODYPART_ARMOR], &CharacterMachine->Equipment[EQUIPMENT_ARMOR],
-            MODEL_BODY_ARMOR + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
+            static_cast<int>(MODEL_BODY_ARMOR) + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
         else if (CompareItemEqual(&m_PhotoChar.BodyPart[BODYPART_PANTS], &CharacterMachine->Equipment[EQUIPMENT_PANTS],
-            MODEL_BODY_PANTS + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
+            static_cast<int>(MODEL_BODY_PANTS) + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
         else if (CompareItemEqual(&m_PhotoChar.BodyPart[BODYPART_GLOVES], &CharacterMachine->Equipment[EQUIPMENT_GLOVES],
-            MODEL_BODY_GLOVES + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
+            static_cast<int>(MODEL_BODY_GLOVES) + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
         else if (CompareItemEqual(&m_PhotoChar.BodyPart[BODYPART_BOOTS], &CharacterMachine->Equipment[EQUIPMENT_BOOTS],
-            MODEL_BODY_BOOTS + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
+            static_cast<int>(MODEL_BODY_BOOTS) + Hero->SkinIndex) == FALSE) bChangeArmor = TRUE;
 
         for (i = 0; i < 2; ++i)
         {
@@ -2207,17 +2207,17 @@ void CUIPhotoViewer::CopyPlayer()
         {
             DeleteCloth(&m_PhotoChar, NULL, NULL);
 
-            m_PhotoChar.BodyPart[BODYPART_HEAD].Type = MODEL_BODY_HELM + Hero->SkinIndex;
+            m_PhotoChar.BodyPart[BODYPART_HEAD].Type = static_cast<int>(MODEL_BODY_HELM) + Hero->SkinIndex;
             SetItemToPhoto(&m_PhotoChar.BodyPart[BODYPART_HELM], &CharacterMachine->Equipment[EQUIPMENT_HELM],
-                MODEL_BODY_HELM + Hero->SkinIndex);
+                static_cast<int>(MODEL_BODY_HELM) + Hero->SkinIndex);
             SetItemToPhoto(&m_PhotoChar.BodyPart[BODYPART_ARMOR], &CharacterMachine->Equipment[EQUIPMENT_ARMOR],
-                MODEL_BODY_ARMOR + Hero->SkinIndex);
+                static_cast<int>(MODEL_BODY_ARMOR) + Hero->SkinIndex);
             SetItemToPhoto(&m_PhotoChar.BodyPart[BODYPART_PANTS], &CharacterMachine->Equipment[EQUIPMENT_PANTS],
-                MODEL_BODY_PANTS + Hero->SkinIndex);
+                static_cast<int>(MODEL_BODY_PANTS) + Hero->SkinIndex);
             SetItemToPhoto(&m_PhotoChar.BodyPart[BODYPART_GLOVES], &CharacterMachine->Equipment[EQUIPMENT_GLOVES],
-                MODEL_BODY_GLOVES + Hero->SkinIndex);
+                static_cast<int>(MODEL_BODY_GLOVES) + Hero->SkinIndex);
             SetItemToPhoto(&m_PhotoChar.BodyPart[BODYPART_BOOTS], &CharacterMachine->Equipment[EQUIPMENT_BOOTS],
-                MODEL_BODY_BOOTS + Hero->SkinIndex);
+                static_cast<int>(MODEL_BODY_BOOTS) + Hero->SkinIndex);
 
             for (i = 0; i < MAX_BODYPART; ++i)
             {
@@ -3941,7 +3941,7 @@ void CUIChatRoomListTabWindow::RemoveWindow(DWORD dwUIID)
 
 DWORD CUIChatRoomListTabWindow::GetCurrentSelectedWindow()
 {
-    if (m_WindowListBox.GetSelectedText() == NULL) return NULL;
+    if (m_WindowListBox.GetSelectedText() == nullptr) return 0;
     else return m_WindowListBox.GetSelectedText()->m_dwUIID;
 }
 
@@ -4201,20 +4201,12 @@ void CLetterList::RemoveLetterTextCache(DWORD dwIndex)
     m_LetterCacheIter = m_LetterCache.find(dwIndex);
     if (m_LetterCacheIter != m_LetterCache.end())
     {
-        auto letter = &m_LetterCacheIter->second;
-        delete letter;
         m_LetterCache.erase(m_LetterCacheIter);
     }
 }
 
 void CLetterList::ClearLetterTextCache()
 {
-    for (auto cachedLetter : m_LetterCache)
-    {
-        auto letter = &cachedLetter.second;
-        delete letter;
-    }
-
     m_LetterCache.clear();
 }
 

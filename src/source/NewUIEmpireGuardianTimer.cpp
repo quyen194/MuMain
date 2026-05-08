@@ -83,7 +83,7 @@ bool CNewUIEmpireGuardianTimer::Render()
 
     RenderImage(IMAGE_EMPIREGUARDIAN_TIMER_WINDOW, m_Pos.x, m_Pos.y, float(TIMER_WINDOW_WIDTH), float(TIMER_WINDOW_HEIGHT));
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     g_pRenderText->SetFont(g_hFont);
     g_pRenderText->SetBgColor(0);
 

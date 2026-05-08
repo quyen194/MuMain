@@ -50,6 +50,5 @@ public:
     ~TextureScriptParsing(void) {};
 
     bool    IsScript(void) { return m_bBeScript; }
-    bool    parsingTScript(wchar_t* filename);
     bool    parsingTScriptA(char* filename);
 };

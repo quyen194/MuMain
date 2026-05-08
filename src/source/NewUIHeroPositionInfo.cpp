@@ -177,7 +177,7 @@ bool CNewUIHeroPositionInfo::Update()
 
 bool CNewUIHeroPositionInfo::Render()
 {
-    wchar_t szText[255] = { NULL, };
+    wchar_t szText[255] = {};
 
     EnableAlphaTest();
     glColor4f(1.f, 1.f, 1.f, 1.f);

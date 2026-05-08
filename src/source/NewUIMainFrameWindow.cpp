@@ -2269,7 +2269,7 @@ void SEASON3B::CNewUISkillList::RenderSkillIcon(int iIndex, float x, float y, fl
             || bySkillType == AT_SKILL_EARTHSHAKE_STR
             || bySkillType == AT_SKILL_EARTHSHAKE_MASTERY
             || bySkillType == AT_SKILL_RIDER
-            || (bySkillType >= AT_PET_COMMAND_DEFAULT && bySkillType <= AT_PET_COMMAND_TARGET)
+            || (static_cast<int>(bySkillType) >= static_cast<int>(AT_PET_COMMAND_DEFAULT) && static_cast<int>(bySkillType) <= static_cast<int>(AT_PET_COMMAND_TARGET))
             )
         {
             bCantSkill = true;
@@ -2323,10 +2323,10 @@ void SEASON3B::CNewUISkillList::RenderSkillIcon(int iIndex, float x, float y, fl
         bCantSkill = true;
     }
 
-    if (bySkillType >= AT_PET_COMMAND_DEFAULT && bySkillType <= AT_PET_COMMAND_END)
+    if (static_cast<int>(bySkillType) >= static_cast<int>(AT_PET_COMMAND_DEFAULT) && static_cast<int>(bySkillType) <= static_cast<int>(AT_PET_COMMAND_END))
     {
-        fU = ((bySkillType - AT_PET_COMMAND_DEFAULT) % 8) * width / 256.f;
-        fV = ((bySkillType - AT_PET_COMMAND_DEFAULT) / 8) * height / 256.f;
+        fU = ((static_cast<int>(bySkillType) - AT_PET_COMMAND_DEFAULT) % 8) * width / 256.f;
+        fV = ((static_cast<int>(bySkillType) - AT_PET_COMMAND_DEFAULT) / 8) * height / 256.f;
         iKindofSkill = KOS_COMMAND;
     }
     else if (bySkillType == AT_SKILL_PLASMA_STORM_FENRIR)

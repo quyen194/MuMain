@@ -65,7 +65,7 @@ void SEASON3B::CNewUICommandWindow::Release()
 
 void SEASON3B::CNewUICommandWindow::InitButtons()
 {
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     mu_swprintf(szText, GlobalText[927], L"D");
 
     m_BtnExit.ChangeButtonImgState(true, IMAGE_COMMAND_BASE_WINDOW_BTN_EXIT);
@@ -474,7 +474,7 @@ bool SEASON3B::CNewUICommandWindow::CommandPurchase(CHARACTER* pSelectedCha)
 
 bool SEASON3B::CNewUICommandWindow::CommandParty(SHORT iChaKey)
 {
-    if (PartyNumber > 0 && wcscmp(Party[0].Name, Hero->ID) != NULL)
+    if (PartyNumber > 0 && wcscmp(Party[0].Name, Hero->ID) != 0)
     {
         g_pSystemLogBox->AddText(GlobalText[257], SEASON3B::TYPE_ERROR_MESSAGE);
         return false;

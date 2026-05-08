@@ -52,7 +52,7 @@ bool SEASON3B::CNewUISiegeWarBase::Create(int x, int y)
     if (!OnCreate(x, y))
         return false;
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     mu_swprintf(szText, L"%d", (int)(m_fMiniMapAlpha * 100.5f));
     m_BtnAlpha.ChangeText(szText);
     m_BtnAlpha.ChangeButtonImgState(true, IMAGE_BTN_ALPHA, true);
@@ -309,7 +309,7 @@ bool SEASON3B::CNewUISiegeWarBase::BtnProcess()
             m_fMiniMapAlpha = m_fMiniMapAlpha - 0.1f;
         }
 
-        wchar_t szText[256] = { NULL, };
+        wchar_t szText[256] = {};
         mu_swprintf(szText, L"%d", (int)(m_fMiniMapAlpha * 100.5f));
         m_BtnAlpha.ChangeText(szText);
         m_BtnAlpha.ChangeAlpha(m_fMiniMapAlpha);
@@ -443,7 +443,7 @@ void SEASON3B::CNewUISiegeWarBase::RenderSkillIcon()
     int iSelectSkill;
     int iCurKillCount;
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
 
     iUseSkillDestKill = SkillAttribute[Hero->GuildSkill].KillCount;
 

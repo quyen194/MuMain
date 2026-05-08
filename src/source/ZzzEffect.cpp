@@ -15,7 +15,7 @@
 #include "UIManager.h"
 #include "CDirection.h"
 #include "MapManager.h"
-#include "SkillEffectMgr.h"]
+#include "SkillEffectMgr.h"
 #include "CharacterManager.h"
 #include "SkillManager.h"
 #include <NewUISystem.h>
@@ -370,7 +370,7 @@ void CreateEffect(int Type, vec3_t Position, vec3_t Angle, vec3_t Light, int Sub
             o->PKKey = PKKey;
             o->Kind = Skill;
             o->Skill = SkillIndex;
-            o->RenderType = NULL;
+            o->RenderType = 0;
             o->AttackPoint[0] = 0;
             o->CurrentAction = 0;
             o->m_bySkillSerialNum = (BYTE)SkillSerialNum;
@@ -8339,7 +8339,7 @@ void MoveEffect(OBJECT* o, int iIndex)
             AngleMatrix(o->Owner->Angle, Matrix);
             VectorRotate(P, Matrix, dp);
             VectorAdd(dp, vFirePosition, Position);
-            CreateSprite(BITMAP_SHINY + 6, Position, 2.0f, o->Light, o, NULL, 1);
+            CreateSprite(BITMAP_SHINY + 6, Position, 2.0f, o->Light, o, 0, 1);
         }
         break;
         }
@@ -18206,15 +18206,15 @@ void RenderEffects(bool bRenderBlendMesh)
                         CreateSprite(BITMAP_SHOCK_WAVE, o->Position, 0.8f, vLight, o, -(o->m_iAnimation * 3.f));
                         // Flare1
                         Vector(0.8f, 0.6f, 0.f, vLight);
-                        CreateSprite(BITMAP_LIGHT, o->Position, 5.0f, vLight, o, NULL);
+                        CreateSprite(BITMAP_LIGHT, o->Position, 5.0f, vLight, o, 0);
                         RenderObject(o);
                     }
                     else if (o->SubType == 1)
                     {
-                        CreateSprite(BITMAP_LIGHT, o->Position, 5.0f, o->Light, o, NULL);
-                        CreateSprite(BITMAP_LIGHT, o->Position, 3.0f, o->Light, o, NULL);
-                        CreateSprite(BITMAP_LIGHT, o->Position, 3.0f, o->Light, o, NULL);
-                        CreateSprite(BITMAP_SHINY + 6, o->Position, 2.0f, o->Light, o, NULL);
+                        CreateSprite(BITMAP_LIGHT, o->Position, 5.0f, o->Light, o, 0);
+                        CreateSprite(BITMAP_LIGHT, o->Position, 3.0f, o->Light, o, 0);
+                        CreateSprite(BITMAP_LIGHT, o->Position, 3.0f, o->Light, o, 0);
+                        CreateSprite(BITMAP_SHINY + 6, o->Position, 2.0f, o->Light, o, 0);
 
                         RenderObject(o);
                     }

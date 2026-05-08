@@ -88,7 +88,7 @@ bool CNewUIDoppelGangerFrame::Render()
 
     RenderImage(IMAGE_DOPPELGANGER_FRAME_WINDOW, m_Pos.x, m_Pos.y, float(DOPPELGANGER_FRAME_WINDOW_WIDTH), float(DOPPELGANGER_FRAME_WINDOW_HEIGHT));
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     g_pRenderText->SetFont(g_hFont);
     g_pRenderText->SetBgColor(0);
 

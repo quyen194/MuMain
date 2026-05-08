@@ -401,7 +401,7 @@ int FindGuildName(wchar_t* Name)
     for (int i = 0; i < MARK_EDIT; i++)
     {
         MARK_t* p = &GuildMark[i];
-        if (wcscmp(p->GuildName, Name) == NULL)
+        if (wcscmp(p->GuildName, Name) == 0)
         {
             return i;
         }
@@ -437,7 +437,7 @@ void InitGuildWar()
 {
     EnableGuildWar = false;
     GuildWarIndex = -1;
-    GuildWarName[0] = NULL;
+    GuildWarName[0] = 0;
     for (int i = 0; i < MAX_CHARACTERS_CLIENT; i++)
     {
         CHARACTER* c = &CharactersClient[i];
@@ -1723,7 +1723,7 @@ void ReceiveChat(const BYTE* ReceiveBuffer)
                 OBJECT* o = &c->Object;
                 if (o->Live && o->Kind == KIND_PLAYER && (g_isCharacterBuff((&c->Object), eBuff_GMEffect) || (c->CtlCode == CTLCODE_20OPERATOR) || (c->CtlCode == CTLCODE_08OPERATOR)))
                 {
-                    if (wcscmp(c->ID, ID) == NULL)
+                    if (wcscmp(c->ID, ID) == 0)
                     {
                         pFindGm = c;
                         break;
@@ -1749,7 +1749,7 @@ void ReceiveChat(const BYTE* ReceiveBuffer)
                 OBJECT* o = &c->Object;
                 if (o->Live && o->Kind == KIND_PLAYER && g_isCharacterBuff((&c->Object), eBuff_GMEffect) || (c->CtlCode == CTLCODE_20OPERATOR) || (c->CtlCode == CTLCODE_08OPERATOR))
                 {
-                    if (wcscmp(c->ID, ID) == NULL)
+                    if (wcscmp(c->ID, ID) == 0)
                     {
                         pFindGm = c;
                         break;
@@ -2233,7 +2233,7 @@ void ReceiveChangePlayer(std::span<const BYTE> ReceiveBuffer)
     case 2:
         if (Data->ItemGroup == 0xFF)
         {
-            c->BodyPart[BODYPART_HELM].Type = MODEL_BODY_HELM + c->SkinIndex;
+            c->BodyPart[BODYPART_HELM].Type = static_cast<int>(MODEL_BODY_HELM) + c->SkinIndex;
             c->BodyPart[BODYPART_HELM].Level = 0;
             c->BodyPart[BODYPART_HELM].ExcellentFlags = 0;
             c->BodyPart[BODYPART_HELM].AncientDiscriminator = 0;
@@ -2249,7 +2249,7 @@ void ReceiveChangePlayer(std::span<const BYTE> ReceiveBuffer)
     case 3:
         if (Data->ItemGroup == 0xFF)
         {
-            c->BodyPart[BODYPART_ARMOR].Type = MODEL_BODY_ARMOR + c->SkinIndex;
+            c->BodyPart[BODYPART_ARMOR].Type = static_cast<int>(MODEL_BODY_ARMOR) + c->SkinIndex;
             c->BodyPart[BODYPART_ARMOR].Level = 0;
             c->BodyPart[BODYPART_ARMOR].ExcellentFlags = 0;
             c->BodyPart[BODYPART_ARMOR].AncientDiscriminator = 0;
@@ -2265,7 +2265,7 @@ void ReceiveChangePlayer(std::span<const BYTE> ReceiveBuffer)
     case 4:
         if (Data->ItemGroup == 0xFF)
         {
-            c->BodyPart[BODYPART_PANTS].Type = MODEL_BODY_PANTS + c->SkinIndex;
+            c->BodyPart[BODYPART_PANTS].Type = static_cast<int>(MODEL_BODY_PANTS) + c->SkinIndex;
             c->BodyPart[BODYPART_PANTS].Level = 0;
             c->BodyPart[BODYPART_PANTS].ExcellentFlags = 0;
             c->BodyPart[BODYPART_PANTS].AncientDiscriminator = 0;
@@ -2281,7 +2281,7 @@ void ReceiveChangePlayer(std::span<const BYTE> ReceiveBuffer)
     case 5:
         if (Data->ItemGroup == 0xFF)
         {
-            c->BodyPart[BODYPART_GLOVES].Type = MODEL_BODY_GLOVES + c->SkinIndex;
+            c->BodyPart[BODYPART_GLOVES].Type = static_cast<int>(MODEL_BODY_GLOVES) + c->SkinIndex;
             c->BodyPart[BODYPART_GLOVES].Level = 0;
             c->BodyPart[BODYPART_GLOVES].ExcellentFlags = 0;
             c->BodyPart[BODYPART_GLOVES].AncientDiscriminator = 0;
@@ -2297,7 +2297,7 @@ void ReceiveChangePlayer(std::span<const BYTE> ReceiveBuffer)
     case 6:
         if (Data->ItemGroup == 0xFF)
         {
-            c->BodyPart[BODYPART_BOOTS].Type = MODEL_BODY_BOOTS + c->SkinIndex;
+            c->BodyPart[BODYPART_BOOTS].Type = static_cast<int>(MODEL_BODY_BOOTS) + c->SkinIndex;
             c->BodyPart[BODYPART_BOOTS].Level = 0;
             c->BodyPart[BODYPART_BOOTS].ExcellentFlags = 0;
             c->BodyPart[BODYPART_BOOTS].AncientDiscriminator = 0;
@@ -2936,7 +2936,7 @@ void ReceiveCreateSummonViewport(const BYTE* ReceiveBuffer)
             wcscat(c->ID, Temp);
 
             CMultiLanguage::ConvertFromUtf8(c->OwnerID, Data2->ID, MAX_USERNAME_SIZE);
-            c->OwnerID[MAX_USERNAME_SIZE] = NULL;
+            c->OwnerID[MAX_USERNAME_SIZE] = 0;
         }
 
         if (CreateFlag)
@@ -4179,20 +4179,20 @@ BOOL ReceiveMagic(const BYTE* ReceiveBuffer, int Size, BOOL bEncrypted)
 
     case AT_SKILL_FALLING_SLASH:
     case AT_SKILL_FALLING_SLASH_STR:
-        SetAction(so, PLAYER_ATTACK_SKILL_SWORD1 + AT_SKILL_FALLING_SLASH - AT_SKILL_FALLING_SLASH);
+        SetAction(so, static_cast<int>(PLAYER_ATTACK_SKILL_SWORD1) + AT_SKILL_FALLING_SLASH - AT_SKILL_FALLING_SLASH);
         sc->AttackTime = 1;
         PlayBuffer(SOUND_SKILL_SWORD1);
         break;
 
     case AT_SKILL_LUNGE:
     case AT_SKILL_LUNGE_STR:
-        SetAction(so, PLAYER_ATTACK_SKILL_SWORD1 + AT_SKILL_LUNGE - AT_SKILL_FALLING_SLASH);
+        SetAction(so, static_cast<int>(PLAYER_ATTACK_SKILL_SWORD1) + AT_SKILL_LUNGE - AT_SKILL_FALLING_SLASH);
         sc->AttackTime = 1;
         PlayBuffer(SOUND_SKILL_SWORD2);
         break;
 
     case AT_SKILL_UPPERCUT:
-        SetAction(so, PLAYER_ATTACK_SKILL_SWORD1 + AT_SKILL_UPPERCUT - AT_SKILL_FALLING_SLASH);
+        SetAction(so, static_cast<int>(PLAYER_ATTACK_SKILL_SWORD1) + AT_SKILL_UPPERCUT - AT_SKILL_FALLING_SLASH);
         sc->AttackTime = 1;
         PlayBuffer(SOUND_SKILL_SWORD3);
         break;
@@ -4200,7 +4200,7 @@ BOOL ReceiveMagic(const BYTE* ReceiveBuffer, int Size, BOOL bEncrypted)
     case AT_SKILL_CYCLONE:
     case AT_SKILL_CYCLONE_STR:
     case AT_SKILL_CYCLONE_STR_MG:
-        SetAction(so, PLAYER_ATTACK_SKILL_SWORD1 + AT_SKILL_CYCLONE - AT_SKILL_FALLING_SLASH);
+        SetAction(so, static_cast<int>(PLAYER_ATTACK_SKILL_SWORD1) + AT_SKILL_CYCLONE - AT_SKILL_FALLING_SLASH);
         sc->AttackTime = 1;
         PlayBuffer(SOUND_SKILL_SWORD4);
         break;
@@ -4209,7 +4209,7 @@ BOOL ReceiveMagic(const BYTE* ReceiveBuffer, int Size, BOOL bEncrypted)
     case AT_SKILL_SLASH_STR:
         if (sc->SwordCount % 2 == 0)
         {
-            SetAction(so, PLAYER_ATTACK_SKILL_SWORD1 + AT_SKILL_SLASH - AT_SKILL_FALLING_SLASH);
+            SetAction(so, static_cast<int>(PLAYER_ATTACK_SKILL_SWORD1) + AT_SKILL_SLASH - AT_SKILL_FALLING_SLASH);
         }
         else
         {
@@ -7159,7 +7159,7 @@ void ReceivePartyList(const BYTE* ReceiveBuffer)
         auto Data2 = (LPPRECEIVE_PARTY_LIST)(ReceiveBuffer + Offset);
         PARTY_t* p = &Party[i];
         CMultiLanguage::ConvertFromUtf8(p->Name, Data2->ID, MAX_USERNAME_SIZE);
-        p->Name[MAX_USERNAME_SIZE] = NULL;
+        p->Name[MAX_USERNAME_SIZE] = 0;
         p->Number = Data2->Number;
         p->Map = Data2->Map;
         p->x = Data2->x;
@@ -7200,7 +7200,7 @@ void ReceivePartyLeave(const BYTE* ReceiveBuffer)
         CHARACTER* c = &CharactersClient[g_iFollowCharacter];
         for (int i = 0; i < PartyNumber; ++i)
         {
-            if (wcscmp(Party[i].Name, c->ID) == NULL && wcslen(Party[i].Name) == wcslen(c->ID))
+            if (wcscmp(Party[i].Name, c->ID) == 0 && wcslen(Party[i].Name) == wcslen(c->ID))
             {
                 IsParty = true;
             }
@@ -7316,8 +7316,8 @@ void ReceiveGuildLeave(const BYTE* ReceiveBuffer)
         if (Data->Value == 4 && Hero->GuildMarkIndex != -1)
         {
             GuildMark[Hero->GuildMarkIndex].Key = -1;
-            GuildMark[Hero->GuildMarkIndex].UnionName[0] = NULL;
-            GuildMark[Hero->GuildMarkIndex].GuildName[0] = NULL;
+            GuildMark[Hero->GuildMarkIndex].UnionName[0] = 0;
+            GuildMark[Hero->GuildMarkIndex].GuildName[0] = 0;
             Hero->GuildMarkIndex = -1;
         }
 
@@ -7460,11 +7460,7 @@ void ReceiveGuildBeginWar(const BYTE* ReceiveBuffer)
     for (int i = 0; i < MARK_EDIT; i++)
     {
         MARK_t* p = &GuildMark[i];
-        wchar_t Temp[8 + 1];
-        memset(Temp, 0, 8);
-        memcpy(Temp, (wchar_t*)Data->Name, 8);
-        Temp[8] = NULL;
-        if (wcscmp(p->GuildName, Temp) == NULL)
+        if (wcscmp(p->GuildName, GuildWarName) == 0)
         {
             GuildWarIndex = i;
             break;
@@ -7513,7 +7509,7 @@ void ReceiveGuildEndWar(const BYTE* ReceiveBuffer)
     EnableSoccer = false;
 
     GuildWarIndex = -1;
-    GuildWarName[0] = NULL;
+    GuildWarName[0] = 0;
     for (int i = 0; i < MAX_CHARACTERS_CLIENT; i++)
     {
         CHARACTER* c = &CharactersClient[i];
@@ -7754,7 +7750,7 @@ void ReceiveGuildRelationShipResult(const BYTE* ReceiveBuffer)
 
     int nCharKey = MAKEWORD(pData->byTargetUserIndexL, pData->byTargetUserIndexH);
     if (nCharKey == HeroKey && pData->byResult == 0x01 && pData->byRelationShipType == 0x01 && pData->byRequestType == 0x02)
-        GuildMark[Hero->GuildMarkIndex].UnionName[0] = NULL;
+        GuildMark[Hero->GuildMarkIndex].UnionName[0] = 0;
 }
 
 void ReceiveBanUnionGuildResult(const BYTE* ReceiveBuffer)
@@ -7893,7 +7889,7 @@ void Receive_Master_LevelUp(const BYTE* ReceiveBuffer, int Size)
         Master_Level_Data.wMaxBP = Data->wMaxBP;
     }
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     DWORD iExp = Master_Level_Data.lNext_MasterLevel_Experince - Master_Level_Data.lMasterLevel_Experince;
     if (iExp > 0)
     {
@@ -11589,7 +11585,7 @@ void ReceivePreviewPort(std::span<const BYTE> ReceiveBuffer)
             ChangeCharacterExt(FindCharacterIndex(Key), pData2->m_byEquipment);
 
             wcscpy(c->ID, L"   ");
-            c->ID[MAX_USERNAME_SIZE] = NULL;
+            c->ID[MAX_USERNAME_SIZE] = 0;
         }
         break;
 
@@ -12302,7 +12298,7 @@ bool ReceiveEnterEmpireGuardianEvent(const BYTE* ReceiveBuffer)
         SEASON3B::CreateMessageBox(MSGBOX_LAYOUT_CLASS(SEASON3B::CEmpireGuardianMsgBoxLayout), &pMsgBox);
         pMsgBox->AddMsg(GlobalText[2798], RGBA(255, 255, 255, 255), SEASON3B::MSGBOX_FONT_NORMAL);
         pMsgBox->AddMsg(L" ");
-        wchar_t szText[256] = { NULL, };
+        wchar_t szText[256] = {};
         mu_swprintf(szText, GlobalText[2799], (Data->RemainTick / 60000));
         pMsgBox->AddMsg(szText, RGBA(255, 255, 255, 255), SEASON3B::MSGBOX_FONT_NORMAL);
     }break;
@@ -12373,7 +12369,7 @@ bool ReceiveResultEmpireGuardian(const BYTE* ReceiveBuffer)
         int zone = g_pEmpireGuardianTimer->GetZone();
         SEASON3B::CNewUICommonMessageBox* pMsgBox;
         SEASON3B::CreateMessageBox(MSGBOX_LAYOUT_CLASS(SEASON3B::CEmpireGuardianMsgBoxLayout), &pMsgBox);
-        wchar_t szText[256] = { NULL, };
+        wchar_t szText[256] = {};
         mu_swprintf(szText, GlobalText[2801], day);
         pMsgBox->AddMsg(szText, RGBA(255, 255, 255, 255), SEASON3B::MSGBOX_FONT_NORMAL);
         mu_swprintf(szText, L"%d%ls", zone, GlobalText[2840]);
@@ -12384,7 +12380,7 @@ bool ReceiveResultEmpireGuardian(const BYTE* ReceiveBuffer)
         int day = g_pEmpireGuardianTimer->GetDay();
         SEASON3B::CNewUICommonMessageBox* pMsgBox;
         SEASON3B::CreateMessageBox(MSGBOX_LAYOUT_CLASS(SEASON3B::CEmpireGuardianMsgBoxLayout), &pMsgBox);
-        wchar_t szText[256] = { NULL, };
+        wchar_t szText[256] = {};
         mu_swprintf(szText, GlobalText[2801], day);
         pMsgBox->AddMsg(szText, RGBA(255, 255, 255, 255), SEASON3B::MSGBOX_FONT_NORMAL);
         pMsgBox->AddMsg(GlobalText[2802], RGBA(255, 255, 255, 255), SEASON3B::MSGBOX_FONT_NORMAL);
@@ -12443,14 +12439,14 @@ bool ReceiveIGS_BuyItem(const BYTE* pReceiveBuffer)
 
     switch ((BYTE)Data->byResultCode)
     {
-    case -2:
+    case static_cast<BYTE>(-2):
     {
         CMsgBoxIGSCommon* pMsgBox = nullptr;
         CreateMessageBox(MSGBOX_LAYOUT_CLASS(CMsgBoxIGSCommonLayout), &pMsgBox);
         pMsgBox->Initialize(GlobalText[2902], GlobalText[2953]);
     }
     break;
-    case -1:
+    case static_cast<BYTE>(-1):
     {
         CMsgBoxIGSCommon* pMsgBox = nullptr;
         CreateMessageBox(MSGBOX_LAYOUT_CLASS(CMsgBoxIGSCommonLayout), &pMsgBox);
@@ -12549,14 +12545,14 @@ bool ReceiveIGS_SendItemGift(const BYTE* pReceiveBuffer)
 
     switch ((BYTE)Data->byResultCode)
     {
-    case -2:
+    case static_cast<BYTE>(-2):
     {
         CMsgBoxIGSCommon* pMsgBox = nullptr;
         CreateMessageBox(MSGBOX_LAYOUT_CLASS(CMsgBoxIGSCommonLayout), &pMsgBox);
         pMsgBox->Initialize(GlobalText[2912], GlobalText[2953]);
     }
     break;
-    case -1:
+    case static_cast<BYTE>(-1):
     {
         CMsgBoxIGSCommon* pMsgBox = nullptr;
         CreateMessageBox(MSGBOX_LAYOUT_CLASS(CMsgBoxIGSCommonLayout), &pMsgBox);
@@ -12731,14 +12727,14 @@ bool ReceiveIGS_UseStorageItem(const BYTE* pReceiveBuffer)
 
     switch ((BYTE)Data->byResult)
     {
-    case -2:
+    case static_cast<BYTE>(-2):
     {
         CMsgBoxIGSCommon* pMsgBox = nullptr;
         CreateMessageBox(MSGBOX_LAYOUT_CLASS(CMsgBoxIGSCommonLayout), &pMsgBox);
         pMsgBox->Initialize(GlobalText[2928], GlobalText[2967]);
     }
     break;
-    case -1:
+    case static_cast<BYTE>(-1):
     {
         CMsgBoxIGSCommon* pMsgBox = nullptr;
         CreateMessageBox(MSGBOX_LAYOUT_CLASS(CMsgBoxIGSCommonLayout), &pMsgBox);

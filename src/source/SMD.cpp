@@ -20,13 +20,13 @@ void ParseNodes()
     {
         Token = (*GetToken)();
         if (Token == END) break;
-        if (Token == NAME && strcmp("nodes", TokenString) == NULL) break;
+        if (Token == NAME && strcmp("nodes", TokenString) == 0) break;
     }
     while (true)
     {
         Token = (*GetToken)();
         if (Token == END) break;
-        if (Token == NAME && strcmp("end", TokenString) == NULL) break;
+        if (Token == NAME && strcmp("end", TokenString) == 0) break;
         if (Token == NUMBER)
         {
             Node_t* n = &ng->Node[ng->NodeNum];
@@ -39,7 +39,7 @@ void ParseNodes()
     {
         Token = (*GetToken)();
         if (Token == END) break;
-        if (Token == NAME && strcmp("skeleton", TokenString) == NULL) break;
+        if (Token == NAME && strcmp("skeleton", TokenString) == 0) break;
     }
     while (true)
     {
@@ -47,8 +47,8 @@ void ParseNodes()
         if (Token == END) break;
         if (Token == NAME)
         {
-            if (strcmp("end", TokenString) == NULL) break;
-            if (strcmp("time", TokenString) == NULL)
+            if (strcmp("end", TokenString) == 0) break;
+            if (strcmp("time", TokenString) == 0)
             {
                 Token = (*GetToken)();
                 Skeleton_t* s = &ng->Skeleton;
@@ -74,7 +74,7 @@ void ParseSkeleton()
     {
         Token = (*GetToken)();
         if (Token == END) break;
-        if (Token == NAME && strcmp("skeleton", TokenString) == NULL) break;
+        if (Token == NAME && strcmp("skeleton", TokenString) == 0) break;
     }
 
     SkeletonGroup_t* sg = &SkeletonGroup;
@@ -85,8 +85,8 @@ void ParseSkeleton()
         if (Token == END) break;
         if (Token == NAME)
         {
-            if (strcmp("end", TokenString) == NULL) break;
-            if (strcmp("time", TokenString) == NULL)
+            if (strcmp("end", TokenString) == 0) break;
+            if (strcmp("time", TokenString) == 0)
             {
                 Token = (*GetToken)();
                 int TimeNum = (int)TokenNumber;
@@ -114,7 +114,7 @@ void ParseTriangles(bool Flip)
     {
         Token = (*GetToken)();
         if (Token == END) break;
-        if (Token == NAME && strcmp("triangles", TokenString) == NULL) break;
+        if (Token == NAME && strcmp("triangles", TokenString) == 0) break;
     }
 
     TriangleGroup_t* tg = &TriangleGroup;
@@ -125,7 +125,7 @@ void ParseTriangles(bool Flip)
         if (Token == END) break;
         if (Token == NAME)
         {
-            if (strcmp("end", TokenString) == NULL) break;
+            if (strcmp("end", TokenString) == 0) break;
             strcpy(tg->TextureName[tg->TriangleNum], TokenString);
             if (!Flip)
             {

@@ -231,4 +231,4 @@ bool CMsgBoxIGSUseBuffConfirmLayout::SetLayout()
     return true;
 }
 
-#endif KJH_ADD_INGAMESHOP_UI_SYSTEM
+#endif // KJH_ADD_INGAMESHOP_UI_SYSTEM

@@ -20,7 +20,7 @@ extern int			DeleteGuildIndex;
 extern DWORD		g_dwActiveUIID;
 
 wchar_t	s_szTargetID[MAX_USERNAME_SIZE + 1];
-extern int s_nTargetFireMemberIndex = 0;
+int s_nTargetFireMemberIndex = 0;
 
 char Guild_Skill_Button = 0;
 
@@ -470,7 +470,7 @@ void CUIGuildInfo::RenderGuildUnionTab()
 {
     POINT ptOrigin = { GetPosition_x() + 15, GetPosition_y() + 98 };
 
-    if (GuildMark[Hero->GuildMarkIndex].UnionName[0] == NULL)
+    if (GuildMark[Hero->GuildMarkIndex].UnionName[0] == 0)
     {
         ptOrigin.x += 10;
         ptOrigin.y += 8;
@@ -530,8 +530,8 @@ void CUIGuildInfo::RenderGuildUnionTab()
 
 void CUIGuildInfo::SetRivalGuildName(wchar_t* szName)
 {
-    memcpy(m_szRivalGuildName, szName, sizeof(char) * MAX_GUILDNAME);
-    m_szRivalGuildName[MAX_GUILDNAME] = NULL;
+    wcsncpy(m_szRivalGuildName, szName, MAX_GUILDNAME);
+    m_szRivalGuildName[MAX_GUILDNAME] = 0;
 }
 
 void CUIGuildInfo::AddGuildNotice(wchar_t* szText)

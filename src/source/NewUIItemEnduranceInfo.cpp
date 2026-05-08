@@ -91,7 +91,7 @@ bool SEASON3B::CNewUIItemEnduranceInfo::UpdateMouseEvent()
         if (CheckMouseIn(m_UIStartPos.x, iNextPosY, PETHP_FRAME_WIDTH, PETHP_FRAME_HEIGHT))
             return false;
 
-        iNextPosY += (UI_INTERVAL_HEIGHT + PETHP_FRAME_HEIGHT);
+        iNextPosY += (static_cast<int>(UI_INTERVAL_HEIGHT) + PETHP_FRAME_HEIGHT);
     }
 
     if (gCharacterManager.GetBaseClass(Hero->Class) == CLASS_DARK_LORD)
@@ -101,7 +101,7 @@ bool SEASON3B::CNewUIItemEnduranceInfo::UpdateMouseEvent()
             if (CheckMouseIn(m_UIStartPos.x, iNextPosY, PETHP_FRAME_WIDTH, PETHP_FRAME_HEIGHT))
                 return false;
 
-            iNextPosY += (UI_INTERVAL_HEIGHT + PETHP_FRAME_HEIGHT);
+            iNextPosY += (static_cast<int>(UI_INTERVAL_HEIGHT) + PETHP_FRAME_HEIGHT);
         }
     }
 
@@ -112,7 +112,7 @@ bool SEASON3B::CNewUIItemEnduranceInfo::UpdateMouseEvent()
             if (CheckMouseIn(m_UIStartPos.x, iNextPosY, PETHP_FRAME_WIDTH, PETHP_FRAME_HEIGHT))
                 return false;
 
-            iNextPosY += (UI_INTERVAL_HEIGHT + PETHP_FRAME_HEIGHT);
+            iNextPosY += (static_cast<int>(UI_INTERVAL_HEIGHT) + PETHP_FRAME_HEIGHT);
         }
     }
 
@@ -200,12 +200,12 @@ bool SEASON3B::CNewUIItemEnduranceInfo::UpdateMouseEvent()
             if (bRenderRingWarning == false)
             {
                 icntItemDurIcon++;
-                ItemDurPos.y += (ITEM_DUR_HEIGHT + UI_INTERVAL_WIDTH);
+                ItemDurPos.y += (static_cast<int>(ITEM_DUR_HEIGHT) + UI_INTERVAL_WIDTH);
 
                 if (icntItemDurIcon % 2 == 0)
                 {
                     ItemDurPos.y = m_ItemDurUIStartPos.y;
-                    ItemDurPos.x -= (ITEM_DUR_WIDTH + UI_INTERVAL_WIDTH);
+                    ItemDurPos.x -= (static_cast<int>(ITEM_DUR_WIDTH) + UI_INTERVAL_WIDTH);
                 }
             }
         }
@@ -272,14 +272,14 @@ void SEASON3B::CNewUIItemEnduranceInfo::RenderLeft()
 
     if (RenderEquipedHelperLife(m_UIStartPos.x, iNextPosY))
     {
-        iNextPosY += (UI_INTERVAL_HEIGHT + PETHP_FRAME_HEIGHT);
+        iNextPosY += (static_cast<int>(UI_INTERVAL_HEIGHT) + PETHP_FRAME_HEIGHT);
     }
 
     if (gCharacterManager.GetBaseClass(Hero->Class) == CLASS_DARK_LORD)
     {
         if (RenderEquipedPetLife(m_UIStartPos.x, iNextPosY))
         {
-            iNextPosY += (UI_INTERVAL_HEIGHT + PETHP_FRAME_HEIGHT);
+            iNextPosY += (static_cast<int>(UI_INTERVAL_HEIGHT) + PETHP_FRAME_HEIGHT);
         }
     }
 
@@ -287,7 +287,7 @@ void SEASON3B::CNewUIItemEnduranceInfo::RenderLeft()
     {
         if (RenderSummonMonsterLife(m_UIStartPos.x, iNextPosY))
         {
-            iNextPosY += (UI_INTERVAL_HEIGHT + PETHP_FRAME_HEIGHT);
+            iNextPosY += (static_cast<int>(UI_INTERVAL_HEIGHT) + PETHP_FRAME_HEIGHT);
         }
     }
 }
@@ -385,7 +385,7 @@ void SEASON3B::CNewUIItemEnduranceInfo::RenderTooltip(int iX, int iY, const ITEM
     int iLevel = pItem->Level;
     int iMaxDurability = CalcMaxDurability(pItem, pItemAtt, iLevel);
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     mu_swprintf(szText, L"%ls (%d/%d)", pItemAtt->Name, pItem->Durability, iMaxDurability);
     GetTextExtentPoint32(g_pRenderText->GetFontDC(), szText, 1, &TextSize);
 
@@ -415,7 +415,7 @@ bool SEASON3B::CNewUIItemEnduranceInfo::RenderEquipedHelperLife(int iX, int iY)
         || Hero->Helper.Type == MODEL_PET_SKELETON
         || Hero->Helper.Type == MODEL_HORN_OF_FENRIR)
     {
-        wchar_t szText[256] = { NULL, };
+        wchar_t szText[256] = {};
 
         switch (Hero->Helper.Type)
         {
@@ -497,7 +497,7 @@ bool SEASON3B::CNewUIItemEnduranceInfo::RenderEquipedPetLife(int iX, int iY)
     if (Hero->m_pPet == NULL)
         return false;
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     mu_swprintf(szText, GlobalText[1214]);
 
     int iLife = CharacterMachine->Equipment[EQUIPMENT_WEAPON_LEFT].Durability;
@@ -511,7 +511,7 @@ bool SEASON3B::CNewUIItemEnduranceInfo::RenderSummonMonsterLife(int iX, int iY)
     if (SummonLife <= 0)
         return false;
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     mu_swprintf(szText, GlobalText[356]);
 
     RenderHPUI(iX, iY, szText, SummonLife, 100);
@@ -524,7 +524,7 @@ bool SEASON3B::CNewUIItemEnduranceInfo::RenderNumArrow(int iX, int iY)
     if (m_iCurArrowType == ARROWTYPE_NONE)
         return false;
 
-    wchar_t szText[256] = { NULL, };
+    wchar_t szText[256] = {};
     int iNumEquipedArrowDurability = 0;
     int iNumArrowSetInInven = 0;
 
@@ -686,12 +686,12 @@ bool SEASON3B::CNewUIItemEnduranceInfo::RenderItemEndurance(int ix, int iY)
         if (bRenderRingWarning == false)
         {
             icntItemDurIcon++;
-            ItemDurPos.y += (ITEM_DUR_HEIGHT + UI_INTERVAL_WIDTH);
+            ItemDurPos.y += (static_cast<int>(ITEM_DUR_HEIGHT) + UI_INTERVAL_WIDTH);
 
             if (icntItemDurIcon % 2 == 0)
             {
                 ItemDurPos.y = m_ItemDurUIStartPos.y;
-                ItemDurPos.x -= (ITEM_DUR_WIDTH + UI_INTERVAL_WIDTH);
+                ItemDurPos.x -= (static_cast<int>(ITEM_DUR_WIDTH) + UI_INTERVAL_WIDTH);
             }
         }
     }

@@ -33,7 +33,7 @@ char	Suc_Or_Fail = -1;
 char	View_Suc_Or_Fail = -1;
 float Deco_Insert = 0.f;
 char Message_Box = 0;
-wchar_t   Box_String[2][200] = { NULL,NULL };
+wchar_t   Box_String[2][200] = {};
 int  Dark_elf_Num = 0;
 int Button_Down = 0;
 int BackUp_Key = 0;
@@ -2180,7 +2180,7 @@ void M34CryWolf1st::Set_Message_Box(int Str, int Num, int Key, int ObjNum)
     else
         Message_Box = 2;
     if (Num == 0)
-        Box_String[Num + 1][0] = NULL;
+        Box_String[Num + 1][0] = 0;
 
     BackUp_Key = Key;
 }
@@ -2321,14 +2321,14 @@ void M34CryWolf1st::Sub_Interface()
             g_pCryWolfInterface->Render(Yes, 250, 54, 30, 0.f, 0.f, 54.f / 64.f, 30.f / 32.f, 19);
         }
 
-        if (Box_String[0][0] != NULL)
+        if (Box_String[0][0] != 0)
         {
             int Y_loc = 239;
-            if (Box_String[1][0] != NULL)
+            if (Box_String[1][0] != 0)
                 Y_loc = 227;
             g_pRenderText->RenderText(317, Y_loc, Box_String[0], 0, 0, RT3_WRITE_CENTER);
         }
-        if (Box_String[1][0] != NULL)
+        if (Box_String[1][0] != 0)
             g_pRenderText->RenderText(317, 238, Box_String[1], 0, 0, RT3_WRITE_CENTER);
     }
     else if (Message_Box == 2)
@@ -2354,14 +2354,14 @@ void M34CryWolf1st::Sub_Interface()
             g_pCryWolfInterface->Render(290, 250, 54, 30, 0.f, 0.f, 54.f / 64.f, 30.f / 32.f, 16);
         }
 
-        if (Box_String[0][0] != NULL)
+        if (Box_String[0][0] != 0)
         {
             int Y_loc = 239;
-            if (Box_String[1][0] != NULL)
+            if (Box_String[1][0] != 0)
                 Y_loc = 227;
             g_pRenderText->RenderText(317, Y_loc, Box_String[0], 0, 0, RT3_WRITE_CENTER);
         }
-        if (Box_String[1][0] != NULL)
+        if (Box_String[1][0] != 0)
             g_pRenderText->RenderText(317, 238, Box_String[1], 0, 0, RT3_WRITE_CENTER);
     }
 }
