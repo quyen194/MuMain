@@ -7460,11 +7460,7 @@ void ReceiveGuildBeginWar(const BYTE* ReceiveBuffer)
     for (int i = 0; i < MARK_EDIT; i++)
     {
         MARK_t* p = &GuildMark[i];
-        wchar_t Temp[8 + 1];
-        memset(Temp, 0, 8);
-        memcpy(Temp, (wchar_t*)Data->Name, 8);
-        Temp[8] = 0;
-        if (wcscmp(p->GuildName, Temp) == 0)
+        if (wcscmp(p->GuildName, GuildWarName) == 0)
         {
             GuildWarIndex = i;
             break;
