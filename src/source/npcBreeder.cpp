@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
 #include <process.h>
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "ZzzBMD.h"
 #include "ZzzInfomation.h"
 #include "ZzzCharacter.h"
@@ -12,7 +12,7 @@
 
 #include "npcBreeder.h"
 #include "GIPetManager.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 
 extern  int SrcInventoryIndex;
 

@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "ServerMsgWin.h"
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 
 
 

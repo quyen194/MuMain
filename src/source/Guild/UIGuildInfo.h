@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "UIWindows.h"
+#include "UI/Legacy/UIWindows.h"
 
 class CUIManager;
 class CUIGuildInfo;

@@ -6,12 +6,12 @@
 #include "SysMenuWin.h"
 
 #include "Input.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "ZzzInfomation.h"
 #include "Scenes/SceneCore.h"
 
 #include "DSPlaySound.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 
 #include "WSclient.h"
 #include "Utilities/Log/ErrorReport.h"

@@ -5,8 +5,8 @@
 #include "ZzzTexture.h"
 #include "ZzzInterface.h"
 
-#include "UIManager.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/Legacy/UIManager.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "Camera/CameraProjection.h"
 
 CPersonalShopTitleImp::CPersonalShopTitleImp() : m_iHighlightFrame(0), m_bShow(true)

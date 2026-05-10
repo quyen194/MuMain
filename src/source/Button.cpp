@@ -16,7 +16,7 @@
 #include "ZzzCharacter.h"
 #include "ZzzInterface.h"
 #include "DSPlaySound.h"
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 
 namespace
 {

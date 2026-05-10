@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include <imm.h>
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzBMD.h"
 #include "ZzzLodTerrain.h"
@@ -29,21 +29,21 @@
 #include "npcBreeder.h"
 #include "GIPetManager.h"
 #include "CSParts.h"
-#include "UIMapName.h"	// rozy
+#include "UI/Legacy/UIMapName.h"	// rozy
 #include "CDirection.h"
 #include "MapManager.h"
 #include "Event.h"
 
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "w_CursedTemple.h"
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 #include "PartyManager.h"
-#include "NewUI/NewUICommonMessageBox.h"
+#include "UI/NewUI/NewUICommonMessageBox.h"
 #include "SummonSystem.h"
 #include "w_MapHeaders.h"
 #include "DuelMgr.h"
 #include "ChangeRingManager.h"
-#include "NewUI/NewUIGensRanking.h"
+#include "UI/NewUI/NewUIGensRanking.h"
 #include "MonkSystem.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"

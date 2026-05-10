@@ -5,7 +5,7 @@
 #include "ZzzBMD.h"
 #include "ZzzCharacter.h"
 #include "WSclient.h"
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 #include "Character/CharacterManager.h"
 
 using namespace SEASON4A;

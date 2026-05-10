@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "CharMakeWin.h"
 #include "Input.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "ZzzBMD.h"
 #include "ZzzObject.h"
 #include "ZzzCharacter.h"
@@ -14,7 +14,7 @@
 #include "DSPlaySound.h"
 #include "ZzzAI.h"
 #include "Scenes/SceneCore.h"
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 
 #include "Local.h"
 #include "CharacterManager.h"

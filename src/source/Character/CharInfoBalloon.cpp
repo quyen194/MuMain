@@ -6,7 +6,7 @@
 #include "CharInfoBalloon.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzInterface.h"
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 #include "CharacterManager.h"
 
 #include <algorithm>

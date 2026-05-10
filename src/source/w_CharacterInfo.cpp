@@ -5,7 +5,7 @@
 #include "w_CharacterInfo.h"
 #include "SkillManager.h"
 
-#include "NewUI/NewUIGensRanking.h"
+#include "UI/NewUI/NewUIGensRanking.h"
 
 CHARACTER::CHARACTER()
 {

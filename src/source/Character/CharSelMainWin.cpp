@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "CharSelMainWin.h"
 #include "Input.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "ZzzBMD.h"
 #include "ZzzInfomation.h"
 #include "ZzzObject.h"

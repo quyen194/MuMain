@@ -9,8 +9,8 @@
 #include "../ZzzTexture.h"
 #include "../ZzzInterface.h"
 #include "../ZzzOpenData.h"
-#include "../UIMng.h"
-#include "../NewUI/NewUISystem.h"
+#include "../UI/Legacy/UIMng.h"
+#include "../UI/NewUI/NewUISystem.h"
 
 // External declarations
 extern EGameScene SceneFlag;

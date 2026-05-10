@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
 #include "stdafx.h"
-#include "UIWindows.h"
+#include "UI/Legacy/UIWindows.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzBMD.h"
 #include "ZzzLodTerrain.h"

@@ -8,8 +8,8 @@
 
 #include "InventoryUtils.h"
 #include "ZzzInventory.h"
-#include "NewUI/NewUIInventoryCtrl.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUIInventoryCtrl.h"
+#include "UI/NewUI/NewUISystem.h"
 
 extern DWORD  g_dwActiveUIID;
 extern int   InventoryStartX;

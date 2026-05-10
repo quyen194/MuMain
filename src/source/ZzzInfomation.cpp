@@ -20,9 +20,9 @@
 #include "CSItemOption.h"
 #include "GIPetManager.h"
 #include "CComGem.h"
-#include "NewUI/NewUIInventoryCtrl.h"
+#include "UI/NewUI/NewUIInventoryCtrl.h"
 #include "SocketSystem.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"
 

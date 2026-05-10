@@ -3,14 +3,14 @@
 
 #include "stdafx.h"
 #include "NewUIGuildMakeWindow.h"
-#include "NewUI/NewUIManager.h"
-#include "NewUI/NewUICommonMessageBox.h"
+#include "UI/NewUI/NewUIManager.h"
+#include "UI/NewUI/NewUICommonMessageBox.h"
 #include "DSPlaySound.h"
 
 #include "ZzzInterface.h"
 #include "ZzzInventory.h"
 #include "Local.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 
 extern MARK_t		GuildMark[MAX_MARKS];
 extern int			SelectMarkColor;
