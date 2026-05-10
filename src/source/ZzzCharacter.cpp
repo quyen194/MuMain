@@ -114,7 +114,7 @@ namespace
 #include "w_PetProcess.h"
 #include "DuelMgr.h"
 #include "MonkSystem.h"
-#include <NewUI/NewUISystem.h>
+#include "NewUI/NewUISystem.h"
 
 CHARACTER* CharactersClient;
 CHARACTER CharacterView;

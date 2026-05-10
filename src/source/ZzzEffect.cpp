@@ -18,7 +18,7 @@
 #include "SkillEffectMgr.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"
-#include <NewUI/NewUISystem.h>
+#include "NewUI/NewUISystem.h"
 #include "ZzzInterface.h"
 
 PARTICLE  Particles[MAX_PARTICLES];
