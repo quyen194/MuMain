@@ -26,9 +26,9 @@
 
 #include "CSQuest.h"
 #include "UsefulDef.h"
-#include "NewUIInventoryCtrl.h"
+#include "NewUI/NewUIInventoryCtrl.h"
 #include "Character/CharacterManager.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 
 bool bCheckNPC = false;
 extern  int  g_iMessageTextStart;

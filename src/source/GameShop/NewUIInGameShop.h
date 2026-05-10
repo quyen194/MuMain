@@ -8,11 +8,11 @@
 
 #ifdef PBG_ADD_INGAMESHOP_UI_ITEMSHOP
 
-#include "NewUIBase.h"
-#include "NewUIManager.h"
-#include "NewUIMessageBox.h"
-#include "NewUIMyInventory.h"
-#include "NewUICommonMessageBox.h"
+#include "NewUI/NewUIBase.h"
+#include "NewUI/NewUIManager.h"
+#include "NewUI/NewUIMessageBox.h"
+#include "NewUI/NewUIMyInventory.h"
+#include "NewUI/NewUICommonMessageBox.h"
 #include "ZzzInventory.h"
 #include "Sprite.h"
 #include "InGameShopSystem.h"

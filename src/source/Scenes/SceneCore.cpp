@@ -23,7 +23,7 @@
 #include "LoadingScene.h"
 #include "CDirection.h"
 
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include <chrono>
 #include <thread>
 

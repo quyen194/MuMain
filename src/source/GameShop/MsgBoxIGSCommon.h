@@ -9,9 +9,9 @@
 #ifdef KJH_ADD_INGAMESHOP_UI_SYSTEM
 
 #include "UIControls.h"
-#include "NewUIMessageBox.h"
-#include "NewUICommonMessageBox.h"
-#include "NewUIOptionWindow.h"
+#include "NewUI/NewUIMessageBox.h"
+#include "NewUI/NewUICommonMessageBox.h"
+#include "NewUI/NewUIOptionWindow.h"
 
 using namespace SEASON3B;
 

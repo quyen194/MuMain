@@ -34,7 +34,7 @@ FrameTimingState g_frameTiming;
 #include "../WSclient.h"
 #include "../w_CursedTemple.h"
 #include "../ServerListManager.h"
-#include "../NewUISystem.h"
+#include "../NewUI/NewUISystem.h"
 #include "../ZzzInterface.h"
 #include "../GlobalText.h"
 #include "../ZzzAI.h"

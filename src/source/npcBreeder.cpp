@@ -12,7 +12,7 @@
 
 #include "npcBreeder.h"
 #include "GIPetManager.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 
 extern  int SrcInventoryIndex;
 

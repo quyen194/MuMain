@@ -22,7 +22,7 @@
 #include "../CSMapServer.h"
 #include "../Utilities/Log/muConsoleDebug.h"
 #include "../ZzzInterface.h"
-#include "../NewUISystem.h"
+#include "../NewUI/NewUISystem.h"
 #include "../DSPlaySound.h"
 #include "../Winmain.h"
 #include "SceneCommon.h"

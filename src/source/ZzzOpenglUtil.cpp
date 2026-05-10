@@ -9,7 +9,7 @@
 #include "ZzzObject.h"
 #include "ZzzCharacter.h"
 #include "ZzzInfomation.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "wglext.h"
 #include "Camera/CameraProjection.h"
 #include "Camera/CameraManager.h"

@@ -33,7 +33,7 @@
 #include "Character/CharacterManager.h"
 #include "w_MapHeaders.h"
 #include "MonkSystem.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "Camera/CameraManager.h"
 #include "Camera/CameraProjection.h"
 #include "Camera/OrbitalCamera.h"

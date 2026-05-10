@@ -13,8 +13,8 @@
 #include "PersonalShopTitleImp.h"
 #include "CComGem.h"
 #include "DSPlaySound.h"
-#include "NewUICustomMessageBox.h"
-#include "NewUINPCShop.h"
+#include "NewUI/NewUICustomMessageBox.h"
+#include "NewUI/NewUINPCShop.h"
 
 extern int g_iKeyPadEnable;
 extern int g_iChatInputType;

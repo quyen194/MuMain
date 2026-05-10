@@ -9,9 +9,9 @@
 #ifdef KJH_ADD_INGAMESHOP_UI_SYSTEM
 
 #include "UIControls.h"
-#include "NewUIMessageBox.h"
-#include "NewUICommonMessageBox.h"
-#include "NewUIButton.h"
+#include "NewUI/NewUIMessageBox.h"
+#include "NewUI/NewUICommonMessageBox.h"
+#include "NewUI/NewUIButton.h"
 #include "./GameShop/ShopListManager/ShopPackage.h"
 
 using namespace SEASON3B;
