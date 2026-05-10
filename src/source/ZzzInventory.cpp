@@ -50,7 +50,6 @@
 #include "MapManager.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"
-#include "NewUI/NewUISystem.h"
 #include "Camera/CameraProjection.h"
 
 extern CUITextInputBox* g_pSingleTextInputBox;
