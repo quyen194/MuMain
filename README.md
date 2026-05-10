@@ -88,7 +88,7 @@ There are two orthogonal choices: **editor on/off** (configure-time, picked via 
 - Preprocessor define: `_EDITOR`
 
 #### Standard builds (`windows-x86` / `windows-x64`)
-- Configure preset sets `ENABLE_EDITOR=OFF`; no editor code is compiled in and the `imgui` submodule is unused
+- Configure preset sets `ENABLE_EDITOR=OFF`; no editor code is compiled in and the `imgui` submodule is not initialized
 - Zero editor overhead
 
 Either configuration can be built as Debug or Release via the corresponding build preset (`*-debug` or `*-release`).
