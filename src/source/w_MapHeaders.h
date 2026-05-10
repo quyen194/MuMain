@@ -67,3 +67,4 @@ T& TheWorld(int type)
 #include "GameMaps/GM_Kanturu_2nd.h"
 #include "GameMaps/GM_Kanturu_3rd.h"
 #include "GameMaps/GM3rdChangeUp.h"
+#include "GameMaps/GMAida.h"
