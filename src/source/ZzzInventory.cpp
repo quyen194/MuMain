@@ -48,7 +48,7 @@
 #include <vector>
 
 #include "MapManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 #include "NewUISystem.h"
 #include "Camera/CameraProjection.h"

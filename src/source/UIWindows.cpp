@@ -14,7 +14,7 @@
 #include "CSParts.h"
 #include "SummonSystem.h"
 #include "MapManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
 #include "NewUISystem.h"
 #include "Camera/CameraProjection.h"

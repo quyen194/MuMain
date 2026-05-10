@@ -13,7 +13,7 @@
 #include "MapManager.h"
 #include "SocketSystem.h"
 #include "MonkSystem.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
 #include "ZzzInterface.h"
 #include "UIManager.h"

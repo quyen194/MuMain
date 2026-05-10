@@ -15,7 +15,7 @@
 #include "ZzzInventory.h"
 #include "ZzzInfomation.h"
 
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 
 int	DeleteIndex = 0;
 int AppointStatus = 0;

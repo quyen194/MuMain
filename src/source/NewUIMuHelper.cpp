@@ -7,7 +7,7 @@
 #include "UIControls.h"
 #include "NewUISystem.h"
 #include "NewUIMuHelper.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "MUHelper/MuHelper.h"
 
 using namespace MUHelper;

@@ -16,7 +16,7 @@
 #include "CDirection.h"
 #include "MapManager.h"
 #include "SkillEffectMgr.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 #include <NewUISystem.h>
 #include "ZzzInterface.h"

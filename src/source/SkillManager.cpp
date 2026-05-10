@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "SkillManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "MapManager.h"
 #include "ZzzCharacter.h"
 

@@ -7,7 +7,7 @@
 #include "ZzzInfomation.h"
 #include "ZzzCharacter.h"
 
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "WSclient.h"
 
 #include <algorithm>

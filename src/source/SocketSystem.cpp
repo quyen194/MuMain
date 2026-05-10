@@ -6,7 +6,7 @@
 #include "ZzzCharacter.h"
 #include "WSclient.h"
 #include "UIControls.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 
 using namespace SEASON4A;
 

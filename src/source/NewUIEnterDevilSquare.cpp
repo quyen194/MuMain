@@ -6,7 +6,7 @@
 #include "NewUIEnterDevilSquare.h"
 #include "NewUISystem.h"
 #include "ZzzCharacter.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
 
 using namespace SEASON3B;

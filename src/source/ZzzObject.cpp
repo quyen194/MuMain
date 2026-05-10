@@ -30,7 +30,7 @@
 #include "CComGem.h"
 #include "BoneManager.h"
 #include "w_CursedTemple.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "w_MapHeaders.h"
 #include "MonkSystem.h"
 #include "NewUISystem.h"

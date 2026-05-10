@@ -30,7 +30,7 @@ extern bool SelectFlag;
 #endif // CSK_FIX_BLUELUCKYBAG_MOVECOMMAND
 #include "ChangeRingManager.h"
 #include "MonkSystem.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
 #include "ZzzInterface.h"
 

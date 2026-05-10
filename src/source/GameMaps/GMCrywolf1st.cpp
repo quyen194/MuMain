@@ -14,7 +14,7 @@
 #include "CMVP1stDirection.h"
 #include "CSChaosCastle.h"
 #include "MapManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "NewUISystem.h"
 #include "SkillManager.h"
 

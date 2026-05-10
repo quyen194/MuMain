@@ -27,7 +27,7 @@
 #include "CSQuest.h"
 #include "UsefulDef.h"
 #include "NewUIInventoryCtrl.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "NewUISystem.h"
 
 bool bCheckNPC = false;

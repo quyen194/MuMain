@@ -7,7 +7,7 @@
 #include "NewUISystem.h"
 
 #include "GIPetManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 
 using namespace SEASON3B;

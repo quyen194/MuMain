@@ -5,7 +5,7 @@
 #include "NewUIItemEnduranceInfo.h"
 #include "NewUISystem.h"
 
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 
 #ifdef PJH_FIX_SPRIT
 #include "GIPetManager.h"

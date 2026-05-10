@@ -10,7 +10,7 @@
 #include "Scenes/SceneCore.h"
 #include "ZzzInterface.h"
 #include "ZzzInventory.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "UIControls.h"
 #include "NewUISystem.h"
 #include "SkillManager.h"

@@ -16,7 +16,7 @@
 
 #include "NewUICustomMessageBox.h"
 #include "MapManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
 #include "NewUISystem.h"
 

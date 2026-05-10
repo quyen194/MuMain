@@ -20,7 +20,7 @@
 #include "CSItemOption.h"
 #include "CSChaosCastle.h"
 #include "MapManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 #include "./Time/CTimCheck.h"
 #include "MonkSystem.h"

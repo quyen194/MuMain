@@ -14,7 +14,7 @@
 #include "ZzzInterface.h"
 #include "ZzzInventory.h"
 
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "CSItemOption.h"
 #include "CSChaosCastle.h"
 #include "NewUISystem.h"

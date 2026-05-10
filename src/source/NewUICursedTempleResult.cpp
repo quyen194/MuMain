@@ -17,7 +17,7 @@
 #include "CSChaosCastle.h"
 #include "UIControls.h"
 #include "SkillManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "NewUISystem.h"
 
 using namespace SEASON3B;

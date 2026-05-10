@@ -26,7 +26,7 @@
 #include "Scenes/SceneCore.h"
 #include "DSPlaySound.h"
 #include "ZzzPath.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 
 namespace

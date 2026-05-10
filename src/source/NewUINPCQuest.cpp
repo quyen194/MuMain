@@ -7,7 +7,7 @@
 #include "NewUISystem.h"
 #include "CSQuest.h"
 
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
 
 extern bool bCheckNPC;

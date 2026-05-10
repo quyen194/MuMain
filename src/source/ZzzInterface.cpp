@@ -45,7 +45,7 @@
 #include "ChangeRingManager.h"
 #include "NewUIGensRanking.h"
 #include "MonkSystem.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 #include "MUHelper/MuHelper.h"
 

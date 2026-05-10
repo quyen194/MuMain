@@ -11,9 +11,9 @@
 #include "ServerSelWin.h"
 #include "LoginWin.h"
 #include "CreditWin.h"
-#include "CharSelMainWin.h"
-#include "CharMakeWin.h"
-#include "CharInfoBalloonMng.h"
+#include "Character/CharSelMainWin.h"
+#include "Character/CharMakeWin.h"
+#include "Character/CharInfoBalloonMng.h"
 #include "ServerMsgWin.h"
 
 #define	UIM_SCENE_NONE			0
