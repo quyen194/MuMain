@@ -81,5 +81,5 @@ language explicitly.
 - The one exception is **game/business logic and non-obvious calculations** - the rules a system enforces (drop rates, EXP curves, combat resolution, trade flow) and the math behind them (damage formulas, collision math). Document the rules and the *why* of any formula, so a reader understands the behaviour without having to read the code.
   - When you change a rule or formula like this (not just edit nearby code), add the docs if they're missing or update them if behaviour shifts. Most of this is currently undocumented, so treat first contact as the chance to capture it.
   - Where it helps, note how the original S6 client handled it vs. how we do it now - the contrast is often the most useful part for a future reader.
-- Extend an existing file in `docs/` rather than starting a new one. Don't fragment.
+- Extend an existing file in `docs/` for related content rather than starting a new one. A distinct, self-contained system (e.g. `camera-system.md`, `options-window.md`) can have its own file.
 - If it doesn't help a player, an admin, or someone reaching for a formula, don't write it.

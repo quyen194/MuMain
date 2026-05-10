@@ -68,9 +68,9 @@ The project uses three git submodules under `src/ThirdParty/`:
 
 - `SDL` - windowing, input and audio backend (required for all builds)
 - `SDL_mixer` - audio mixer (required for all builds)
-- `imgui` - in-game editor UI (Debug builds only)
+- `imgui` - in-game editor UI (Debug builds with `-DENABLE_EDITOR=ON`)
 
-CMake initializes these automatically on first configure. If that fails (e.g. `git` is not on `PATH`), run from the repository root:
+CMake initializes these automatically on first configure. If that fails for any reason, run from the repository root:
 
 ```bash
 git submodule update --init
