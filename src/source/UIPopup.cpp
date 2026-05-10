@@ -7,7 +7,7 @@
 #include "ZzzInterface.h"
 #include "UIManager.h"
 #include "UIPopup.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 
 extern CUITextInputBox* g_pSingleTextInputBox;
 extern int				g_iChatInputType;

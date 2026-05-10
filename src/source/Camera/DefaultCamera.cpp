@@ -19,7 +19,7 @@
 #include "../ZzzLodTerrain.h"
 #include "../MapManager.h"
 #include "../CameraMove.h"
-#include "../NewUISystem.h"
+#include "../NewUI/NewUISystem.h"
 #include "../CDirection.h"
 #include "../w_MapHeaders.h"
 #include "../UIManager.h"

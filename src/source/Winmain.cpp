@@ -52,7 +52,7 @@
 
 
 
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "Camera/CameraConfig.h"
 #include "Camera/CameraProjection.h"
 #include "Translation/i18n.h"

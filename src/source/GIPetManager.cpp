@@ -19,7 +19,7 @@
 #include "DSPlaySound.h"
 #include "Input.h"
 #include "MapManager.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "PersonalShopTitleImp.h"
 #include "UIManager.h"
 #include "ZzzBMD.h"

@@ -6,7 +6,7 @@
 #ifdef KJH_ADD_INGAMESHOP_UI_SYSTEM
 #include "MsgBoxIGSBuySelectItem.h"
 #include "DSPlaySound.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "MsgBoxIGSBuyConfirm.h"
 #include "MsgBoxIGSSendGift.h"
 

@@ -4,9 +4,9 @@
 
 #include "stdafx.h"
 #include "NewUIGuildInfoWindow.h"
-#include "NewUISystem.h"
-#include "NewUICommonMessageBox.h"
-#include "NewUICustomMessageBox.h"
+#include "NewUI/NewUISystem.h"
+#include "NewUI/NewUICommonMessageBox.h"
+#include "NewUI/NewUICustomMessageBox.h"
 #include "DSPlaySound.h"
 #include "UIGuildInfo.h"
 #include "UIControls.h"

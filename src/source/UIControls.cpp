@@ -19,7 +19,7 @@
 #include "CMVP1stDirection.h"
 #include "UIManager.h"
 #include "InventoryUtils.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include <vector>
 
 extern BYTE m_CrywolfState;

@@ -14,7 +14,7 @@
 #include "../ZzzEffect.h"
 #include "../MapManager.h"
 #include "../UIMng.h"
-#include "../NewUISystem.h"
+#include "../NewUI/NewUISystem.h"
 #include "../PartyManager.h"
 #include "../CDirection.h"
 #include "../w_PetProcess.h"

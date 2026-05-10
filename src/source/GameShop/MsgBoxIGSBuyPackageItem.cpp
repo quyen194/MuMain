@@ -9,7 +9,7 @@
 
 #include "UsefulDef.h"
 #include "DSPlaySound.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "InGameShopSystem.h"
 #include "MsgBoxIGSBuyConfirm.h"
 #include "MsgBoxIGSSendGift.h"

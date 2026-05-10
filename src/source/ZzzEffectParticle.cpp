@@ -15,7 +15,7 @@
 #include "DSPlaySound.h"
 #include "WSclient.h"
 #include "MapManager.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 
 vec3_t g_vParticleWind = { 0.0f, 0.0f, 0.0f };
 vec3_t g_vParticleWindVelo = { 0.0f, 0.0f, 0.0f };

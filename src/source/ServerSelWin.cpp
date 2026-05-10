@@ -14,7 +14,7 @@
 
 #include "UIControls.h"
 
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "ServerListManager.h"
 
 #define	SSW_GAP_WIDTH	28

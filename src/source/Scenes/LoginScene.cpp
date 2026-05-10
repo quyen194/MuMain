@@ -27,7 +27,7 @@
 #include "../UIControls.h"
 #include "SceneCommon.h"
 #include "../ZzzOpenData.h"
-#include "../NewUISystem.h"
+#include "../NewUI/NewUISystem.h"
 
 // External declarations
 extern int DeleteGuildIndex;

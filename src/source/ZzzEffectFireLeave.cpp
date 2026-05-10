@@ -19,7 +19,7 @@
 #include "CSChaosCastle.h"
 #include "MapManager.h"
 #include "w_MapHeaders.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "Random.h"
 
 #include <cmath>

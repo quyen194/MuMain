@@ -33,13 +33,13 @@
 #include "CDirection.h"
 #include "ChangeRingManager.h"
 #include "MixMgr.h"
-#include "NewUICommonMessageBox.h"
-#include "NewUICustomMessageBox.h"
-#include "NewUIInventoryCtrl.h"
+#include "NewUI/NewUICommonMessageBox.h"
+#include "NewUI/NewUICustomMessageBox.h"
+#include "NewUI/NewUIInventoryCtrl.h"
 #include "w_CursedTemple.h"
 #include "SocketSystem.h"
 #include "PortalMgr.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "ServerListManager.h"
 #include <algorithm>
 #include <time.h>
@@ -50,7 +50,7 @@
 #include "MapManager.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "Camera/CameraProjection.h"
 
 extern CUITextInputBox* g_pSingleTextInputBox;

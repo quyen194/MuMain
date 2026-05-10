@@ -22,7 +22,7 @@
 
 #include "ChangeRingManager.h"
 #include "LoadData.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 
 
 CTrapCanon g_TrapCanon;

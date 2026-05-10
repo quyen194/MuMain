@@ -12,7 +12,7 @@
 #include "ZzzInventory.h"
 #include "Character/CharacterManager.h"
 #include "UIControls.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "SkillManager.h"
 #include "CSItemOption.h"
 

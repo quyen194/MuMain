@@ -14,11 +14,11 @@
 #include "UIManager.h"
 #include "CSChaosCastle.h"
 
-#include "NewUICustomMessageBox.h"
+#include "NewUI/NewUICustomMessageBox.h"
 #include "MapManager.h"
 #include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 
 #include <algorithm>
 #include <array>

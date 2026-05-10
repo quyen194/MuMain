@@ -11,7 +11,7 @@
 #include "Scenes/SceneCore.h"
 
 #include "DSPlaySound.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 
 #include "WSclient.h"
 #include "Utilities/Log/ErrorReport.h"

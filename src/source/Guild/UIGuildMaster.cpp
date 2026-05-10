@@ -11,9 +11,9 @@
 #include "UIGuildMaster.h"
 #include "DSPlaySound.h"
 
-#include "NewUICommonMessageBox.h"
+#include "NewUI/NewUICommonMessageBox.h"
 #include "Local.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "ZzzInterface.h"
 
 extern CUITextInputBox* g_pSingleTextInputBox;

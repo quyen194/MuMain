@@ -15,7 +15,7 @@
 #include "PhysicsManager.h"
 #include "CSWaterTerrain.h"
 #include "DSPlaySound.h"
-#include "NewUISystem.h"
+#include "NewUI/NewUISystem.h"
 #include "MapManager.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"
