@@ -64,17 +64,17 @@ What needs to be done for Season 6:
 
 ### First Time Setup - Initialize Submodules
 
-The project uses ImGui as a git submodule for the in-game editor (debug builds only). After cloning the repository, you must initialize the submodules
-if CMake did not do this automatically which it should
+The project uses three git submodules under `src/ThirdParty/`:
+
+- `SDL` - windowing, input and audio backend (required for all builds)
+- `SDL_mixer` - audio mixer (required for all builds)
+- `imgui` - in-game editor UI (Debug builds only)
+
+CMake initializes these automatically on first configure. If that fails (e.g. `git` is not on `PATH`), run from the repository root:
 
 ```bash
-# From the repository root
 git submodule update --init
 ```
-
-This will download the ImGui library into `src/ThirdParty/imgui`.
-
-**Note:** This is only required for **Debug builds** (`Global Debug` configuration). Release builds do not require ImGui.
 
 ### Build Configurations
 

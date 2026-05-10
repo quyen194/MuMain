@@ -72,3 +72,14 @@ language explicitly.
 - Every new dependency, abstraction, or pattern has a maintenance cost. Justify it.
 - Smaller diffs are easier to review. Keep changes focused on one concern per commit.
 - If you're unsure about a structural decision, ask before building on top of it.
+
+## 11. Document Usage, Not Internals
+
+- New, changed, or removed systems get a docs update, but only at the **usage** level: what the feature does and how players or admins use it.
+  - In scope: gameplay features, admin/editor workflows (e.g. editor usage), UI behaviour, configuration the user touches.
+  - Out of scope: function signatures, class diagrams, internal data flow. The code is the source of truth for those.
+- The one exception is **game/business logic and non-obvious calculations** - the rules a system enforces (drop rates, EXP curves, combat resolution, trade flow) and the math behind them (damage formulas, collision math). Document the rules and the *why* of any formula, so a reader understands the behaviour without having to read the code.
+  - When you change a rule or formula like this (not just edit nearby code), add the docs if they're missing or update them if behaviour shifts. Most of this is currently undocumented, so treat first contact as the chance to capture it.
+  - Where it helps, note how the original S6 client handled it vs. how we do it now - the contrast is often the most useful part for a future reader.
+- Extend an existing file in `docs/` rather than starting a new one. Don't fragment.
+- If it doesn't help a player, an admin, or someone reaching for a formula, don't write it.
