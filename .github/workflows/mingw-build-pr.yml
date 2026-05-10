@@ -7,7 +7,12 @@ on:
 
 jobs:
   build-mingw:
+    name: build-mingw (editor-${{ matrix.editor }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        editor: [OFF, ON]
     env:
       WINEDEBUG: -all
       WINEPREFIX: ${{ github.workspace }}/.wineprefix
@@ -63,6 +68,7 @@ jobs:
             -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/cmake/toolchains/mingw-w64-i686.cmake" \
             -DCMAKE_BUILD_TYPE=Release \
             -DBUILD_TESTING=ON \
+            -DENABLE_EDITOR=${{ matrix.editor }} \
             -DMU_TURBOJPEG_STATIC_LIB="${GITHUB_WORKSPACE}/_deps/mingw-i686/lib/libturbojpeg.a"
 
       - name: Build

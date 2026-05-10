@@ -7,8 +7,14 @@ on:
 
 jobs:
   build-mingw:
+    name: build-mingw (editor-${{ matrix.editor }})
     runs-on: ubuntu-latest
-    
+    strategy:
+      fail-fast: false
+      matrix:
+        editor: [OFF, ON]
+
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -54,6 +60,7 @@ jobs:
             -G Ninja \
             -DCMAKE_TOOLCHAIN_FILE="${GITHUB_WORKSPACE}/cmake/toolchains/mingw-w64-i686.cmake" \
             -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_EDITOR=${{ matrix.editor }} \
             -DMU_TURBOJPEG_STATIC_LIB="${GITHUB_WORKSPACE}/_deps/mingw-i686/lib/libturbojpeg.a"
       
       - name: Build
@@ -63,6 +70,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: main-exe-mingw
+          name: main-exe-mingw-editor-${{ matrix.editor }}
           path: build-mingw/src/Main.exe
           if-no-files-found: error
