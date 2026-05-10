@@ -64,32 +64,34 @@ What needs to be done for Season 6:
 
 ### First Time Setup - Initialize Submodules
 
-The project uses ImGui as a git submodule for the in-game editor (debug builds only). After cloning the repository, you must initialize the submodules
-if CMake did not do this automatically which it should
+The project uses three git submodules under `src/ThirdParty/`:
+
+- `SDL` - windowing, input and audio backend (required for all builds)
+- `SDL_mixer` - audio mixer (required for all builds)
+- `imgui` - in-game editor UI (only needed when built with `-DENABLE_EDITOR=ON`, independent of Debug/Release)
+
+CMake initializes these automatically on first configure. If that fails for any reason, run from the repository root:
 
 ```bash
-# From the repository root
 git submodule update --init
 ```
 
-This will download the ImGui library into `src/ThirdParty/imgui`.
-
-**Note:** This is only required for **Debug builds** (`Global Debug` configuration). Release builds do not require ImGui.
-
 ### Build Configurations
 
-#### Debug Builds (`Global Debug`)
-- Includes the in-game MU Editor (ImGui-based)
-- Requires ImGui submodule to be initialized (see above)
+There are two orthogonal choices: **editor on/off** (configure-time, picked via preset) and **Debug/Release** (build-time).
+
+#### Editor builds (`windows-x86-mueditor` / `windows-x64-mueditor`)
+- Configure preset sets `ENABLE_EDITOR=ON`
+- Includes the in-game MU Editor (ImGui-based); the `imgui` submodule must be initialized
 - Press **F12** in-game to toggle the editor
 - Start with `--editor` flag to launch with editor enabled
 - Preprocessor define: `_EDITOR`
 
-#### Release Builds (`Global Release`)
-- No editor code included
-- ImGui submodule not required
-- Optimized for production use
+#### Standard builds (`windows-x86` / `windows-x64`)
+- Configure preset sets `ENABLE_EDITOR=OFF`; no editor code is compiled in and the `imgui` submodule is not initialized
 - Zero editor overhead
+
+Either configuration can be built as Debug or Release via the corresponding build preset (`*-debug` or `*-release`).
 
 ### Building with CMake and MinGW-w64 (Linux)
 

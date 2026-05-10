@@ -9,10 +9,6 @@ cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH REPO_ROOT)
 
 include("${REPO_ROOT}/cmake/EnsureSubmodule.cmake")
 
-mu_ensure_submodule("ThirdParty/imgui"
-  INDICATOR "imgui.cpp"
-  URL "https://github.com/ocornut/imgui.git")
-
 mu_ensure_submodule("ThirdParty/SDL"
   INDICATOR "CMakeLists.txt"
   URL "https://github.com/libsdl-org/SDL.git")
@@ -99,6 +95,10 @@ endif()
 
 # ImGui static library (required when editor is enabled)
 if(ENABLE_EDITOR)
+  mu_ensure_submodule("ThirdParty/imgui"
+    INDICATOR "imgui.cpp"
+    URL "https://github.com/ocornut/imgui.git")
+
   add_library(imgui STATIC
     "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/imgui/imgui.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/imgui/imgui_draw.cpp"
