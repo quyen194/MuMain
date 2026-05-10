@@ -13,7 +13,7 @@
 #include "ZzzEffect.h"
 #include "UIMng.h"
 #include "MapManager.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #ifdef KJH_ADD_INGAMESHOP_UI_SYSTEM
 #include "GameShop/InGameShopSystem.h"
 #endif // KJH_ADD_INGAMESHOP_UI_SYSTEM

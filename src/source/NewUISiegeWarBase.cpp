@@ -9,7 +9,7 @@ using namespace SEASON3B;
 #include "ZzzInterface.h"
 #include "ZzzInventory.h"
 #include "Guild/UIGuildInfo.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 
 SEASON3B::CNewUISiegeWarBase::CNewUISiegeWarBase()

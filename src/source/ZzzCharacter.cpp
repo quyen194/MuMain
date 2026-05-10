@@ -108,7 +108,7 @@ namespace
 #include "PartyManager.h"
 #include "w_CursedTemple.h"
 #include "SummonSystem.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 #include "w_MapHeaders.h"
 #include "w_PetProcess.h"

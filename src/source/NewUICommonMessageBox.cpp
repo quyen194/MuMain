@@ -17,7 +17,7 @@
 #include "CSQuest.h"
 #include "PortalMgr.h"
 #include "GambleSystem.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
 #include "NewUILuckyItemWnd.h"
 #include "NewUISystem.h"

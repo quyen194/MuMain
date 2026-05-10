@@ -14,7 +14,7 @@
 
 #include "ZzzCharacter.h"
 #include "ZzzInfomation.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "CSPetSystem.h"
 #include "DSPlaySound.h"
 #include "Input.h"

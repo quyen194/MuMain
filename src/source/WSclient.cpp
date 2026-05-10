@@ -45,7 +45,7 @@
 #include "w_CursedTemple.h"
 #include "SummonSystem.h"
 
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 
 #ifdef KJH_ADD_INGAMESHOP_UI_SYSTEM

@@ -23,7 +23,7 @@
 #include "NewUIInventoryCtrl.h"
 #include "SocketSystem.h"
 #include "NewUISystem.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 
 CLASS_ATTRIBUTE     ClassAttribute[MAX_CLASS];

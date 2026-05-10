@@ -7,7 +7,7 @@
 #include "NewUISystem.h"
 
 #include "ZzzInventory.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "SkillManager.h"
 #include "ZzzInterface.h"
 #include "Camera/CameraProjection.h"

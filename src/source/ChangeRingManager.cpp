@@ -9,7 +9,7 @@
 #include "ZzzCharacter.h"
 #include "ChangeRingManager.h"
 #include "LoadData.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 
 #include <algorithm>
 #include <array>

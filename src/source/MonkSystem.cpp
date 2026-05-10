@@ -9,7 +9,7 @@
 #include "ZzzLodTerrain.h"
 
 #include "LoadData.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "DSPlaySound.h"
 #include "SkillManager.h"
 #include "MapManager.h"

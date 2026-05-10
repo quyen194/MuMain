@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "NewUICharacterInfoWindow.h"
 #include "NewUISystem.h"
-#include "CharacterManager.h"
+#include "Character/CharacterManager.h"
 #include "CSItemOption.h"
 #include "DSPlaySound.h"
 #include "ZzzCharacter.h"
