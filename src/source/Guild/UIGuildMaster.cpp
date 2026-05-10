@@ -7,13 +7,13 @@
 #include "ZzzInventory.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzTexture.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "UIGuildMaster.h"
 #include "DSPlaySound.h"
 
-#include "NewUI/NewUICommonMessageBox.h"
+#include "UI/NewUI/NewUICommonMessageBox.h"
 #include "Local.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "ZzzInterface.h"
 
 extern CUITextInputBox* g_pSingleTextInputBox;

@@ -2,7 +2,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzBMD.h"
 #include "ZzzLodTerrain.h"
@@ -33,13 +33,13 @@
 #include "CDirection.h"
 #include "ChangeRingManager.h"
 #include "MixMgr.h"
-#include "NewUI/NewUICommonMessageBox.h"
-#include "NewUI/NewUICustomMessageBox.h"
-#include "NewUI/NewUIInventoryCtrl.h"
+#include "UI/NewUI/NewUICommonMessageBox.h"
+#include "UI/NewUI/NewUICustomMessageBox.h"
+#include "UI/NewUI/NewUIInventoryCtrl.h"
 #include "w_CursedTemple.h"
 #include "SocketSystem.h"
 #include "PortalMgr.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "ServerListManager.h"
 #include <algorithm>
 #include <time.h>

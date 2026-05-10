@@ -8,7 +8,7 @@
 #include "DSPlaySound.h"
 #include "GlobalBitmap.h"
 #include "LoadData.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "PersonalShopTitleImp.h"
 #include "ZzzBMD.h"
 #include "ZzzCharacter.h"

@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzTexture.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 
 #include "ItemAddOptioninfo.h"
 

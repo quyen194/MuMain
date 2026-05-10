@@ -5,7 +5,7 @@
 
 #ifdef PBG_ADD_INGAMESHOP_UI_ITEMSHOP
 #include "iexplorer.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "NewUIInGameShop.h"
 #include "MsgBoxIGSBuyPackageItem.h"
 #include "MsgBoxIGSBuySelectItem.h"

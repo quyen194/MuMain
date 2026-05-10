@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "ReadScript.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "ItemAddOptioninfo.h"
 #include "w_BuffScriptLoader.h"
 

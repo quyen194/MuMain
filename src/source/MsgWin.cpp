@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "MsgWin.h"
 #include "Input.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include <crtdbg.h>
 #include "ZzzBMD.h"
 #include "ZzzInfomation.h"
@@ -16,7 +16,7 @@
 #include "Scenes/SceneCore.h"
 #include "DSPlaySound.h"
 
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 #include "ZzzOpenglUtil.h"
 #include "Scenes/SceneCommon.h"
 #include "Utilities/Log/ErrorReport.h"

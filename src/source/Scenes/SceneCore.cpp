@@ -16,14 +16,14 @@
 #include "PhysicsManager.h"
 
 #include "CSQuest.h"
-#include "UIControls.h"
-#include "UIMapName.h"	// rozy
+#include "UI/Legacy/UIControls.h"
+#include "UI/Legacy/UIMapName.h"	// rozy
 #include "./Time/Timer.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "LoadingScene.h"
 #include "CDirection.h"
 
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include <chrono>
 #include <thread>
 

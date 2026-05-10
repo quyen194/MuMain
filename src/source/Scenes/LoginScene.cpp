@@ -17,17 +17,17 @@
 #include "../GOBoid.h"
 #include "../w_PetProcess.h"
 #include "../MapManager.h"
-#include "../UIMng.h"
+#include "../UI/Legacy/UIMng.h"
 #include "../Input.h"
 #include "../WSclient.h"
 #include "../Utilities/Log/muConsoleDebug.h"
 #include "../ZzzInterface.h"
 #include "../GlobalText.h"
 #include "../ZzzCharacter.h"
-#include "../UIControls.h"
+#include "../UI/Legacy/UIControls.h"
 #include "SceneCommon.h"
 #include "../ZzzOpenData.h"
-#include "../NewUI/NewUISystem.h"
+#include "../UI/NewUI/NewUISystem.h"
 
 // External declarations
 extern int DeleteGuildIndex;

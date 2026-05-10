@@ -13,10 +13,10 @@
 #include "SMD.h"
 #include "ZzzEffect.h"
 
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "CameraMove.h"
 #include "PhysicsManager.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 
 BMD* Models;
 BMD* ModelsDump;

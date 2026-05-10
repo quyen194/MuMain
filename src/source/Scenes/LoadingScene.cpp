@@ -7,7 +7,7 @@
 #include "LoadingScene.h"
 
 #include "../Input.h"
-#include "../UIMng.h"
+#include "../UI/Legacy/UIMng.h"
 #include "../ZzzOpenglUtil.h"
 #include "../ZzzTexture.h"
 #include "SceneCore.h"

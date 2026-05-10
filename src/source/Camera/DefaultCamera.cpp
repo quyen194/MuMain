@@ -19,10 +19,10 @@
 #include "../ZzzLodTerrain.h"
 #include "../MapManager.h"
 #include "../CameraMove.h"
-#include "../NewUI/NewUISystem.h"
+#include "../UI/NewUI/NewUISystem.h"
 #include "../CDirection.h"
 #include "../w_MapHeaders.h"
-#include "../UIManager.h"
+#include "../UI/Legacy/UIManager.h"
 #include "CameraDebugLog.h"
 
 // External variable declarations

@@ -5,16 +5,16 @@
 #include "stdafx.h"
 #include "ServerSelWin.h"
 #include "Input.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "Local.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzBMD.h"
 #include "ZzzObject.h"
 #include "ZzzCharacter.h"
 
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "ServerListManager.h"
 
 #define	SSW_GAP_WIDTH	28

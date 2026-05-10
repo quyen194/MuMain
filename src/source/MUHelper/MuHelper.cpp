@@ -8,7 +8,7 @@
 #include "ZzzAI.h"
 #include "ZzzCharacter.h"
 #include "ZzzInterface.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "Utilities/Log/muConsoleDebug.h"
 #include "SkillManager.h"
 #include "PartyManager.h"

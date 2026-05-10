@@ -5,17 +5,17 @@
 #include "stdafx.h"
 #include "LoginWin.h"
 #include "Input.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "ZzzBMD.h"
 #include "ZzzInfomation.h"
 #include "ZzzObject.h"
 #include "ZzzCharacter.h"
 #include "ZzzInterface.h"
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 #include "Scenes/SceneCore.h"
 
 #include "DSPlaySound.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 
 
 #include "ServerListManager.h"

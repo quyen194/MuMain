@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "OptionWin.h"
 #include "Input.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "ZzzBMD.h"
 #include "ZzzInfomation.h"
 #include "ZzzObject.h"
@@ -13,8 +13,8 @@
 #include "ZzzInterface.h"
 #include "Scenes/SceneCore.h"
 #include "DSPlaySound.h"
-#include "UIControls.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/Legacy/UIControls.h"
+#include "UI/NewUI/NewUISystem.h"
 
 #define	OW_BTN_GAP		25
 #define	OW_SLD_GAP		48

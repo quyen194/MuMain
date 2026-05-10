@@ -1,10 +1,10 @@
 ﻿#include "stdafx.h"
 #include "MixMgr.h"
 
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "ZzzInventory.h"
 #include "CSItemOption.h"
-#include "UIJewelHarmony.h"
+#include "UI/Legacy/UIJewelHarmony.h"
 #include "SocketSystem.h"
 #include "SkillManager.h"
 

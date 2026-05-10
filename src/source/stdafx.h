@@ -141,8 +141,8 @@
 #include "w_WindowMessageHandler.h"
 #include "_GlobalFunctions.h"
 #include "_TextureIndex.h"
-#include "UIDefaultBase.h"
-#include "NewUI/NewUICommon.h"
+#include "UI/Legacy/UIDefaultBase.h"
+#include "UI/NewUI/NewUICommon.h"
 #include "./Math/ZzzMathLib.h"
 
 // Reference resolution -- all UI coordinates and screen-space math use this as the base.

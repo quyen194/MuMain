@@ -12,13 +12,13 @@
 #include "ZzzAI.h"
 #include "ZzzEffect.h"
 #include "DSPlaySound.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "CDirection.h"
 #include "MapManager.h"
 #include "SkillEffectMgr.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "ZzzInterface.h"
 
 PARTICLE  Particles[MAX_PARTICLES];

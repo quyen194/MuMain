@@ -11,13 +11,13 @@
 #include "ZzzCharacter.h"
 #include "ZzzLodTerrain.h"
 #include "ZzzEffect.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "CSParts.h"
 #include "DSPlaySound.h"
 #include "ZzzOpenData.h"
-#include "UIControls.h"
-#include "NewUI/NewUISystem.h"
-#include "NewUI/NewUIInventoryCtrl.h"
+#include "UI/Legacy/UIControls.h"
+#include "UI/NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUIInventoryCtrl.h"
 #include "MapManager.h"
 
 

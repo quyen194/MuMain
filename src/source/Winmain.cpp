@@ -8,8 +8,8 @@
 #include <dpapi.h>
 #include <clocale>
 #include "GameConfig/GameConfig.h"
-#include "UIWindows.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIWindows.h"
+#include "UI/Legacy/UIManager.h"
 #include "ZzzOpenglUtil.h"
 #include "ZzzTexture.h"
 #include "ZzzOpenData.h"
@@ -30,7 +30,7 @@
 #include "Local.h"
 #include "PersonalShopTitleImp.h"
 
-#include "UIMapName.h"		// rozy
+#include "UI/Legacy/UIMapName.h"		// rozy
 #include "./Utilities/CpuUsage.h"
 
 #include "MUHelper/MuHelper.h"
@@ -43,7 +43,7 @@
 #include <io.h>
 #include "Input.h"
 #include "./Time/Timer.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 
 
 #include "w_MapHeaders.h"
@@ -52,7 +52,7 @@
 
 
 
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 #include "Camera/CameraConfig.h"
 #include "Camera/CameraProjection.h"
 #include "Translation/i18n.h"

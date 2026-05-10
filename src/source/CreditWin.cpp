@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "CreditWin.h"
 #include "Input.h"
-#include "UIMng.h"
+#include "UI/Legacy/UIMng.h"
 #include "ZzzInfomation.h"
 #include "ZzzBMD.h"
 #include "ZzzObject.h"
@@ -14,7 +14,7 @@
 #include "ZzzInterface.h"
 #include "Local.h"
 
-#include "UIControls.h"
+#include "UI/Legacy/UIControls.h"
 
 #include <algorithm>
 #include <chrono>

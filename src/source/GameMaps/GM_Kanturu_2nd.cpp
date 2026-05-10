@@ -13,7 +13,7 @@
 #include "ZzzEffect.h"
 #include "ZzzLodTerrain.h"
 #include "BoneManager.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "CKANTURUDirection.h"
 #include "CDirection.h"
 #include "UIBaseDef.h"
@@ -22,7 +22,7 @@
 
 #include "ChangeRingManager.h"
 #include "LoadData.h"
-#include "NewUI/NewUISystem.h"
+#include "UI/NewUI/NewUISystem.h"
 
 
 CTrapCanon g_TrapCanon;

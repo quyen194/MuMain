@@ -14,7 +14,7 @@
 #include "ZzzEffect.h"
 #include "ZzzLodTerrain.h"
 #include "BoneManager.h"
-#include "UIManager.h"
+#include "UI/Legacy/UIManager.h"
 #include "CKANTURUDirection.h"
 #include "CDirection.h"
 #include "UIBaseDef.h"

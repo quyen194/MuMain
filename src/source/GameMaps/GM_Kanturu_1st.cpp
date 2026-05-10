@@ -9,7 +9,7 @@
 #include "ZzzCharacter.h"
 #include "ZzzAI.h"
 #include "ZzzTexture.h"
-#include "UIWindows.h"
+#include "UI/Legacy/UIWindows.h"
 #include "ZzzOpenData.h"
 #include "ZzzEffect.h"
 #include "CDirection.h"

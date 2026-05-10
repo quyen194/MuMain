@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include "NewUI/NewUIBase.h"
-#include "NewUI/NewUIInventoryCtrl.h"
-#include "NewUI/NewUIMessageBox.h"
-#include "NewUI/NewUIMyInventory.h"
-#include "NewUI/NewUIChatLogWindow.h"
+#include "UI/NewUI/NewUIBase.h"
+#include "UI/NewUI/NewUIInventoryCtrl.h"
+#include "UI/NewUI/NewUIMessageBox.h"
+#include "UI/NewUI/NewUIMyInventory.h"
+#include "UI/NewUI/NewUIChatLogWindow.h"
 #include "NewUIGuildMakeWindow.h"
-#include "NewUI/NewUIButton.h"
+#include "UI/NewUI/NewUIButton.h"
 #include "GuildConstants.h"
 
 namespace SEASON3B
