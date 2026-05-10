@@ -68,7 +68,7 @@ The project uses three git submodules under `src/ThirdParty/`:
 
 - `SDL` - windowing, input and audio backend (required for all builds)
 - `SDL_mixer` - audio mixer (required for all builds)
-- `imgui` - in-game editor UI (Debug builds with `-DENABLE_EDITOR=ON`)
+- `imgui` - in-game editor UI (only needed when built with `-DENABLE_EDITOR=ON`, independent of Debug/Release)
 
 CMake initializes these automatically on first configure. If that fails for any reason, run from the repository root:
 
@@ -78,18 +78,20 @@ git submodule update --init
 
 ### Build Configurations
 
-#### Debug Builds (`Global Debug`)
-- Includes the in-game MU Editor (ImGui-based)
-- Requires ImGui submodule to be initialized (see above)
+There are two orthogonal choices: **editor on/off** (configure-time, picked via preset) and **Debug/Release** (build-time).
+
+#### Editor builds (`windows-x86-mueditor` / `windows-x64-mueditor`)
+- Configure preset sets `ENABLE_EDITOR=ON`
+- Includes the in-game MU Editor (ImGui-based); the `imgui` submodule must be initialized
 - Press **F12** in-game to toggle the editor
 - Start with `--editor` flag to launch with editor enabled
 - Preprocessor define: `_EDITOR`
 
-#### Release Builds (`Global Release`)
-- No editor code included
-- ImGui submodule not required
-- Optimized for production use
+#### Standard builds (`windows-x86` / `windows-x64`)
+- Configure preset sets `ENABLE_EDITOR=OFF`; no editor code is compiled in and the `imgui` submodule is unused
 - Zero editor overhead
+
+Either configuration can be built as Debug or Release via the corresponding build preset (`*-debug` or `*-release`).
 
 ### Building with CMake and MinGW-w64 (Linux)
 
