@@ -6,7 +6,7 @@
 #include "NewUIMixInventory.h"
 #include "NewUISystem.h"
 #include "NewUICustomMessageBox.h"
-#include "MixMgr.h"
+#include "GameLogic/Items/MixMgr.h"
 #include "ZzzBMD.h"
 #include "ZzzEffect.h"
 #include "ZzzObject.h"

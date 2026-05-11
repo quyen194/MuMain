@@ -11,7 +11,7 @@
 #include "ZzzInventory.h"
 #include "UI/Legacy/UIControls.h"
 #include "GameLogic/Events/CSChaosCastle.h"
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "GameLogic/Events/MatchEvent.h"
 #include "MapManager.h"
 

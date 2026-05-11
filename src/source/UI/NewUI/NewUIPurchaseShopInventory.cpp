@@ -6,7 +6,7 @@
 #include "NewUISystem.h"
 #include "NewUICustomMessageBox.h"
 
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 
 namespace
 {

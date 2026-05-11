@@ -6,7 +6,7 @@
 #include "DSPlaySound.h"
 #include "NewUISystem.h"
 #include "NewUICustomMessageBox.h"
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 
 const int iMAX_SHOPTITLE_MULTI = 26;
 

@@ -10,7 +10,7 @@
 #include "ZzzInterface.h"
 #include "ZzzInventory.h"
 #include "GIPetManager.h"
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "CComGem.h"
 #include "DSPlaySound.h"
 #include "UI/NewUI/NewUICustomMessageBox.h"

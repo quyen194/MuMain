@@ -46,7 +46,7 @@ bool& EnableMainRender = g_sceneInit.GetEnableMainRender();
 #include "../DSPlaySound.h"
 #include "../Local.h"
 #include "../GlobalText.h"
-#include "../PersonalShopTitleImp.h"
+#include "../GameLogic/Items/PersonalShopTitleImp.h"
 #include "../CComGem.h"
 #include "../UI/Legacy/UIMng.h"
 

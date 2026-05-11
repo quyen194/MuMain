@@ -9,7 +9,7 @@
 #include "DSPlaySound.h"
 #include "NewUISystem.h"
 #include "ZzzInterface.h"
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "Guild/UIGuildInfo.h"
 #include "ZzzAI.h"
 #include "GameLogic/Events/w_CursedTemple.h"

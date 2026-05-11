@@ -16,7 +16,7 @@
 #include "ZzzCharacter.h"
 
 #include "DSPlaySound.h"
-#include "MixMgr.h"
+#include "GameLogic/Items/MixMgr.h"
 #include "UI/Legacy/UISenatus.h"
 
 using namespace SEASON3B;

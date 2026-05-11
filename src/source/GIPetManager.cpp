@@ -20,7 +20,7 @@
 #include "Input.h"
 #include "MapManager.h"
 #include "UI/NewUI/NewUISystem.h"
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "UI/Legacy/UIManager.h"
 #include "ZzzBMD.h"
 #include "ZzzEffect.h"
