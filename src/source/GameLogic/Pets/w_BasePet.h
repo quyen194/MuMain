@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameLogic/Pets/w_PetAction.h"
+#include "w_PetAction.h"
 #include "ZzzBMD.h"
 #include "Time/Timer.h"
 
