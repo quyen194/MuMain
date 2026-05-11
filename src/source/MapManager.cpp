@@ -17,7 +17,7 @@
 #include "ZzzObject.h"
 #include "ZzzOpenData.h"
 #include "ZzzTexture.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 #include "WSclient.h"
 
 

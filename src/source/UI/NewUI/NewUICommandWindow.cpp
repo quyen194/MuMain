@@ -12,7 +12,7 @@
 #include "PersonalShopTitleImp.h"
 #include "Guild/UIGuildInfo.h"
 #include "ZzzAI.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 #include "DuelMgr.h"
 #include "MapManager.h"
 

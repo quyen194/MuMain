@@ -39,7 +39,7 @@
 #include "CBTMessageBox.h"
 #include "./ExternalObject/Leaf/regkey.h"
 
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include <io.h>
 #include "Input.h"
 #include "./Time/Timer.h"

@@ -19,7 +19,7 @@
 
 #include "DSPlaySound.h"
 
-#include "MatchEvent.h"
+#include "GameLogic/Events/MatchEvent.h"
 #include "GOBoid.h"
 #include "CSQuest.h"
 #include "PersonalShopTitleImp.h"
@@ -34,7 +34,7 @@
 #include "CDirection.h"
 #include "CSParts.h"
 #include "PhysicsManager.h"
-#include "Event.h"
+#include "GameLogic/Events/Event.h"
 #include "MixMgr.h"
 #include "MapManager.h"
 #include "UI/Legacy/UIGuardsMan.h"
@@ -42,7 +42,7 @@
 #include "UI/NewUI/NewUICommonMessageBox.h"
 #include "UI/NewUI/NewUICustomMessageBox.h"
 #include "UI/NewUI/NewUIInventoryCtrl.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 #include "SummonSystem.h"
 
 #include "Character/CharacterManager.h"

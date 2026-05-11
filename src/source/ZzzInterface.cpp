@@ -21,7 +21,7 @@
 #include "DSPlaySound.h"
 
 
-#include "MatchEvent.h"
+#include "GameLogic/Events/MatchEvent.h"
 #include "CSQuest.h"
 #include "PersonalShopTitleImp.h"
 #include "ZzzOpenglUtil.h"
@@ -32,10 +32,10 @@
 #include "UI/Legacy/UIMapName.h"	// rozy
 #include "CDirection.h"
 #include "MapManager.h"
-#include "Event.h"
+#include "GameLogic/Events/Event.h"
 
 #include "UI/NewUI/NewUISystem.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 #include "UI/Legacy/UIControls.h"
 #include "PartyManager.h"
 #include "UI/NewUI/NewUICommonMessageBox.h"

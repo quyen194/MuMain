@@ -7,7 +7,7 @@
 #include "_define.h"
 #include "ZzzInfomation.h"
 #include "MultiLanguage.h"
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include <sstream>
 
 #ifdef _EDITOR

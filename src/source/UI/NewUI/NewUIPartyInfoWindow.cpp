@@ -5,9 +5,9 @@
 
 #include "NewUIPartyInfoWindow.h"
 #include "NewUISystem.h"
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include "DSPlaySound.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 #include "MapManager.h"
 
 using namespace SEASON3B;

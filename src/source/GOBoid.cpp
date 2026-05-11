@@ -14,7 +14,7 @@
 #include "ZzzAI.h"
 #include "ZzzEffect.h"
 #include "ZzzOpenData.h"
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include "CDirection.h"
 #include "DSPlaySound.h"
 #include "MapManager.h"

@@ -16,7 +16,7 @@
 #include "MapManager.h"
 #include "BoneManager.h"
 #include "DSPlaySound.h"
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 
 
 

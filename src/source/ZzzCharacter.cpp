@@ -97,16 +97,16 @@ namespace
 }
 #endif
 
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include "GIPetManager.h"
 #include "CSParts.h"
 #include "BoneManager.h"
 #include "CDirection.h"
 #include "Input.h"
 #include "ChangeRingManager.h"
-#include "Event.h"
+#include "GameLogic/Events/Event.h"
 #include "PartyManager.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 #include "SummonSystem.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"

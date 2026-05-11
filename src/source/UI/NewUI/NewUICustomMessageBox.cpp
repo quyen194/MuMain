@@ -8,14 +8,14 @@
 
 #include "PersonalShopTitleImp.h"
 #include "CComGem.h"
-#include "MatchEvent.h"
+#include "GameLogic/Events/MatchEvent.h"
 #include "MixMgr.h"
 #include "npcBreeder.h"
 #include "ZzzOpenData.h"
 #include "DuelMgr.h"
 #include "InventoryUtils.h"
 #include "NewUISystem.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 
 extern int DeleteIndex;
 extern int AppointStatus;
