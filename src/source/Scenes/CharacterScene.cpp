@@ -15,7 +15,7 @@
 #include "../ZzzInfomation.h"
 #include "../ZzzEffect.h"
 #include "../GOBoid.h"
-#include "../w_PetProcess.h"
+#include "../GameLogic/Pets/w_PetProcess.h"
 #include "../UI/Legacy/UIMng.h"
 #include "../Input.h"
 #include "../WSclient.h"

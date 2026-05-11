@@ -24,7 +24,7 @@
 #include "CSQuest.h"
 #include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "npcBreeder.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "CSMapServer.h"
 #include "npcGateSwitch.h"
 #include "CComGem.h"
@@ -55,7 +55,7 @@
 
 #include "w_MapHeaders.h"
 
-#include "w_PetProcess.h"
+#include "GameLogic/Pets/w_PetProcess.h"
 #include "PortalMgr.h"
 #include "DuelMgr.h"
 

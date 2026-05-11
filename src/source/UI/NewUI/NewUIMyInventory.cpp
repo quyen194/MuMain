@@ -11,7 +11,7 @@ extern bool SelectFlag;
 #include "NewUICustomMessageBox.h"
 #include "GOBoid.h"
 #include "ZzzEffect.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "CSParts.h"
 #include "UI/Legacy/UIJewelHarmony.h"
 #include "CDirection.h"
@@ -22,7 +22,7 @@ extern bool SelectFlag;
 #include "UI/Legacy/UIManager.h"
 #include "CSItemOption.h"
 #include "MapManager.h"
-#include "w_PetProcess.h"
+#include "GameLogic/Pets/w_PetProcess.h"
 #include "SocketSystem.h"
 #include "PortalMgr.h"
 #ifdef CSK_FIX_BLUELUCKYBAG_MOVECOMMAND

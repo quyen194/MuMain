@@ -11,7 +11,7 @@
 #include "ZzzTexture.h"
 
 #include "npcBreeder.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "UI/NewUI/NewUISystem.h"
 
 extern  int SrcInventoryIndex;

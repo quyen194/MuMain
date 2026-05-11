@@ -98,7 +98,7 @@ namespace
 #endif
 
 #include "GameLogic/Events/CSChaosCastle.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "CSParts.h"
 #include "BoneManager.h"
 #include "CDirection.h"
@@ -111,7 +111,7 @@ namespace
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"
 #include "w_MapHeaders.h"
-#include "w_PetProcess.h"
+#include "GameLogic/Pets/w_PetProcess.h"
 #include "DuelMgr.h"
 #include "MonkSystem.h"
 #include "UI/NewUI/NewUISystem.h"

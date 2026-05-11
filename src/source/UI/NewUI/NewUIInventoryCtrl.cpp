@@ -8,7 +8,7 @@
 #include "NewUISystem.h"
 #include "ZzzInventory.h"
 #include "CComGem.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "CSItemOption.h"
 #include "SocketSystem.h"
 #include "MapManager.h"

@@ -8,7 +8,7 @@
 #include "Character/CharacterManager.h"
 
 #ifdef PJH_FIX_SPRIT
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #endif //PJH_FIX_SPRIT
 
 

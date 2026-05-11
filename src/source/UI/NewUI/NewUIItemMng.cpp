@@ -5,7 +5,7 @@
 #include "stdafx.h"
 #include "NewUIItemMng.h"
 #include "CSItemOption.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "ZzzInfomation.h"
 #include "SocketSystem.h"
 

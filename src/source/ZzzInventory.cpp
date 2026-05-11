@@ -26,7 +26,7 @@
 #include "CSItemOption.h"
 #include "GameLogic/Events/CSChaosCastle.h"
 #include "npcBreeder.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "CSParts.h"
 #include "npcGateSwitch.h"
 #include "CComGem.h"
