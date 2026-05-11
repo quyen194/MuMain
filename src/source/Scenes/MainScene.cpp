@@ -17,7 +17,7 @@
 #include "../UI/NewUI/NewUISystem.h"
 #include "../PartyManager.h"
 #include "../CDirection.h"
-#include "../w_PetProcess.h"
+#include "../GameLogic/Pets/w_PetProcess.h"
 #include "../Utilities/Log/muConsoleDebug.h"
 #include "../Utilities/FrameProfiler.h"
 #include "../ZzzInterface.h"

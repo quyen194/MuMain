@@ -16,7 +16,7 @@
 #include "DSPlaySound.h"
 #include "BoneManager.h"
 #include "GOBoid.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "MapManager.h"
 #include "SkillManager.h"
 #include "_enum.h"

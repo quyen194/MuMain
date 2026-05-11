@@ -27,7 +27,7 @@
 #include "ZzzOpenglUtil.h"
 #include "CSItemOption.h"
 #include "npcBreeder.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "CSParts.h"
 #include "UI/Legacy/UIMapName.h"	// rozy
 #include "CDirection.h"

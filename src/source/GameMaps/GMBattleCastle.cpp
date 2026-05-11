@@ -18,7 +18,7 @@
 #include "CSParts.h"
 
 #include "MapManager.h"
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "BoneManager.h"
 
 #include "Guild/GuildCache.h"

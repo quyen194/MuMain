@@ -6,7 +6,7 @@
 #include "NewUIPetInfoWindow.h"
 #include "NewUISystem.h"
 
-#include "GIPetManager.h"
+#include "GameLogic/Pets/GIPetManager.h"
 #include "Character/CharacterManager.h"
 #include "SkillManager.h"
 
