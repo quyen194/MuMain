@@ -4,11 +4,6 @@
 #include "Scenes/SceneCore.h"
 #include "GameLogic/Buffs/w_BuffStateSystem.h"
 
-class BuffStateSystem;
-class BuffScriptLoader;
-class BuffTimeControl;
-class BuffStateValueControl;
-
 extern BuffStateSystemPtr			g_BuffSystem;
 
 BuffScriptLoader& TheBuffInfo();

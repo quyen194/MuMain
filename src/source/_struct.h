@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "GameLogic/Buffs/w_Buff.h"
-
 #include "w_ObjectInfo.h"
 class OBJECT;
 #include "w_CharacterInfo.h"

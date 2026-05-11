@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "./Math/ZzzMathLib.h"
+#include "GameLogic/Buffs/w_Buff.h"
 
 class	CInterpolateContainer
 {
