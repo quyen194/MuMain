@@ -18,7 +18,7 @@
 #include "ZzzInterface.h"
 #include "ZzzEffect.h"
 
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include "CMVP1stDirection.h"
 #include "CDirection.h"
 #include "MapManager.h"

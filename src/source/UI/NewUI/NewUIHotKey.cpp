@@ -5,8 +5,8 @@
 #include "NewUICommonMessageBox.h"
 #include "NewUICustomMessageBox.h"
 #include "DSPlaySound.h"
-#include "CSChaosCastle.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/CSChaosCastle.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 #include "ZzzInterface.h"
 #include "ZzzLodTerrain.h"
 

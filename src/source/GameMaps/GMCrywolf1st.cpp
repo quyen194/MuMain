@@ -12,7 +12,7 @@
 #include "DSPlaySound.h"
 #include "BoneManager.h"
 #include "CMVP1stDirection.h"
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include "MapManager.h"
 #include "Character/CharacterManager.h"
 #include "UI/NewUI/NewUISystem.h"

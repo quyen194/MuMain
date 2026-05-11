@@ -32,7 +32,7 @@ FrameTimingState g_frameTiming;
 #include "../Input.h"
 #include "../UI/Legacy/UIMng.h"
 #include "../WSclient.h"
-#include "../w_CursedTemple.h"
+#include "../GameLogic/Events/w_CursedTemple.h"
 #include "../ServerListManager.h"
 #include "../UI/NewUI/NewUISystem.h"
 #include "../ZzzInterface.h"

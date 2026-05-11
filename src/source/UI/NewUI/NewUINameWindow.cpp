@@ -10,9 +10,9 @@
 #include "ZzzInterface.h"
 #include "ZzzInventory.h"
 #include "UI/Legacy/UIControls.h"
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include "PersonalShopTitleImp.h"
-#include "MatchEvent.h"
+#include "GameLogic/Events/MatchEvent.h"
 #include "MapManager.h"
 
 // DevEditor forward declarations (must be at global scope)

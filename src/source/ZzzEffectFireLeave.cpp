@@ -16,7 +16,7 @@
 #include "ZzzEffect.h"
 #include "DSPlaySound.h"
 #include "WSclient.h"
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include "MapManager.h"
 #include "w_MapHeaders.h"
 #include "UI/NewUI/NewUISystem.h"

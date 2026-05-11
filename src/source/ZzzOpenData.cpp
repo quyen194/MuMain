@@ -21,7 +21,7 @@
 #include "UI/Legacy/UIMng.h"
 #include "LoadData.h"
 #include "MapManager.h"
-#include "Event.h"
+#include "GameLogic/Events/Event.h"
 #include "ChangeRingManager.h"
 #include "UI/NewUI/NewUISystem.h"
 #include "UI/NewUI/NewUIHelpWindow.h"

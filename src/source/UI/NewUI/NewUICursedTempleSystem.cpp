@@ -15,11 +15,11 @@
 #include "ZzzInventory.h"
 
 #include "CSItemOption.h"
-#include "CSChaosCastle.h"
+#include "GameLogic/Events/CSChaosCastle.h"
 #include "UI/Legacy/UIControls.h"
 #include "ZzzAI.h"
 #include "ZzzEffect.h"
-#include "w_CursedTemple.h"
+#include "GameLogic/Events/w_CursedTemple.h"
 #include "MapManager.h"
 #include "NewUIInventoryCtrl.h"
 #include "NewUISystem.h"

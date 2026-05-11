@@ -26,7 +26,7 @@ extern bool SelectFlag;
 #include "SocketSystem.h"
 #include "PortalMgr.h"
 #ifdef CSK_FIX_BLUELUCKYBAG_MOVECOMMAND
-#include "Event.h"
+#include "GameLogic/Events/Event.h"
 #endif // CSK_FIX_BLUELUCKYBAG_MOVECOMMAND
 #include "ChangeRingManager.h"
 #include "MonkSystem.h"
