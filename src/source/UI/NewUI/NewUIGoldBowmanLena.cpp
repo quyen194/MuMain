@@ -5,7 +5,7 @@
 #include "NewUIGoldBowmanLena.h"
 #include "NewUISystem.h"
 
-#include "MixMgr.h"
+#include "GameLogic/Items/MixMgr.h"
 #include "Camera/CameraProjection.h"
 
 namespace

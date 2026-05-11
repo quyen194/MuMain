@@ -28,7 +28,7 @@
 #include <imm.h>
 #include "ZzzPath.h"
 #include "Local.h"
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 
 #include "UI/Legacy/UIMapName.h"		// rozy
 #include "./Utilities/CpuUsage.h"

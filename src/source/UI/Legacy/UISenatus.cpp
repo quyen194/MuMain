@@ -9,7 +9,7 @@
 #include "UIGuardsMan.h"
 
 
-#include "MixMgr.h"
+#include "GameLogic/Items/MixMgr.h"
 
 extern DWORD		g_dwActiveUIID;
 

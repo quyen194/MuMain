@@ -23,7 +23,7 @@
 #include "../ZzzInterface.h"
 #include "../WSclient.h"
 #include "../GOBoid.h"
-#include "../PersonalShopTitleImp.h"
+#include "../GameLogic/Items/PersonalShopTitleImp.h"
 #include "../UI/Legacy/UIManager.h"
 #include "../ZzzInventory.h"
 #include "../PortalMgr.h"

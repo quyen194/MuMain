@@ -12,7 +12,7 @@
 #include "CSItemOption.h"
 #include "SocketSystem.h"
 #include "MapManager.h"
-#include "MixMgr.h"
+#include "GameLogic/Items/MixMgr.h"
 using namespace SEASON3B;
 
 SEASON3B::CNewUIPickedItem::CNewUIPickedItem()

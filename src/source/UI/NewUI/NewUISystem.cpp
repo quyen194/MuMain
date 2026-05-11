@@ -2,7 +2,7 @@
 #include "NewUISystem.h"
 #include "NewUIMessageBox.h"
 
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "MapManager.h"
 
 

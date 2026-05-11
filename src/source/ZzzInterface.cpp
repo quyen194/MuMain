@@ -23,7 +23,7 @@
 
 #include "GameLogic/Events/MatchEvent.h"
 #include "CSQuest.h"
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "ZzzOpenglUtil.h"
 #include "CSItemOption.h"
 #include "npcBreeder.h"

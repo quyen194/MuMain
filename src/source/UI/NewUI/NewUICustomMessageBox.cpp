@@ -6,10 +6,10 @@
 #include "ZzzObject.h"
 #include "ZzzCharacter.h"
 
-#include "PersonalShopTitleImp.h"
+#include "GameLogic/Items/PersonalShopTitleImp.h"
 #include "CComGem.h"
 #include "GameLogic/Events/MatchEvent.h"
-#include "MixMgr.h"
+#include "GameLogic/Items/MixMgr.h"
 #include "npcBreeder.h"
 #include "ZzzOpenData.h"
 #include "DuelMgr.h"

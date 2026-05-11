@@ -4,7 +4,7 @@
 #include "NewUIGoldBowmanWindow.h"
 #include "NewUISystem.h"
 
-#include "MixMgr.h"
+#include "GameLogic/Items/MixMgr.h"
 
 #define MAXGOLDBOWMANSESERIAL 12
 
